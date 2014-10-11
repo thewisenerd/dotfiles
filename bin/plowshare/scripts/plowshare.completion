@@ -1,0 +1,220 @@
+# plowshare4 completion                                    -*- shell-script -*-
+
+_plowup()
+{
+    local cur prev words cword split
+    _init_completion -s -n : || return
+
+    case "$prev" in
+        -v|--verbose)
+            COMPREPLY=( $( compgen -W '0 1 2 3 4' -- $cur ) )
+            return 0
+            ;;
+        -i|--interface)
+            _available_interfaces -a
+            return 0
+            ;;
+        -a|-b|-d|-p|--auth|--description|--link-password|--min-rate|--max-rate|-r|--max-retries|-t|--timeout|--printf|--9kweu|--antigate|--captchabhood|--captchacoin|--deathbycaptcha)
+            # argument required but no completion available
+            return 0
+            ;;
+        --captchaprogram|--plowsharerc)
+            _filedir
+            return 0
+            ;;
+        --captchamethod)
+            COMPREPLY=( $( compgen -W 'imgur none online fb nox x11' -- $cur ) )
+            return 0
+            ;;
+        --name)
+            if [ -z "$cur" ]; then
+                COMPREPLY=( "'%f'" )
+            fi
+            return 0
+            ;;
+        --temp-directory)
+            _filedir -d
+            return 0
+            ;;
+    esac
+
+    if [[ $cur = -* ]]; then
+        COMPREPLY=( $( compgen -W '--help --longhelp --version --quiet --verbose \
+            -v -q -i -t -r \
+            --min-rate --max-rate --interface --max-retries --timeout --name \
+            --captchamethod --captchaprogram --9kweu --antigate --captchabhood --captchacoin --deathbycaptcha \
+            --temp-directory --printf --no-curlrc --no-plowsharerc --plowsharerc' -- $cur ) )
+    else
+        local m i list
+        list=$(sed -ne '/^[^#].*|[[:space:]]*upload[[:space:]]*|/p' \
+            /usr/local/share/plowshare4/modules/config | cut -d'|' -f1)
+
+        # check for already given module name
+        # note: _get_first_arg is not accurate enough (option with argument)
+        for m in $list; do
+            for (( i=1; i < ${#COMP_WORDS[@]}-1; i++ )); do
+                if [ "${COMP_WORDS[i]//./_}" = $m ]; then
+                    _filedir
+                    return 0
+                fi
+            done
+        done
+
+        COMPREPLY=( $(compgen -W "$list" -- ${cur//./_} ) )
+    fi
+} &&
+complete -F _plowup plowup
+
+_plowdown()
+{
+    local cur prev words cword split
+    _init_completion -s -n : || return
+
+    case "$prev" in
+        -v|--verbose)
+            COMPREPLY=( $( compgen -W '0 1 2 3 4' -- $cur ) )
+            return 0
+            ;;
+        -a|-b|-p|--auth-free|--auth|--link-password|--9kweu|--antigate|--captchabhood|--captchacoin|--deathbycaptcha|--min-space|--max-rate|-r|--max-retries|-t|--timeout|--printf)
+            # argument required but no completion available
+            return 0
+            ;;
+        -o|--output-directory|--temp-directory)
+            _filedir -d
+            return 0
+            ;;
+        -i|--interface)
+            _available_interfaces -a
+            return 0
+            ;;
+        --captchamethod)
+            COMPREPLY=( $( compgen -W 'imgur none online fb nox x11' -- $cur ) )
+            return 0
+            ;;
+        --captchaprogram|--run-before|--run-after|--plowsharerc)
+            _filedir
+            return 0
+            ;;
+    esac
+
+    if [[ $cur = -* ]]; then
+        COMPREPLY=( $( compgen -W '--help --longhelp --version --quiet --verbose \
+            -v -q -i -o -m -r -t -x \
+            --min-space --max-rate --interface --mark-downloaded --no-overwrite \
+            --output-directory --temp-directory --temp-rename --timeout --max-retries \
+            --captchamethod --captchaprogram --9kweu --antigate --captchabhood --captchacoin --deathbycaptcha \
+            --fallback --printf --run-before --run-after --no-curlrc --no-plowsharerc --plowsharerc' -- $cur ) )
+    else
+        _filedir
+    fi
+} &&
+complete -F _plowdown plowdown
+
+_plowdel()
+{
+    local cur prev words cword split
+    _init_completion -s -n : || return
+
+    case "$prev" in
+        -v|--verbose)
+            COMPREPLY=( $( compgen -W '0 1 2 3 4' -- $cur ) )
+            return 0
+            ;;
+        -a|-b|--auth|--auth-free|--9kweu|--antigate|--captchabhood|--captchacoin|--deathbycaptcha)
+            # argument required but no completion available
+            return 0
+            ;;
+        -i|--interface)
+            _available_interfaces -a
+            return 0
+            ;;
+        --captchamethod)
+            COMPREPLY=( $( compgen -W 'imgur none online fb nox x11' -- $cur ) )
+            return 0
+            ;;
+        --captchaprogram|--plowsharerc)
+            _filedir
+            return 0
+            ;;
+    esac
+
+    if [[ $cur = -* ]]; then
+        COMPREPLY=( $( compgen -W '--help --longhelp --version --quiet --verbose \
+            --9kweu --antigate --captchabhood --captchacoin --deathbycaptcha --captchamethod --captchaprogram \
+            -v -q -i --interface --no-plowsharerc --plowsharerc' -- $cur ) )
+    else
+        # URL pattern expected
+        _filedir
+    fi
+} &&
+complete -F _plowdel plowdel
+
+_plowlist()
+{
+    local cur prev words cword split
+    _init_completion -s -n : || return
+
+    case "$prev" in
+        -v|--verbose)
+            COMPREPLY=( $( compgen -W '0 1 2 3 4' -- $cur ) )
+            return 0
+            ;;
+        -p|--printf)
+            # argument required but no completion available
+            return 0
+            ;;
+        -i|--interface)
+            _available_interfaces -a
+            return 0
+            ;;
+        --plowsharerc)
+            _filedir
+            return 0
+            ;;
+    esac
+
+    if [[ $cur = -* ]]; then
+        COMPREPLY=( $( compgen -W '--help --longhelp --version --quiet --verbose \
+            -v -q -i -R --interface --printf --recursive --fallback --no-plowsharerc --plowsharerc' -- $cur ) )
+    else
+        # URL pattern expected
+        _filedir
+    fi
+} &&
+complete -F _plowlist plowlist
+
+_plowprobe()
+{
+    local cur prev words cword split
+    _init_completion -s -n : || return
+
+    case "$prev" in
+        -v|--verbose)
+            COMPREPLY=( $( compgen -W '0 1 2 3 4' -- $cur ) )
+            return 0
+            ;;
+        -p|--printf)
+            # argument required but no completion available
+            return 0
+            ;;
+        -i|--interface)
+            _available_interfaces -a
+            return 0
+            ;;
+        --plowsharerc)
+            _filedir
+            return 0
+            ;;
+    esac
+
+    if [[ $cur = -* ]]; then
+        COMPREPLY=( $( compgen -W '--help --longhelp --version --quiet --verbose \
+            -v -q -i --get-module --interface --printf --follow --no-curlrc --no-plowsharerc --plowsharerc' -- $cur ) )
+    else
+        # URL pattern expected
+        _filedir
+    fi
+} &&
+complete -F _plowprobe plowprobe
+
+# ex: ts=4 sw=4 et filetype=sh

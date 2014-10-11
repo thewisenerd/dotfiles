@@ -1,0 +1,230 @@
+.\" Copyright (c) 2013-2014 Plowshare Team
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the GNU General Public License as
+.\" published by the Free Software Foundation; either version 3 of
+.\" the License, or (at your option) any later version.
+.\"
+.\" The GNU General Public License's references to "object code"
+.\" and "executables" are to be interpreted as the output of any
+.\" document formatting or typesetting system, including
+.\" intermediate and printed output.
+.\"
+.\" This manual is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public
+.\" License along with this manual; if not, see
+.\" <http://www.gnu.org/licenses/>.
+
+.TH "plowprobe" "1" "August 28, 2014" "GPL" "Plowshare for Bash 4"
+
+.SH NAME
+plowprobe \- Gather information from file sharing download links
+
+.SH SYNOPSIS
+.B plowprobe
+[\fIOPTIONS\fP]...
+[\fIMODULE_OPTIONS\fP]...
+\fIURL\fP|\fIFILE\fP...
+
+.SH DESCRIPTION
+.B plowprobe
+is a command-line tool designed for retrieving metadata from file-sharing
+download links. Information are printed on stdout (only alive links).
+Provided links can also be downloaded with plowdown(1).
+
+Currently supported hosting sites list is available in README file.
+
+.\" ****************************************************************************
+.\" * Options                                                                  *
+.\" ****************************************************************************
+.SH OPTIONS
+
+.SS Common options
+.TP
+.BI -i, " " --interface= IFACE
+If your machine has several network interfaces, force using \fIIFACE\fR interface.
+.TP
+.BI "   " " " --printf= FORMAT
+Print results (on stdout) in a given format (for each non-dead link). Default string is: \fI"%F%u%n"\fR. Interpreted sequences are:
+.RS
+.TP
+\fI%%\fR
+raw % character
+.TP
+\fI%c\fR
+probe function return status (0 for success, 13 for dead link, see list below)
+.TP
+\fI%f\fR
+filename (can be empty string)
+.TP
+\fI%F\fR
+empty if %f is empty, or alias to \fB"# %f%n"\fR.
+.TP
+\fI%h\fR
+filehash (can be empty string if not available). Usually MD5 or SHA1. If hoster supports several algorithms, the longest digest is used.
+.TP
+\fI%i\fR
+file identifier (can be empty string if not available). Usually included in input URL.
+.TP
+\fI%m\fR
+module name
+.TP
+\fI%n\fR
+newline
+.TP
+\fI%s\fR
+filesize in bytes  (can be empty string if not available). Note: it's often approximative.
+.TP
+\fI%t\fR
+tabulation character
+.TP
+\fI%T\fR
+file timestamp (can be empty string if not available). Unix epoch time is preferred.
+.TP
+\fI%u\fR
+download (source) url
+.P
+Note: Metadata are often not fully available from hosters nor implemented by all
+modules.
+.SS Logging options
+.TP
+.BI -v, " " --verbose= LEVEL
+Set output verbosity level:
+.RS 
+\fB0\fR  none,
+.RE
+.RS 
+\fB1\fR  errors,
+.RE
+.RS
+\fB2\fR  notice (default behavior),
+.RE
+.RS
+\fB3\fR  debug,
+.RE
+.RS
+\fB4\fR  report (very noisy, log HTML pages).
+.RE
+.TP
+.B -q, --quiet
+Alias for \fB-v0\fR. Do not print any debug messages.
+.SS Miscellaneous options
+.TP
+.B "   " --follow
+If no module is found for link, follow HTTP redirects (curl \-L). Default is disabled.
+.TP
+.B "   " --get-module
+Echo module name for each URL and exit. Faster than \fB--printf=%m\fR. Useful for wrappers.
+.TP
+.B "   " --no-curlrc
+Do not use curl config file (~/.curlrc).
+.TP
+.B "   " --no-plowsharerc
+Do not consider any configuration file.
+.TP
+.BI "   " " " --plowsharerc= FILE
+Force using an alternate configuration file (instead of per-user or systemwide plowshare.conf).
+This option has no effect when
+.B --no-plowsharerc
+is defined.
+.TP
+.B "   " --modules
+Display all supported module names (one per line) and exit. Useful for wrappers.
+.SS Generic program information
+.TP
+.B -h, --help
+Display this help and exit.
+.TP
+.B -H, --longhelp
+Display complete help (with module options) and exit.
+.TP
+.B "   " --version
+Output version information and exit.
+
+.\" ****************************************************************************
+.\" * Modules options                                                          *
+.\" ****************************************************************************
+.SH "MODULE OPTIONS"
+
+.P
+There is none yet!
+
+.\" ****************************************************************************
+.\" * Examples                                                                 *
+.\" ****************************************************************************
+.SH EXAMPLES
+
+.SS 1) Filter alive links in a text file 
+.EX
+$ plowprobe file_with_links.txt > file_with_active_links.txt
+# Or
+$ cat file_with_links.txt | plowprobe - > file_with_active_links.txt
+.EE
+.SS 2) Custom results format
+.EX
+# Print links information: filename and size
+$ plowprobe \-\-printf '# %f (%s)%n%u%n' http://www.sendspace.com/file/5njdw7
+.EE
+
+.\" ****************************************************************************
+.\" * Files                                                                    *
+.\" ****************************************************************************
+.SH "FILES"
+.TP
+.I ~/.config/plowshare/plowshare.conf
+This is the per-user configuration file. 
+.TP
+.I /etc/plowshare.conf
+Systemwide configuration file.
+.PP
+The file format is described in
+.BR plowshare.conf (5).
+
+.\" ****************************************************************************
+.\" * Exit codes                                                               *
+.\" ****************************************************************************
+.SH "EXIT CODES"
+
+Possible exit codes are:
+.IP 0
+Success. Folder contain one or several files.
+.IP 1
+Fatal error. Upstream site updated or unexpected result.
+.IP 2
+No available module (provided URL is not supported).
+.IP 3
+Network error. Mostly curl related.
+.IP 8
+System generic error.
+.IP 10
+Link alive but temporarily unavailable.
+.IP 11
+Link alive but requires a password.
+.IP 12
+Link alive but requires some authentication (private or premium link).
+.IP 13
+Link is dead.
+.IP 15
+Unknown command line parameter or incompatible options.
+.PP
+If
+.B plowprobe
+is invoked with multiple links and one or several errors occur, the first error code is returned added with 100.
+
+.\" ****************************************************************************
+.\" * Authors / See Also                                                       *
+.\" ****************************************************************************
+.SH AUTHORS
+Plowshare was initially written by Arnau Sanchez. See the AUTHORS file for a list of some of the many other contributors.
+
+Plowshare is (C) 2010-2014 The Plowshare Team
+.SH "SEE ALSO"
+.BR plowdown (1),
+.BR plowup (1),
+.BR plowdel (1),
+.BR plowlist (1),
+.BR plowshare.conf (5).
