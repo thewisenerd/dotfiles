@@ -1,0 +1,26 @@
+#! /usr/bin/env bash
+
+# author: Vineeth Raj <contact.twn@opmbx.org>
+#todo:
+#	change tabs to spaces
+
+usr=$( ls -ld "$1" | awk '{print $3}' )
+
+if [ "${usr}" == "root" ]
+then
+	pkexec chown vineeth.vineeth "$1"
+	if [ ! -f "$1" ]
+	then
+		pkexec chmod 755 "$1"
+	else
+		pkexec chmod 644 "$1"
+	fi
+else
+	pkexec chown root.root "$1"
+	if [ ! -f "$1" ]
+	then
+		pkexec chmod 700 "$1"
+	else
+		pkexec chmod 600 "$1"
+	fi
+fi

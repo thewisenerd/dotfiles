@@ -1,0 +1,38 @@
+#!/bin/sh
+##               mkaflash              ##
+## get a flashable zip for your zImage ##
+## uses: cpmodules (thewisenerd (contact.twn@openmailbox.org))
+## uses: zImage-helper (thewisenerd (contact.twn@openmailbox.org))
+
+zIMAGE=/home/thewisenerd/works/zImage_helper/
+
+#cpmodules
+cpmodules;
+
+#files
+mv ./workspace ${zIMAGE}workspace;
+
+#rearrange
+mv ${zIMAGE}workspace/zImage ${zIMAGE}zImage;
+rm -rf ${zIMAGE}system/lib/modules;
+mv ${zIMAGE}workspace/modules ${zIMAGE}system/lib/modules;
+
+#cleanup
+#workspace
+rm -rf ${zIMAGE}workspace
+
+#zippit
+(cd ${zIMAGE}; zip -r -y -q kernel.zip * -x *.zip* build README.md .gitignore .git);
+
+#get output.zip
+mv ${zIMAGE}kernel.zip ./output.zip;
+
+#cleanup
+rm -rf ${zIMAGE}zImage
+rm -rf ${zIMAGE}system/lib/modules;
+mkdir -p ${zIMAGE}system/lib/modules;
+
+#readd place_holder
+touch ${zIMAGE}system/lib/modules/place_holder;
+
+

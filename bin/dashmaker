@@ -1,0 +1,11 @@
+#! /bin/bash
+#dashmaker!
+#dashmaker <number> <char>
+# def: dashmaker 80 -
+fixvar=$( if [ "$1" == "" ]; then echo 80; else echo $1; fi )
+A=$(printf "%${fixvar}s");
+fixchar=$( if [ "$2" == "" ]; then echo -; else echo $2; fi )
+B=${A// /$fixchar};
+echo $B | xclip -filter -sel clip
+
+

@@ -1,0 +1,8 @@
+#! /bin/bash
+echo [B][U]`date +%d%b%Y`[/U][/B]
+git log --pretty=format:'- %s (credits to %an)' ${1}^..HEAD | \
+sed 's/(credits to Vineeth Raj)//g' | \
+sed 's/(credits to thewisenerd)//g'
+echo ""
+echo ""
+echo [U]Download[/U]:

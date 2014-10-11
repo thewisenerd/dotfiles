@@ -1,0 +1,31 @@
+#!/bin/bash
+
+if [ "$1" == "" ]; then
+    echo "usage: ";
+    echo "    kody_upload <filename> <password>";
+    exit;
+fi;
+
+if [ "$2" == "" ]; then
+    echo "What's the password?";
+    exit;
+fi;
+
+hash=`echo -n "$2" | md5sum`
+hash_file=`cat hash.md5`
+
+if [ "${hash}" == "${hash_file}" ]; then
+    if [ "$3" != "" ]; then
+        if [ "$3" == "turbobit" ]
+        then
+        upload.sh $3 --auth=codydevs@gmail.com:$2 "$1";
+	else        
+ 	upload.sh $3 --auth=teamcody:$2 "$1";
+	fi
+    else
+        upload.sh bayfiles --auth=teamcody:$2 "$1";
+    fi;
+else
+    echo "password wrong!";
+    exit;
+fi;

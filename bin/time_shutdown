@@ -1,0 +1,7 @@
+#!/bin/bash
+
+
+time=`expr $1 \* 60`  
+sleep $time
+
+shutdown -h now

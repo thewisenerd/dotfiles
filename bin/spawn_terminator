@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Based on http://urukrama.wordpress.com/2008/05/05/focus-an-application-instead-of-re-launching-it
+#      and http://stackoverflow.com/questions/1188959/open-a-new-tab-in-gnome-terminal-using-command-line
+#      and http://crunchbang.org/forums/viewtopic.php?id=23963
+
+#   usage- Opens a new terminator tab. Checks for terminator windows on current desktop
+#          and opens a new terminator if none are found.
+#  syntax- spawn_terminator
+
+COMMAND="$*"
+
+#zenity --info --text="${COMMAND}"
+#echo ${COMMAND}
+
+issue_command(){
+    sleep 1;
+    _to_send="cd ${COMMAND} && reset"
+    #xdotool type --delay 1 --clearmodifiers cd ${COMMAND}; xdotool key Return;
+    xdotool type --delay 1 --clearmodifiers "${_to_send}";
+    xdotool key Return;
+}
+
+tab_open() {
+    xdotool key ctrl+shift+t
+}
+
+current_desk=`wmctrl -d | grep '*' | cut -d ' ' -f 1`
+term_on_this_desk=`wmctrl -lx | grep "$current_desk[ ]*terminator.Terminator" | cut -d ' ' -f 1`
+
+# If there's a terminal on the current desktop, open a tab and run command
+if [ -n "$term_on_this_desk" ]; then
+    wmctrl -i -a $term_on_this_desk
+    tab_open &
+    issue_command
+else
+
+# If there's no terminal on the current desktop, open a terminal and run command
+    terminator
+fi

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+filename=`echo ${1} | rev | cut -f 1 -d'/' | rev`
+folder=`echo ${1} | rev | cut -f 2- -d'/' | rev`
+cur_folder=`pwd`
+
+HOST=192.168.1.4
+USER=thewisenerd
+PASS=$2
+
+cd $folder
+
+ftp -inv $HOST << EOF
+user $USER $PASS
+cd torrents
+put $filename
+bye
+EOF
+
+cd $cur_folder
+exit
