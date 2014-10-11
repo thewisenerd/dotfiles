@@ -1,0 +1,57 @@
+# thanks to simont (http://stackoverflow.com/a/9227991/2873157)
+# First, ignore everything
+*
+# Now, whitelist anything that's a directory
+!*/
+# And all the file types you're interested in.
+!.*
+
+################################################################################
+                             ignore system-specific
+################################################################################
+.ICEauthority
+.Xauthority
+.bash_history
+.bash_logout
+.cache/
+.config/
+.cpan/
+.dmrc
+.gksu.lock
+.gradle/
+.icons/
+.java/
+.lesshst
+.local/
+.mozilla/
+.mysql_history
+.nano_history
+.npm/
+.nvm/
+.profile
+.repopickle_.gitconfig
+.sqlite_history
+.themes/
+.thunderbird/
+.vnc/
+.xscreensaver
+.xsession-errors
+.xsession-errors.old
+works/
+
+################################################################################
+                                add custom stuff
+################################################################################
+#configs for geany
+!.config/geany/colorschemes/
+!.config/geany/filedefs/filetypes.Edify.conf
+!.config/geany/keybindings.conf
+!.config/geany/filetype_extensions.conf
+
+#roxterm
+!.config/roxterm.sourceforge.net/Colours
+!.config/roxterm.sourceforge.net/Shortcuts/Default
+!.config/roxterm.sourceforge.net/Global
+
+#bin
+!bin/*

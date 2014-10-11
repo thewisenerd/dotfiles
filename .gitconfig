@@ -1,0 +1,9 @@
+[user]
+	email = contact.twn@openmailbox.org
+	name = Vineeth Raj
+[color]
+	ui = auto
+[alias]
+	uncommit = reset --soft HEAD^
+[core]
+	autocrlf = input
