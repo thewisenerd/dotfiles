@@ -14,7 +14,8 @@
 .bash_history
 .bash_logout
 .cache/
-.config/
+.config/Brackets/
+.config/google-chrome/
 .cpan/
 .dmrc
 .gksu.lock
@@ -43,15 +44,16 @@ works/
                                 add custom stuff
 ################################################################################
 #configs for geany
-!.config/geany/colorschemes/
+!.config/geany/colorschemes/*
 !.config/geany/filedefs/filetypes.Edify.conf
 !.config/geany/keybindings.conf
 !.config/geany/filetype_extensions.conf
 
 #roxterm
-!.config/roxterm.sourceforge.net/Colours
+!.config/roxterm.sourceforge.net/Colours/*
 !.config/roxterm.sourceforge.net/Shortcuts/Default
-!.config/roxterm.sourceforge.net/Global
+!.config/roxterm.sourceforge.net/Global/*
 
 #bin
 !bin/*
+
