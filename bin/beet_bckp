@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#backup beets music library :P
+
+LIB_FILE="/home/thewisenerd/works/musiclibrary.blb"
+BCK_FOLD="/home/thewisenerd/works/music_library_backup"
+
+mkdir -p ${BCK_FOLD}
+
+cp ${LIB_FILE} ${BCK_FOLD}/musiclibrary_$( date +%H:%M:%S_%d-%h-%Y ).blb
