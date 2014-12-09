@@ -67,3 +67,5 @@ works/
 #compass-icon-theme
 !.icons/Compass/*
 
+#fonts
+!.fonts/*
