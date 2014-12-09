@@ -41,6 +41,7 @@ works/
 .slocdata/
 .config/sublime-text-3/Packages/Colorsublime-Plugin
 .config/sublime-text-3/Packages/Theme - Spacegray/.gitignore
+.themes-bckp/
 
 
 ################################################################################
@@ -65,3 +66,4 @@ works/
 
 #compass-icon-theme
 !.icons/Compass/*
+
