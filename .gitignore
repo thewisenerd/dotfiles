@@ -39,6 +39,10 @@
 .xsession-errors
 .xsession-errors.old
 works/
+.slocdata/
+.config/sublime-text-3/Packages/Colorsublime-Plugin
+.config/sublime-text-3/Packages/Theme - Spacegray/.gitignore
+
 
 ################################################################################
                                 add custom stuff
@@ -53,6 +57,9 @@ works/
 !.config/roxterm.sourceforge.net/Colours/*
 !.config/roxterm.sourceforge.net/Shortcuts/Default
 !.config/roxterm.sourceforge.net/Global/*
+
+#sublime
+!.config/sublime-text-3/Packages/User/Preferences.sublime-settings
 
 #bin
 !bin/*

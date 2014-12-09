@@ -1,0 +1,12 @@
+{
+	"color_scheme": "Packages/Theme - Spacegray/base16-eighties.dark.tmTheme",
+	"font_size": 15,
+	"rulers":
+	[
+		80
+	],
+	"draw_white_space": "all",
+	"ensure_newline_at_eof_on_save": true,
+	"translate_tabs_to_spaces": true,
+    "trim_trailing_white_space_on_save": true
+}
