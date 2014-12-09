@@ -63,3 +63,5 @@ works/
 #bin
 !bin/*
 
+#compass-icon-theme
+!.icons/Compass/*
