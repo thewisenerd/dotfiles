@@ -1,12 +1,18 @@
 {
+	"theme": "Spacegray.sublime-theme",
+	"spacegray_tabs_font_medium": true,
+	"spacegray_tabs_xlarge": true,
+	"spacegray_tabs_auto_width": true,
+	"spacegray_sidebar_tree_large": true,
+	"spacegray_sidebar_font_normal": true,
 	"color_scheme": "Packages/Theme - Spacegray/base16-eighties.dark.tmTheme",
-	"font_size": 15,
+	"draw_white_space": "all",
+	"ensure_newline_at_eof_on_save": true,
+	"font_size": 13,
 	"rulers":
 	[
 		80
 	],
-	"draw_white_space": "all",
-	"ensure_newline_at_eof_on_save": true,
 	"translate_tabs_to_spaces": true,
-    "trim_trailing_white_space_on_save": true
+	"trim_trailing_white_space_on_save": true
 }
