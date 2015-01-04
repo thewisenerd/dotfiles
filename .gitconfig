@@ -7,3 +7,5 @@
 	uncommit = reset --soft HEAD^
 [core]
 	autocrlf = input
+	pager = less -x1,5
+	editor = '/usr/bin/subl' --wait
