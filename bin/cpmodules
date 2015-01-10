@@ -4,4 +4,4 @@
 mkdir -p ./workspace/;
 cp ./arch/arm/boot/zImage ./workspace/;
 mkdir -p ./workspace/modules;
-find . -name '*ko' -exec cp '{}' ./workspace/modules/ \;
+find . -name '*ko' -exec cp '{}' ./workspace/modules/ 2>/dev/null \;
