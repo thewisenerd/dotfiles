@@ -116,7 +116,7 @@ fi
 
 export USE_CCACHE=1
 
-export PATH=/home/thewisenerd/works/gcc-arm-none-eabi-4_8-2014q2/bin/:/home/thewisenerd/bin/http_server/:$PATH
+export PATH=/home/thewisenerd/works/arm-eabi-4.7/bin/:/home/thewisenerd/works/gcc-arm-none-eabi-4_8-2014q2/bin/:/home/thewisenerd/bin/http_server/:$PATH
 
 # NVM
 if [ -s ~/.nvm/nvm.sh ]; then
