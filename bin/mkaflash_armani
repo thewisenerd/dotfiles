@@ -1,0 +1,45 @@
+cd /home/thewisenerd/bin/armani_zipper/
+
+rm -rf workspace
+rm -rf unpack
+rm -rf boot_new.img
+
+cd /home/thewisenerd/works/H1S_kernel/
+lesser_modules
+cd /home/thewisenerd/bin/armani_zipper/
+
+mkboot boot.img unpack
+
+mv /home/thewisenerd/works/H1S_kernel/workspace/zImage unpack/zImage
+
+mkboot unpack boot_new.img
+
+rm -rf unpack
+
+mv boot_new.img flashable/boot.img
+mv /home/thewisenerd/works/H1S_kernel/workspace/modules flashable/modules
+
+cd flashable
+
+zip -r -y -q output *
+
+mv output.zip ../
+
+cd ../
+
+rm -rf flashable/modules
+rm -rf flashable/system
+rm -rf flashable/boot.img
+
+rm -rf workspace
+rm -rf /home/thewisenerd/works/H1S_kernel/workspace/
+
+
+mv output.zip /home/thewisenerd/works/H1S_kernel/output.zip
+
+cd /home/thewisenerd/works/H1S_kernel/
+
+mkdir -p releases
+mv output.zip releases/output_`date +%d_%b_%Y``scripts/setlocalversion`.zip
+
+echo OUTPUT: releases/output_`date +%d_%b_%Y``scripts/setlocalversion`.zip

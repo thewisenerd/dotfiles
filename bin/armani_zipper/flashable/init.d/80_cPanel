@@ -1,0 +1,13 @@
+#!/system/bin/sh
+
+ENABLE_SWEEP2WAKE=1
+ENABLE_SWEEP2SLEEP_ONLY=0
+ENABLE_DOUBLETAP2WAKE=1
+
+SWEEP2WAKE_PATH=/sys/android_touch/sweep2wake
+SWEEP2SLEEP_ONLY_PATH=/sys/android_touch/s2w_s2sonly
+DOUBLETAP2WAKE_PATH=/sys/android_touch/doubletap2wake
+
+busybox echo ${ENABLE_SWEEP2WAKE} > ${SWEEP2WAKE_PATH};
+busybox echo ${ENABLE_SWEEP2SLEEP_ONLY} > ${SWEEP2SLEEP_ONLY_PATH};
+busybox echo ${ENABLE_DOUBLETAP2WAKE} > ${DOUBLETAP2WAKE_PATH};

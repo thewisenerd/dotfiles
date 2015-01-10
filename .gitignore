@@ -69,3 +69,6 @@ works/
 
 #fonts
 !.fonts/*
+
+#armani_zipper (meh, didn't get another name)
+!bin/armani_zipper

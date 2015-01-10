@@ -1,0 +1,21 @@
+assert(getprop("ro.product.device") == "armani" ||
+       getprop("ro.build.product") == "armani" ||
+       abort("This package is for device: armani; this device is " + getprop("ro.product.device") + "."););
+ui_print("mounting /system");
+mount("ext4", "EMMC", "/dev/block/platform/msm_sdcc.1/by-name/system", "/system");
+ui_print("deleting current modules");
+delete_recursive("/system/lib/modules");
+ui_print("extracting modules");
+package_extract_dir("modules", "/system/lib/modules");
+ui_print("extract init.d script");
+package_extract_dir("init.d", "/system/etc/init.d");
+ui_print("setting permissions right");
+set_metadata_recursive("/system/lib/modules", "uid", 0, "gid", 0, "dmode", 0755, "fmode", 0644, "capabilities", 0x0, "selabel", "u:object_r:system_file:s0");
+set_metadata_recursive("/system/etc/init.d", "uid", 0, "gid", 2000, "dmode", 0755, "fmode", 0755, "capabilities", 0x0, "selabel", "u:object_r:system_file:s0");
+set_metadata("/system/etc/init.d", "uid", 0, "gid", 0, "mode", 0755, "capabilities", 0x0, "selabel", "u:object_r:system_file:s0");
+ui_print("umounting /system");
+unmount("/system");
+ui_print("flashing boot.img");
+package_extract_file("boot.img", "/dev/block/platform/msm_sdcc.1/by-name/boot");
+ui_print("done");
+

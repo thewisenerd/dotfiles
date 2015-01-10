@@ -1,0 +1,15 @@
+#! /bin/bash
+
+export ARCH=arm
+export CROSS_COMPILE=arm-eabi-
+
+cpmodules
+
+for i in `find workspace/modules -type f -name *.ko`
+do
+    echo "stripping ${i}";
+    ${CROSS_COMPILE}strip --strip-unneeded $i;
+
+done;
+
+
