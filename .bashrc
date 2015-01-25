@@ -161,5 +161,27 @@ function git_branch {
 	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \1/'
 }
 
+# colors and such
+alias ls='ls --color=auto'
+alias dir='dir --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+# aliases and such for general
+alias pls='sudo'
+alias ..='cd ..'
+
+# for git stuff
+alias pik='git cherry-pick'
+alias pikab='git cherry-pick --abort'
+alias gaa='git add --all'
+alias gadd='git add'
+alias stat='git status'
+alias cmt='git commit'
+alias psh='git push'
+alias rvt='git revert'
+alias uncommit='git reset --soft HEAD^'
+alias gdiff='git diff'
 
 PS1='\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\]\[\e[0;32m\]$(git_branch)\[\e[m\] \[\e[1;32m\]\$\[\e[m\] \[\e[0;37m\]'
