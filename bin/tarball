@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ "$*" == "" ];then
+    echo "usage; tarball <file/folder>"
+    exit
+fi;
+
+pd=$(pwd)
+
+if [ -d "$*" ]; then
+    pc=$( dirname "$*" )
+    bname=$( basename "$*" )
+    cd "$*";
+    tar -czvf ${pd}/${bname}.tar.gz .
+    exit;
+fi;
+
+pc=$( dirname "$*" )
+bname=$( basename "$*" )
+cd "${pc}"
+tar -czvf "${bname}.tar.gz" .
