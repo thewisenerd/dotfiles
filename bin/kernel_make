@@ -1,0 +1,4 @@
+export ARCH=arm
+export CROSS_COMPILE=arm-eabi-
+rm std*.log 2> /dev/null
+make "$@"
