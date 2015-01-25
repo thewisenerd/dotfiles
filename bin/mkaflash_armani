@@ -4,20 +4,23 @@ rm -rf workspace
 rm -rf unpack
 rm -rf boot_new.img
 
-cd /home/thewisenerd/works/H1S_kernel/
+cd /home/thewisenerd/works/kernel_armani/
 lesser_modules
+dtbTool2 -o dt.img -s 2048 -p scripts/dtc/ arch/arm/boot/
+mkdir -p releases
 cd /home/thewisenerd/bin/armani_zipper/
 
 mkboot boot.img unpack
 
-mv /home/thewisenerd/works/H1S_kernel/workspace/zImage unpack/zImage
+mv /home/thewisenerd/works/kernel_armani/workspace/zImage unpack/zImage
+mv /home/thewisenerd/works/kernel_armani/dt.img           unpack/dt.img
 
 mkboot unpack boot_new.img
 
 rm -rf unpack
 
 mv boot_new.img flashable/boot.img
-mv /home/thewisenerd/works/H1S_kernel/workspace/modules flashable/modules
+mv /home/thewisenerd/works/kernel_armani/workspace/modules flashable/modules
 
 cd flashable
 

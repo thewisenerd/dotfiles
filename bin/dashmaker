@@ -2,6 +2,11 @@
 #dashmaker!
 #dashmaker <number> <char>
 # def: dashmaker 80 -
+if [ "$1" == "-h" ]; then
+    echo "dashmaker";
+    echo "    usage: dashmaker <number> <char>"
+    exit;
+fi
 fixvar=$( if [ "$1" == "" ]; then echo 80; else echo $1; fi )
 A=$(printf "%${fixvar}s");
 fixchar=$( if [ "$2" == "" ]; then echo -; else echo $2; fi )

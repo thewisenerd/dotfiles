@@ -1,26 +1,25 @@
 #! /usr/bin/env bash
 
 # author: Vineeth Raj <contact.twn@opmbx.org>
-#todo:
-#	change tabs to spaces
 
 usr=$( ls -ld "$1" | awk '{print $3}' )
+wd=$( pwd )
 
 if [ "${usr}" == "root" ]
 then
-	pkexec chown vineeth.vineeth "$1"
-	if [ ! -f "$1" ]
+	pkexec chown thewisenerd.thewisenerd "${wd}/$1"
+	if [ ! -f "${wd}/$1" ]
 	then
-		pkexec chmod 755 "$1"
+		pkexec chmod 755 "${wd}/$1"
 	else
-		pkexec chmod 644 "$1"
+		pkexec chmod 644 "${wd}/$1"
 	fi
 else
-	pkexec chown root.root "$1"
-	if [ ! -f "$1" ]
+	pkexec chown root.root "${wd}/$1"
+	if [ ! -f "${wd}/$1" ]
 	then
-		pkexec chmod 700 "$1"
+		pkexec chmod 700 "${wd}/$1"
 	else
-		pkexec chmod 600 "$1"
+		pkexec chmod 600 "${wd}/$1"
 	fi
 fi
