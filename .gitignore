@@ -42,7 +42,8 @@ works/
 .config/sublime-text-3/Packages/Colorsublime-Plugin
 .config/sublime-text-3/Packages/Theme - Spacegray/.gitignore
 .themes-bckp/
-
+Downloads/
+Android/
 
 ################################################################################
                                 add custom stuff
