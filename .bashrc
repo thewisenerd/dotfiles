@@ -115,6 +115,7 @@ fi
 
 
 export USE_CCACHE=1
+export EDITOR=nano
 
 export PATH=/home/thewisenerd/works/arm-eabi-4.7/bin/:/home/thewisenerd/works/gcc-arm-none-eabi-4_8-2014q2/bin/:/home/thewisenerd/bin/http_server/:$PATH
 
@@ -125,3 +126,40 @@ if [ -s ~/.nvm/nvm.sh ]; then
 fi
 
 haste() { a=$(cat); curl -X POST -s -d "$a" http://hastebin.com/documents | awk -F '"' '{print "http://hastebin.com/"$4}'; }
+
+ix() {
+    local opts
+    local OPTIND
+    [ -f "$HOME/.netrc" ] && opts='-n'
+    while getopts ":hd:i:n:" x; do
+        case $x in
+            h) echo "ix [-d ID] [-i ID] [-n N] [opts]"; return;;
+            d) $echo curl $opts -X DELETE ix.io/$OPTARG; return;;
+            i) opts="$opts -X PUT"; local id="$OPTARG";;
+            n) opts="$opts -F read:1=$OPTARG";;
+        esac
+    done
+    shift $(($OPTIND - 1))
+    [ -t 0 ] && {
+        local filename="$1"
+        shift
+        [ "$filename" ] && {
+            curl $opts -F f:1=@"$filename" $* ix.io/$id
+            return
+        }
+        echo "^C to cancel, ^D to send."
+    }
+    curl $opts -F f:1='<-' $* ix.io/$id
+}
+
+function lastcommit {
+	git log $1 --pretty=oneline | head -1 | cut -f 1 -d " "
+}
+
+# prompt and such
+function git_branch {
+	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \1/'
+}
+
+
+PS1='\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\]\[\e[0;32m\]$(git_branch)\[\e[m\] \[\e[1;32m\]\$\[\e[m\] \[\e[0;37m\]'
