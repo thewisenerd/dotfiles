@@ -2,5 +2,5 @@
 	path = bin/plowshare
 	url = https://code.google.com/p/plowshare/
 [submodule ".themes"]
-	path = .themes
-	url = git@github.com:lassekongo83/zuki-themes.git
+	path = .themes/spookyhaxxortheme
+    url = git@github.com:thewisenerd/spookyhaxxortheme.git
