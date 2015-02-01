@@ -3,4 +3,4 @@
 	url = https://code.google.com/p/plowshare/
 [submodule ".themes"]
 	path = .themes/spookyhaxxortheme
-    url = git@github.com:thewisenerd/spookyhaxxortheme.git
+	url = git@github.com:thewisenerd/spookyhaxxortheme.git
