@@ -1,13 +1,85 @@
 #!/system/bin/sh
 
-ENABLE_SWEEP2WAKE=1
-ENABLE_SWEEP2SLEEP_ONLY=0
-ENABLE_DOUBLETAP2WAKE=1
-
+# *---------- sys parameters -------------------------*
 SWEEP2WAKE_PATH=/sys/android_touch/sweep2wake
 SWEEP2SLEEP_ONLY_PATH=/sys/android_touch/s2w_s2sonly
 DOUBLETAP2WAKE_PATH=/sys/android_touch/doubletap2wake
 
-busybox echo ${ENABLE_SWEEP2WAKE} > ${SWEEP2WAKE_PATH};
-busybox echo ${ENABLE_SWEEP2SLEEP_ONLY} > ${SWEEP2SLEEP_ONLY_PATH};
-busybox echo ${ENABLE_DOUBLETAP2WAKE} > ${DOUBLETAP2WAKE_PATH};
+S2W_DISABLE=0
+S2W_ENABLE=1
+S2W_ENABLE_FULLSCREEN=2
+S2W_ENABLE_MUSIC_MODE=3
+S2W_S2S_ONLY_DISABLE=0
+S2W_S2S_ONLY_ENABLE=1
+
+DT2W_DISABLE=0
+DT2W_ENABLE=1
+DT2W_MUSIC_MODE=2
+
+IPLUG_TOGGLE_PATH=/sys/module/intelli_plug/parameters/intelli_plug_active
+IPLUG_MODE_PATH=/sys/module/intelli_plug/parameters/nr_run_profile_sel
+IPLUG_TBOOST_PATH=/sys/module/intelli_plug/parameters/touch_boost_active
+IPLUG_HYST_PATH=/sys/module/intelli_plug/parameters/nr_run_hysteresis
+IPLUG_SCR_OFF_MAX_FREQ=/sys/module/intelli_plug/parameters/screen_off_max
+
+IPLUG_TOGGLE_DISABLE=0
+IPLUG_TOGGLE_ENABLE=1
+IPLUG_MODE_BALANCE=0
+IPLUG_MODE_PERFORMANCE=1
+IPLUG_MODE_CONSERVATIVE=2
+IPLUG_MODE_ECO=3
+IPLUG_MODE_ECO_EXTREME=4
+IPLUG_MODE_DISABLE=5
+IPLUG_TBOOST_ENABLE=1
+IPLUG_TBOOST_DISABLE=0
+IPLUG_SRC_OFF_MAX_787=787200000
+IPLUG_SRC_OFF_MAX_998=998400000
+
+# *---------- sys parameters (end)-------------------------*
+
+# *---------- edit these -------------------------*
+
+SWEEP2WAKE_TOGGLE=${S2W_ENABLE_MUSIC_MODE}
+SWEEP2SLEEP_TOGGLE=${S2W_S2S_ONLY_DISABLE}
+DOUBLETAP2WAKE_TOGGLE=${DT2W_MUSIC_MODE}
+INTELLIPLUG_TOGGLE=${IPLUG_TOGGLE_ENABLE}
+INTELLIPLUG_MODE=${IPLUG_MODE_ECO_EXTREME}
+INTELLIPLUG_TOUCHBOOST_TOGGLE=${IPLUG_TBOOST_ENABLE}
+INTELLIPLUG_HYSTERISIS_VALUE=8
+INTELLIPLUG_SCREEN_OFF_MAX_FREQ=${IPLUG_SRC_OFF_MAX_787}
+SCALING_GOVERNOR=intelliactive
+
+# *---------- edit these (end)-------------------------*
+
+# setup wake_mods
+
+busybox echo ${SWEEP2WAKE_TOGGLE} > ${SWEEP2WAKE_PATH};
+busybox echo ${SWEEP2SLEEP_TOGGLE} > ${SWEEP2SLEEP_ONLY_PATH};
+busybox echo ${DOUBLETAP2WAKE_TOGGLE} > ${DOUBLETAP2WAKE_PATH};
+
+if [ $IPLUG_TOGGLE_ENABLE == 1 ]; then
+
+# all possible variations of thermald
+stop thermal-engine
+stop thermald
+killall -15 thermal-engine
+killall -9 thermal-engine
+
+# stop mpdecision
+stop mpdecision
+killall -15 mpdecision
+killall -9 mpdecision
+
+fi;
+
+# setup intelli_plug
+busybox echo ${INTELLIPLUG_TOGGLE} > ${IPLUG_TOGGLE_PATH}
+busybox echo ${INTELLIPLUG_MODE} > ${IPLUG_MODE_PATH}
+busybox echo ${INTELLIPLUG_TOUCHBOOST_TOGGLE} > ${IPLUG_TBOOST_PATH}
+busybox echo ${INTELLIPLUG_HYSTERISIS_VALUE} > ${IPLUG_HYST_PATH}
+busybox echo ${INTELLIPLUG_SCREEN_OFF_MAX_FREQ} > ${IPLUG_SCR_OFF_MAX_FREQ}
+
+busybox echo ${SCALING_GOVERNOR} > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+busybox echo ${SCALING_GOVERNOR} > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
+busybox echo ${SCALING_GOVERNOR} > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
+busybox echo ${SCALING_GOVERNOR} > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor

@@ -35,12 +35,12 @@ rm -rf flashable/system
 rm -rf flashable/boot.img
 
 rm -rf workspace
-rm -rf /home/thewisenerd/works/H1S_kernel/workspace/
+rm -rf /home/thewisenerd/works/kernel_armani/workspace/
 
 
-mv output.zip /home/thewisenerd/works/H1S_kernel/output.zip
+mv output.zip /home/thewisenerd/works/kernel_armani/output.zip
 
-cd /home/thewisenerd/works/H1S_kernel/
+cd /home/thewisenerd/works/kernel_armani/
 
 mkdir -p releases
 mv output.zip releases/output_`date +%d_%b_%Y``scripts/setlocalversion`.zip
