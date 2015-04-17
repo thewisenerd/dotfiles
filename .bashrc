@@ -115,6 +115,7 @@ fi
 
 
 export USE_CCACHE=1
+export CCACHE_DIR=/home/thewisenerd/.ccache
 export EDITOR=nano
 
 export PATH=/home/thewisenerd/works/arm-eabi-4.7/bin/:/home/thewisenerd/works/gcc-arm-none-eabi-4_8-2014q2/bin/:/home/thewisenerd/bin/http_server/:$PATH
@@ -158,7 +159,11 @@ function lastcommit {
 
 # prompt and such
 function git_branch {
-	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \1/'
+	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \1/' | sed 's/^ //g'
+}
+
+function evil_git_dirty {
+  [[ $(git diff --shortstat 2> /dev/null | tail -n1) != "" ]] && echo "*"
 }
 
 # colors and such
@@ -187,5 +192,8 @@ alias gshow='git show'
 alias grvt='git revert'
 alias uncommit='git reset --soft HEAD^'
 alias gdiff='git diff'
+alias abd='adb'
 
-PS1='\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\]\[\e[0;32m\]$(git_branch)\[\e[m\] \[\e[1;32m\]\$\[\e[m\] \[\e[0;37m\]'
+alias errcho='>&2 echo'
+
+PS1='\[\e]0;\w\a\]\w|$(git_branch)\$ '
