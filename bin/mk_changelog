@@ -1,4 +1,15 @@
 #! /bin/bash
+if [ "$1" == "-h" ]; then
+    echo "mk_changelog";
+    echo "    usage: mk_changelog <sha>"
+    exit;
+fi
+
+if [ "$1" == "" ]; then
+    echo "no valid sha found!"
+    exit;
+fi
+
 echo [B][U]`date +%d%b%Y`[/U][/B]
 git log --pretty=format:'- %s (credits to %an)' ${1}^..HEAD | \
 sed 's/(credits to Vineeth Raj)//g' | \

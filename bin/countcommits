@@ -13,5 +13,15 @@ then
 fi
 
 #todo: we might as well try to return this value
-echo $(git rev-list HEAD --count)
+if [ ! "$1" == "" ]
+then
+    if [ ! -e ${1} ]
+    then
+        echo "arg1 doesn't exist!"
+    else
+        echo $(git rev-list HEAD --count ${1} )
+    fi
+else
+    echo $(git rev-list HEAD --count)
+fi
 

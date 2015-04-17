@@ -1,3 +1,2 @@
 #!/bin/bash
-git push ssh://vineethraj49@gerrit.omnirom.org:29418/$1 HEAD:refs/for/android-4.4
-
+git push ssh://vineethraj49@gerrit.omnirom.org:29418/$1 HEAD:refs/for/android-5.1

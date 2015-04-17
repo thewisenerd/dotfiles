@@ -1,3 +1,5 @@
+#!/bin/bash
+
 cd /home/thewisenerd/bin/armani_zipper/
 
 rm -rf workspace
@@ -43,6 +45,6 @@ mv output.zip /home/thewisenerd/works/kernel_armani/output.zip
 cd /home/thewisenerd/works/kernel_armani/
 
 mkdir -p releases
-mv output.zip releases/output_`date +%d_%b_%Y``scripts/setlocalversion`.zip
+mv output.zip releases/output_`date +%d_%b_%Y`.zip
 
-echo OUTPUT: releases/output_`date +%d_%b_%Y``scripts/setlocalversion`.zip
+echo OUTPUT: releases/output_`date +%d_%b_%Y`.zip

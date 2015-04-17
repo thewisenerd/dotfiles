@@ -1,11 +1,13 @@
 #! /bin/bash
 
-TEXT="var m_names=new Array("
+#search for needle in haystack (html) and replace line with straw
 
-REPLACE="			var m_names=new Array(\"Jan\",\"Feb\",\"Mar\",\"Apr\",\"May\",\"Jun\",\"Jul\",\"Aug\",\"Sept\",\"Oct\",\"Nov\",\"Dec\");var x=new Date(document.lastModified);document.getElementById(\"last_modified\").innerHTML=\"This page was last Modified On: \"+x.getDate()+\" \"+m_names[x.getMonth()]+\" \"+x.getFullYear()"
+TEXT="needle"
+REPLACE="straw"
 
 # '@' or ';' or whatever.
 
+#backup current field separaotr
 SAVEIFS=$IFS
 IFS=$(echo -en "\n\b")
 
@@ -15,8 +17,6 @@ do
 		echo "$i";
 		line=$( grep -n "${TEXT}" "$i" | cut -d : -f 1 );
 		echo ${line}
-		#sed '${line}d' fileName.txt
-		#sed -i '/stylesheets/d' "$i"
 		sed -i ${line}'s/.*/'${REPLACE}'/' "${i}"
 	else
 		echo not found
@@ -24,7 +24,5 @@ do
 
 done
 
-
-
-
+#restore field separaotr
 IFS=$SAVEIFS

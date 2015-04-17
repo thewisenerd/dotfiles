@@ -1,4 +1,12 @@
+#!/bin/bash
+
+export CROSS_COMPILE=$(toolchain_script)
+
 export ARCH=arm
-export CROSS_COMPILE=arm-eabi-
+export SUBARCH=arm
+export KBUILD_BUILD_USER="thewisenerd"
+export KBUILD_BUILD_HOST="eniac-v2"
+
+
 rm std*.log 2> /dev/null
 make "$@"

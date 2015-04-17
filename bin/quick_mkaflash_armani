@@ -1,1 +1,1 @@
-mkaflash_armani && adb push releases/output_`date +%d_%b_%Y``scripts/setlocalversion`.zip /sdcard/Alarms/aaa.zip
+mkaflash_armani && adb push releases/output_`date +%d_%b_%Y`.zip /sdcard/Alarms/aaa.zip
