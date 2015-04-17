@@ -1,0 +1,105 @@
+#!/bin/bash
+
+#enable extended matching
+shopt -s extglob
+
+TOOLCHAIN_DIR=/home/thewisenerd/works/toolchains/
+
+TOOLCHAIN_CHOICE=${TOOLCHAIN_DIR}/toolchain
+
+if [ -e $TOOLCHAIN_CHOICE ]; then
+    PRE_OPT=$( cat ${TOOLCHAIN_CHOICE} )
+fi
+
+COUNT=0;
+DECIDED=-1;
+
+folders=$( ls -p ${TOOLCHAIN_DIR} | grep "/" )
+
+if [[ ${PRE_OPT} == "" ]]; then
+    DECIDED=0;
+fi
+
+if [[ ${PRE_OPT} != "" ]]; then
+    for i in ${folders[@]}; do
+        if [[ ${i} == ${PRE_OPT} ]]; then
+            DECIDED=${COUNT}
+        fi
+        COUNT=`expr ${COUNT} + 1`;
+    done
+fi
+
+if ((${DECIDED}==-1)); then
+    DECIDED=0;
+fi
+
+#conv to array actually.
+folders=($folders)
+
+# empty args, return toolchain path
+if [[ "$*" != "--set" ]]; then
+
+    TC_DIR=${TOOLCHAIN_DIR}${folders[${DECIDED}]}"bin/"
+
+    PD=$(pwd)
+
+    cd $TC_DIR
+
+    GCC_BIN=$( ls *gcc )
+    GCC_BIN=($GCC_BIN)
+
+    #get first binary
+    GCC_BIN=${GCC_BIN[0]}
+
+    #trim last 3 chars
+    GCC_BIN=$( echo -n $GCC_BIN | rev | cut -c 4- | rev )
+
+    echo ${TC_DIR}${GCC_BIN}
+
+    cd ${PD}
+
+    exit
+fi
+
+
+
+COUNT=0;
+for i in ${folders[@]}; do
+    echo -n `expr ${COUNT} + 1`"."
+    echo -n "["
+    if ((${DECIDED}==$COUNT)); then
+        echo  -n "*"
+    else
+        echo -n " "
+    fi
+    echo -n "] "
+    echo ${i};
+    COUNT=`expr ${COUNT} + 1`;
+done
+
+read -p "enter option: " USER_OPT
+
+#${COUNT} holds array size
+if ((${USER_OPT} > ${COUNT})); then
+    echo "invalid option!"
+    exit;
+fi
+
+if ((${USER_OPT} < 1)); then
+    echo "invalid option!"
+    exit;
+fi
+
+#we good to go!
+
+#set index, we start count at 0
+USER_OPT=`expr ${USER_OPT} - 1`
+
+TC_DIR=${TOOLCHAIN_DIR}${folders[${USER_OPT}]}"bin/"
+
+if [[ ! -d "${TC_DIR}" ]]; then
+    echo "bin folder not found!"
+    exit;
+fi
+
+echo ${folders[${USER_OPT}]} > ${TOOLCHAIN_CHOICE}
