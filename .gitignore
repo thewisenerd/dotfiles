@@ -1,6 +1,50 @@
 # thanks to simont (http://stackoverflow.com/a/9227991/2873157)
 # First, ignore everything
 *
+# Now, whitelist anything that's a directory
+!*/
+# And all the file types you're interested in.
+!.*
+
+################################################################################
+                             ignore system-specific
+################################################################################
+.ICEauthority
+.Xauthority
+.bash_history
+.bash_logout
+.cache/
+.config/Brackets/
+.config/google-chrome/
+.cpan/
+.dmrc
+.gksu.lock
+.gradle/
+.icons/
+.java/
+.lesshst
+.local/
+.mozilla/
+.mysql_history
+.nano_history
+.npm/
+.nvm/
+.profile
+.repopickle_.gitconfig
+.sqlite_history
+.thunderbird/
+.vnc/
+.xscreensaver
+.xsession-errors
+.xsession-errors.old
+works/
+.slocdata/
+.config/sublime-text-3/Packages/Colorsublime-Plugin
+.config/sublime-text-3/Packages/Theme - Spacegray/.gitignore
+.themes-bckp/
+Downloads/
+Android/
+.AndroidStudio/
 
 ################################################################################
                                 add custom stuff
@@ -27,3 +71,6 @@
 
 #fonts
 !.fonts/*
+
+#armani_zipper (meh, didn't get another name)
+!bin/armani_zipper
