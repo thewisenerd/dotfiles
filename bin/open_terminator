@@ -1,0 +1,11 @@
+#!/bin/bash
+
+dir="${1}"
+if [ ! -d "${dir}" ]; then
+  dir=$( echo ${dir} | rev | cut -d'/' -f2- | rev )
+  dir=${dir}"/"
+fi
+
+/usr/bin/terminator --new-tab --working-directory="${dir}"
+
+wmctrl -x -a terminator

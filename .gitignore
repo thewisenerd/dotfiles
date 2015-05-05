@@ -78,3 +78,6 @@ Android/
 .composer
 .repo_.gitconfig.json
 AndroidStudioProjects
+.Trash-1000
+.config/evolution
+.config/teamviewer10

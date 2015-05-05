@@ -17,8 +17,9 @@
 	"spacegray_tabs_auto_width": true,
 	"spacegray_tabs_font_medium": true,
 	"spacegray_tabs_xlarge": true,
+	"tab_size": 2,
 	"theme": "Spacegray.sublime-theme",
-	"translate_tabs_to_spaces": true,
+	"translate_tabs_to_spaces": false,
 	"trim_trailing_white_space_on_save": true,
 	"word_wrap": false
 }
