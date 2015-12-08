@@ -1,0 +1,3 @@
+[submodule "helpers/shml"]
+	path = helpers/shml
+	url = https://github.com/MaxCDN/shml.git
