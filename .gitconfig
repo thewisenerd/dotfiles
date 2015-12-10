@@ -5,6 +5,7 @@
 	ui = auto
 [alias]
 	uncommit = reset --soft HEAD^
+	countcommits = rev-list HEAD --count
 [core]
 	autocrlf = input
 	pager = less -x1,5
