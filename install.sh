@@ -3,6 +3,7 @@
 source helpers/shml/shml.sh
 
 bashrc_file=~/.bashrc
+gitconfig=".gitconfig"
 
 echo -n $(fgc yellow)"checkin bashrc... "$(fgc end)
 
@@ -19,6 +20,7 @@ then
   echo $(color red)$(icon xmark)$(color end)
 else
   echo $(color green)$(icon check)$(color end)
+
   echo -n $(fgc yellow)"       install... "$(fgc end)
   {
     ln="\nexport EXTENTS_PATH=$(pwd)\nsource $(pwd)/.bashrc-extents"
@@ -29,4 +31,10 @@ else
   else
     echo $(color green)$(icon check)$(color end)
   fi
+
+  if [ -e ${gitconfig} ]; then
+    mv ~/${gitconfig} ~/${gitconfig}-backup
+  fi
+
+  ln -s $( pwd )/${gitconfig} ~/${gitconfig}
 fi

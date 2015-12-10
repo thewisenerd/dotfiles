@@ -1,0 +1,10 @@
+[user]
+	email = thewisenerd@protonmail.com
+	name = thewisenerd
+[color]
+	ui = auto
+[alias]
+	uncommit = reset --soft HEAD^
+[core]
+	autocrlf = input
+	pager = less -x1,5
