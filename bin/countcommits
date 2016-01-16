@@ -1,0 +1,27 @@
+#! /bin/bash
+
+if [ ! -d .git ]
+then
+	echo "not a git repository!"
+	exit
+fi
+
+if [ "$1" == "-h" ]
+then
+	echo "counts the commits in a git repository."
+	exit
+fi
+
+#todo: we might as well try to return this value
+if [ ! "$1" == "" ]
+then
+    if [ ! -e ${1} ]
+    then
+        echo "arg1 doesn't exist!"
+    else
+        echo $(git rev-list HEAD --count ${1} )
+    fi
+else
+    echo $(git rev-list HEAD --count)
+fi
+

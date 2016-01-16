@@ -1,0 +1,42 @@
+#!/bin/bash
+
+status='on'
+ssid='twn_home_server'
+wpapp="${2}"
+username_pass='admin:admin'
+
+username_pass=$( echo -n $username_pass | base64 )
+
+LYR1='http://192.168.1.1/webconfig/wlan/country.html/country?context=&wlanprofile=G_ONLY&wlanstatus='
+LYR2='&country=INI&chanselect=automatic&channel=3&essid='
+LYR3='&hidessid=off&security=wpawpa2&authmethodselect=psk&wpapp='
+LYR4='&pmkcaching=off&confirm=Confirm'
+
+if [[ "$1" == "on" ]]; then
+	curl -s ${LYR1}${status}${LYR2}${ssid}${LYR3}${wpapp}${LYR4} \
+		-H 'Authorization: Basic '${username_pass} > /dev/null
+fi
+
+if [[ "$1" == "off" ]]; then
+	status='off'
+	curl -s ${LYR1}${status}${LYR2}${ssid}${LYR3}${wpapp}${LYR4} \
+		-H 'Authorization: Basic '${username_pass} > /dev/null
+fi
+
+if [[ "$1" == "on" ]] || [[ "$1" == "off" ]] || [[ "$1" == "status" ]] ; then
+	suf=$( mktemp )
+
+	curl -s 'http://192.168.1.1/webconfig/wlan/country.html' \
+		-H 'Authorization: Basic '${username_pass} > $suf
+	grep -q '<INPUT type="radio" name="wlanstatus" value="off" CHECKED>' ${suf}
+	if [ $? -eq 0 ] ; then
+		echo "status: off"
+	fi
+	grep -q '<INPUT type="radio" name="wlanstatus" value="on" CHECKED>' ${suf}
+	if [ $? -eq 0 ] ; then
+		echo "status: on"
+	fi
+	exit;
+fi
+
+echo "usage: setwifi <on|off|status> \"wifiAP\""

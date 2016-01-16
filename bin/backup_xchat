@@ -1,0 +1,17 @@
+LOGS_DIR=${HOME}"/logs/irc"
+FOLDER_FORMAT="%D/%H_%M_%S"
+
+XCHAT_SCROLLBACK="/home/thewisenerd/.xchat2/scrollback"
+
+mkdir -p ${LOGS_DIR}
+
+DATE=$( date +"${FOLDER_FORMAT}" )
+FOLDER=$( echo ${LOGS_DIR} )/${DATE}
+
+if [ ! -d "${FOLDER}" ]; then
+  mkdir -p "${FOLDER}"
+  cp -r "${XCHAT_SCROLLBACK}" "${FOLDER}"
+  echo "backup done at ${DATE}"
+else
+  echo "backup already done"
+fi

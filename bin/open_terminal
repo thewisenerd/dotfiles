@@ -1,0 +1,5 @@
+#!/bin/bash
+
+/usr/bin/terminator --new-tab --working-directory="${1}"
+
+wmctrl -x -a terminator
