@@ -1,3 +1,6 @@
 [submodule "helpers/shml"]
 	path = helpers/shml
 	url = https://github.com/MaxCDN/shml.git
+[submodule "helpers/mkbootimg_tools"]
+	path = helpers/mkbootimg_tools
+	url = https://github.com/xiaolu/mkbootimg_tools.git
