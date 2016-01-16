@@ -1,0 +1,17 @@
+#! /bin/bash
+
+export ARCH=arm
+export SUBARCH=arm
+
+export CROSS_COMPILE=$(toolchain_script)
+
+cpmodules
+
+for i in `find workspace/modules -type f -name *.ko`
+do
+    echo "stripping ${i}";
+    ${CROSS_COMPILE}strip --strip-unneeded $i;
+
+done;
+
+

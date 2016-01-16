@@ -1,0 +1,22 @@
+#!/bin/sh
+##               mkaflash              ##
+## get a flashable zip for your zImage ##
+## uses: cpmodules (thewisenerd (contact.twn@openmailbox.org))
+## uses: anykernel2 for pico (thewisenerd (contact.twn@openmailbox.org))
+
+zIMAGE=/home/thewisenerd/works/AnyKernel2_pico/
+
+#cpmodules
+cpmodules  > /dev/null 2> /dev/null;
+
+#rearrange
+mv workspace/zImage ${zIMAGE}zImage;
+mv workspace/modules/* ${zIMAGE}/modules/;
+
+#zippit
+(cd ${zIMAGE}; zip -r -y -q kernel.zip * -x *.zip* *placeholder build README .gitignore .git);
+
+#get output.zip
+mv ${zIMAGE}kernel.zip ./output.zip;
+
+(cd ${zIMAGE}; git clean -f -x -d && git reset --hard ) > /dev/null 2> /dev/null;

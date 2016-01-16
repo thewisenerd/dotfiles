@@ -1,0 +1,55 @@
+#!/bin/bash
+
+CUR_DIR=$( pwd )
+AnyKernel=/home/thewisenerd/works/android/AnyKernel2_armani/
+G_IDX=$( git rev-parse --verify --short HEAD )
+G_DRT=
+if [[ -n $(git status --porcelain) ]]; then G_DRT="-dirty"; fi
+KERNEL_STR=CodyKernel
+
+cd ${AnyKernel}
+
+rm -rf workspace
+rm -rf unpack
+rm -rf boot_new.img
+
+sed -i s/"#.kernel_string.#"/"${KERNEL_STR}"/ anykernel.sh
+
+cd ${CUR_DIR}
+lesser_modules
+~/bin/dtbToolCM --force-v2 -o dt.img -s 2048 -p scripts/dtc/ arch/arm/boot/
+mkdir -p releases
+cd ${AnyKernel}
+
+mv ${CUR_DIR}/workspace/zImage ./zImage
+mv ${CUR_DIR}/dt.img           ./dtb
+
+rm -rf modules
+
+rm ./modules/placeholder
+
+mv ${CUR_DIR}/workspace/modules ./modules
+
+
+zip -r9 UPDATE-AnyKernel2.zip * -x .git README UPDATE-AnyKernel2.zip
+
+rm -rf flashable/modules
+rm -rf flashable/system
+rm -rf flashable/boot.img
+
+rm -rf workspace
+rm -rf ${CUR_DIR}/workspace/
+
+mkdir -p releases
+mv UPDATE-AnyKernel2.zip ${CUR_DIR}/releases/update_${G_IDX}${G_DRT}_`date +%d_%b_%Y`.zip
+
+rm -rf ./modules/placeholder
+mkdir -p modules
+touch ./modules/placeholder
+
+git clean -f -x -d
+git reset --hard
+
+cd ${CUR_DIR}
+
+echo OUTPUT: releases/update_${G_IDX}${G_DRT}_`date +%d_%b_%Y`.zip
