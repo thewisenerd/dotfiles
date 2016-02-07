@@ -10,7 +10,6 @@ export SUBARCH=arm64
 export KBUILD_BUILD_USER="thewisenerd"
 export KBUILD_BUILD_HOST="eniac-v2"
 
-
 rm std*.log 2> /dev/null
 
 make "$@" #> >(tee stdout.log) 2> >(tee stderr.log >&2)

@@ -3,13 +3,13 @@ export CCACHE_DIR=/home/thewisenerd/.ccache
 export EDITOR=nano
 
 function lastcommit {
-  git log $1 --pretty=oneline | head -1 | cut -f 1 -d " "
+	git log $1 --pretty=oneline | head -1 | cut -f 1 -d " "
 }
 
 # prompt and such
 function git_branch {
-#cat .git/HEAD | grep -Po 'refs\/heads\/\K(.+)$' ?
-  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \1/' | sed 's/^ //g'
+	#cat .git/HEAD | grep -Po 'refs\/heads\/\K(.+)$' ?
+	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \1/' | sed 's/^ //g'
 }
 
 function evil_git_dirty {

@@ -4,3 +4,6 @@
 [submodule "helpers/mkbootimg_tools"]
 	path = helpers/mkbootimg_tools
 	url = https://github.com/xiaolu/mkbootimg_tools.git
+[submodule "helpers/getopts"]
+	path = helpers/getopts
+	url = https://github.com/fisherman/getopts.git
