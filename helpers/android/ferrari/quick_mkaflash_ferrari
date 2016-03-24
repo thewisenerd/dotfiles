@@ -1,3 +1,4 @@
+#! /bin/bash
 mkaflash_ferrari;
 #adb shell su -c 'reboot bootloader';
 adb shell 'reboot bootloader';
