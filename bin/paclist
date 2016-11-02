@@ -1,0 +1,36 @@
+#! /bin/sh
+
+# this assumes you do NOT mess with /var/log/pacman.log
+
+# pipe through | sort -k1 -r
+# to sort by time
+
+# check for --help
+echo $* | grep --quiet "\-h\|\-\-help"
+if [ $? -eq 0 ]; then
+  echo "\
+lists installed pacman packages
+
+   -a|--aur: also list pacakges installed from aur
+  -h|--help: show this message
+
+pipes:
+sort -k1 -r : sort by time
+    cut -f2 : packages only"
+  exit
+fi
+
+# check for --aur
+echo $* | grep --quiet "\-a\|\-\-aur"
+if [ $? -eq 0 ]; then
+  packages=`pacman -Qqe`
+else
+  packages=`pacman -Qqe | grep -vx "$(pacman -Qqm)"`
+fi
+
+for p in ${packages}
+do
+  x=`cat /var/log/pacman.log  | grep "\[ALPM\] installed ${p}" | head -1 | cut -d' ' -f1,2`
+  echo -ne ${x}'\t'
+  echo ${p}
+done
