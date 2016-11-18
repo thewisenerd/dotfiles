@@ -34,8 +34,6 @@ echo "gen command"
 cat ${temp}
 echo ${line}
 
-exit
-
 echo "push file"
 adb push ${temp} /data/local/tmp/
 echo ${line}
