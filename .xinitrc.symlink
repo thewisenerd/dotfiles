@@ -1,0 +1,5 @@
+xrdb ~/.Xresources
+
+xsetroot -cursor_name right_ptr
+
+exec xmonad

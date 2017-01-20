@@ -1,0 +1,816 @@
+
+
+
+/*
+ * sec: disable crash reporter
+ *
+ * > Web applications often need to issue requests that report events,
+ * > state updates, and analytics to one or more servers. Such requests
+ * > typically do not require response processing on the client (e.g. result
+ * > in 204, or 200 HTTP response codes with an empty response body), and
+ * > should not compete for network and compute resources with other high
+ * > priority operations such as fetching critical resources, reacting to
+ * > input, running animations, and so on.
+ *  - https://w3c.github.io/beacon/
+ *
+ * hg:
+ *  - https://hg.mozilla.org/mozilla-central/rev/0392348b7648 (06 Mar 2014)
+ *  - https://hg.mozilla.org/mozilla-central/rev/0483fe9d0b74
+ */
+user_pref("beacon.enabled", false);
+
+
+
+/* sec: disable the "breakpad" crash reporter
+ *
+ * hg:
+ *  - https://hg.mozilla.org/mozilla-central/rev/7fefda4b80d4 (24 Jan 2008)
+ *  - https://hg.mozilla.org/mozilla-central/rev/7700a6167ba2 (24 Jan 2008)
+ *  - https://hg.mozilla.org/mozilla-central/rev/21ad4f1ce214 (09 Jun 2009)
+ *  - https://hg.mozilla.org/mozilla-central/rev/f56acd2dc690 (04 Mar 2013)
+ *  - https://hg.mozilla.org/mozilla-central/rev/f78e6b91ad8d (26 Oct 2013)
+ *  - https://hg.mozilla.org/mozilla-central/rev/00cba0743231 (28 Oct 2013)
+ *
+ */
+user_pref("breakpad.reportURL", "");
+
+/*
+ * sec: disable on disk, memory cache(s)
+ */
+user_pref("browser.cache.disk.enable", false);
+user_pref("browser.cache.disk_cache_ssl", false);
+user_pref("browser.cache.memory.enable", false);
+
+
+/*
+ * sec: disable "appcache" offline apps
+ *
+ * hg:
+ *  - https://hg.mozilla.org/mozilla-central/rev/859e630d963c
+ */
+user_pref("browser.cache.offline.enable", false);
+
+/*
+ * sec: warn the user attempting to open an executable from the Download Manager
+ *
+ * hg:
+ *  - https://hg.mozilla.org/mozilla-central/rev/ce91946a60eb
+ */
+user_pref("browser.download.manager.alertOnEXEOpen", true);
+
+/*
+ * sec: perf: anti-virus scanning
+ *
+ * hg:
+ *  - https://hg.mozilla.org/mozilla-central/rev/3de185c864a9
+ */
+user_pref("browser.download.manager.scanWhenDone", true);
+
+/*
+ * ux: Try to fix up http://foo to http://(prefix)foo(suffix)
+ *
+ */
+user_pref("browser.fixup.alternate.enabled", false);
+user_pref("browser.fixup.alternate.prefix", "www.");
+user_pref("browser.fixup.alternate.suffix", ".com");
+
+/*
+ * ux: disable search for single-word hosts
+ *
+ * typing "foo" in search bar takes you to http://foo instead of searching for
+ * "foo"
+ *
+ * hg:
+ *  - https://hg.mozilla.org/mozilla-central/rev/b16c0306ec57
+ */
+user_pref("browser.fixup.dns_first_for_single_words", true);
+
+/*
+ * sec: ux: Save information entered in web page forms and the Search Bar
+ *
+ */
+user_pref("browser.formfill.enable", false);
+
+/*
+ * sec: option to disable saving form data on https websites
+ *
+ * enable this if you do not want to save form data on https sites
+ * (regardless of browser.formfill.enable)
+ *
+ * > This isn't a request for "strong protection against autocompletion"
+ * > (whatever that is).  It's simply a request to make Firefox smart enough
+ * > to not save autocompletion for secure (https) pages, so that users can
+ * > enjoy the benefits of autocompletion without it saving their passwords
+ * > or credit card numbers.
+ *
+ * hg:
+ *  - https://hg.mozilla.org/mozilla-central/rev/f5dcc84e887c
+ *
+ * bugzilla:
+ *  - https://bugzilla.mozilla.org/show_bug.cgi?id=252486
+ */
+user_pref("browser.formfill.saveHttpsForms", false);
+
+/*
+ * ux: enable fullscreen autohide (on by default)
+ *
+ * > On fullscreen, it will hide the navigation bar and tab strip,
+ * > and put an extremely tiny bar at the top of the screen. It's mainly
+ * > to handle the mouseover and dragenter events, but it also provides
+ * > feedback to the user that there is something of interest there.
+ *
+ * hg:
+ *  - https://hg.mozilla.org/mozilla-central/rev/5894f07e5237
+ *  - https://hg.mozilla.org/mozilla-central/rev/1f7db5d87e80
+ *
+ * bugzilla:
+ *  - https://bugzilla.mozilla.org/show_bug.cgi?id=240859
+ */
+user_pref("browser.fullscreen.autohide", true);
+
+/*
+ * ux: disable animate the toolbars disappearing
+ *
+ * hg:
+ *  - https://hg.mozilla.org/mozilla-central/rev/5894f07e5237
+ *  - https://hg.mozilla.org/mozilla-central/rev/1f7db5d87e80
+ *
+ */
+user_pref("browser.fullscreen.animate", false);
+
+
+/*
+ * sec: disable new tab page features
+ *
+ * I spent some time (1 hour-ish) looking at... the source and have outlined
+ * what happened with the "new tab" page.
+ *
+ * I am
+ *  - disabling remote (and sponsored) tiles source
+ *  - disabling "enhanced" mode in "new tab" page
+ *  - disabling "new tab" page
+ *  - falling back to about:blank
+ *
+ * New Tab Page feature
+ *  - implemented as a 5-part patchset feature, see relevant bugzilla
+ *  - introduces browser.newtab.url and browser.newtabpage.enabled
+ *  - show "sponsored" tiles
+ *  - track tile clicks
+ *  - add "enhanced" option that report click and view pings of sites with their metadata
+ *  - make "enhanced" option default unless DNT headers enabled
+ *
+ * by default, new tab page settings:
+ *  - browser.newtabpage.directory.source: https://tiles.services.mozilla.com/v3/links/fetch/%LOCALE%/%CHANNEL%
+ *    use: gets tile data, intro page from here
+ *    eg: https://tiles.services.mozilla.com/v3/links/fetch/en-US/desktop
+ *  - browser.newtabpage.directory.ping: https://tiles.services.mozilla.com/v3/links/
+ *    use: reports tracking events
+ *
+ * browser.newtabpage.directory.source gives 303 to an amazon CDN cloudfront
+ *
+ * bugzilla:
+ *  - https://bugzilla.mozilla.org/show_bug.cgi?id=455553
+ *
+ * hg:
+ *  - 5-part patchset (refer https://bugzilla.mozilla.org/show_bug.cgi?id=455553)
+ *  - ------------[ url ] ------------------------------------[ push# ]------------------------------[ message ]-------------------------------------------------------------------------[ comment ]
+ *  - https://hg.mozilla.org/mozilla-central/rev/29c4463e6a2e # 21981 # [New Tab Page] Set to enabled by default on Nightly;                                                    #
+ *  - https://hg.mozilla.org/mozilla-central/rev/3f8e27e02893 # 26494 # Create backend logic to provide list of Tiles and associated metadata (image, text, background color)   #
+ *  - https://hg.mozilla.org/mozilla-central/rev/f72dc82b5ee0 # 26518 # Clicks (raw number) for tiles                                                                           # start tracking tile clicks?
+ *  - https://hg.mozilla.org/mozilla-central/rev/f3c44cfc3900 # 26523 # Create click event on Sponsored Tiles to show explanation panel                                         #
+ *  - https://hg.mozilla.org/mozilla-central/rev/ddd7db33608b # 26559 # use an empty directory tiles data source pref                                                           # show empty tiles
+ *  - https://hg.mozilla.org/mozilla-central/rev/7dfffba2e3aa # 26756 # revert bug 993581 to turn directory tiles on                                                            # nope. go back to sponsored tiles
+ *  - https://hg.mozilla.org/mozilla-central/rev/578a88956f7d # 26596 # Middle clicks on tiles are not counted                                                                  # why thank you! /s
+ *  - https://hg.mozilla.org/mozilla-central/rev/9f810f13f251 # 26874 # Implement logic to decide when to fetch remotely hosted links                                           #
+ *  - https://hg.mozilla.org/mozilla-central/rev/d76f7a57af61 # 27365 # Update newtab endpoints to new v2/links                                                                 # remote fetch tiles
+ *  - https://hg.mozilla.org/mozilla-central/rev/5e8bd4c63e65 # 27365 # Send detailed view ping of shown tiles                                                                  # "Report click and view pings the same way by including sites with their metadata when tiles are enhanced defaulting to true unless DNT is on."; why thank you! /s
+ *  - https://hg.mozilla.org/mozilla-central/rev/f1b80fce0e7a # 27365 # Enhanced Tiles intro text popup                                                                         #
+ *  - https://hg.mozilla.org/mozilla-central/rev/f688f262758d # 27384 # Use tiles.services.mozilla.com instead of tiles.up.mozillalabs.com for fetch/ping                       #
+ *  - https://hg.mozilla.org/mozilla-central/rev/94a4e0128424 # 27644 # Switch to GET for fetch to allow caching of links data from redirect                                    #
+ *  - https://hg.mozilla.org/mozilla-central/rev/116e87c05513 # 28671 # Update pref to the new v3 endpoint                                                                      #
+ *  - https://hg.mozilla.org/mozilla-central/rev/b0ae961951f5 # 28761 # Allow for sponsored suggested tiles                                                                     #
+ *  - https://hg.mozilla.org/mozilla-central/rev/6101a4ede19e # 28966 # Set browser.newtabpage.enhanced default in prefs.                                                       #
+ *
+ */
+user_pref("browser.newtabpage.directory.ping", "");
+user_pref("browser.newtabpage.directory.source", "");
+user_pref("browser.newtabpage.enabled", false);
+user_pref("browser.newtabpage.enhanced", false);
+user_pref("browser.newtab.url", "about:blank");
+
+/*
+ * sec: perf: disable preloading of the new tab url.
+ *
+ */
+user_pref("browser.newtab.preload", false);
+
+/*
+ * sec: disable pocket plugin
+ *
+ * refer to Bug 1215694 (Move Pocket to a built-in add-on).
+ *
+ * hg:
+ *  - https://hg.mozilla.org/mozilla-central/rev/3ba655f6bc67
+ *
+ * bugzilla:
+ *  - https://bugzilla.mozilla.org/show_bug.cgi?id=1215694
+ *
+ */
+user_pref("browser.pocket.enabled", false);
+user_pref("extensions.pocket.enabled", false);
+user_pref("extensions.pocket.api", "");
+user_pref("extensions.pocket.site", "");
+user_pref("extensions.pocket.oAuthConsumerKey", "");
+
+/*
+ * sec: safebrowsing (._.)
+ *
+ * Following is the list of settings defined in /src/modules/libpref/init/all.js
+ *
+ * browser.safebrowsing.downloads.enabled and
+ * browser.safebrowsing.downloads.remote.enabled send remote query
+ * for application reputation if local result not found
+ *
+ * hg:
+ *  - https://hg.mozilla.org/mozilla-central/rev/452f87c15124
+ *
+ * bugzilla:
+ *  - https://bugzilla.mozilla.org/show_bug.cgi?id=874408
+ *
+ */
+user_pref("browser.safebrowsing.phishing.enabled", false);
+user_pref("browser.safebrowsing.malware.enabled", false);
+
+user_pref("browser.safebrowsing.downloads.enabled", false);
+user_pref("browser.safebrowsing.downloads.remote.enabled", false);
+
+user_pref("browser.safebrowsing.downloads.remote.url", "");
+user_pref("browser.safebrowsing.downloads.remote.block_dangerous",            false);
+user_pref("browser.safebrowsing.downloads.remote.block_dangerous_host",       false);
+user_pref("browser.safebrowsing.downloads.remote.block_potentially_unwanted", false);
+user_pref("browser.safebrowsing.downloads.remote.block_uncommon",             false);
+
+user_pref("browser.safebrowsing.provider.google.pver", "");
+user_pref("browser.safebrowsing.provider.google.lists", "");
+user_pref("browser.safebrowsing.provider.google.updateURL", "");
+user_pref("browser.safebrowsing.provider.google.gethashURL", "");
+user_pref("browser.safebrowsing.provider.google.reportURL", "");
+
+user_pref("browser.safebrowsing.provider.google4.pver", "");
+user_pref("browser.safebrowsing.provider.google4.lists", "");
+user_pref("browser.safebrowsing.provider.google4.updateURL", "");
+user_pref("browser.safebrowsing.provider.google4.gethashURL", "");
+user_pref("browser.safebrowsing.provider.google4.reportURL", "");
+
+user_pref("browser.safebrowsing.reportPhishMistakeURL", "");
+user_pref("browser.safebrowsing.reportPhishURL", "");
+user_pref("browser.safebrowsing.reportMalwareMistakeURL", "");
+
+user_pref("browser.safebrowsing.provider.mozilla.pver", "");
+user_pref("browser.safebrowsing.provider.mozilla.lists", "");
+user_pref("browser.safebrowsing.provider.mozilla.updateURL", "");
+user_pref("browser.safebrowsing.provider.mozilla.gethashURL", "");
+
+
+/*
+ * sec: search engines
+ *
+ *
+ * hg:
+ *  - https://hg.mozilla.org/mozilla-central/rev/dd3e899cfa81
+ */
+user_pref("browser.search.log", false);
+user_pref("browser.search.update", false);
+user_pref("browser.search.update.log", false);
+
+user_pref("browser.search.suggest.enabled", false);
+user_pref("browser.search.reset.enabled", false);
+user_pref("browser.search.reset.whitelist", "");
+user_pref("browser.search.geoSpecificDefaults", false);
+user_pref("browser.search.geoSpecificDefaults.url", "");
+user_pref("browser.search.geoip.url", "");
+user_pref("browser.search.geoip.timeout", 3000);
+
+user_pref("browser.search.countryCode", "US");
+user_pref("browser.search.region", "US");
+
+
+/*
+ * sec: self support
+ *
+ * hg:
+ *  - https://hg.mozilla.org/mozilla-central/rev/236b975a2ca0
+ *
+ */
+user_pref("browser.selfsupport.url", "");
+
+/*
+ * sec: disable <a ping> support
+ *
+ * see also: beacon.enabled
+ *
+ */
+user_pref("browser.send_pings", false);
+user_pref("browser.send_pings.require_same_host", false);
+
+/*
+ * sec: set sessionhistory.max_entries
+ *
+ * the maximum number of URLs you can traverse
+ * purely through the Back/Forward buttons
+ *
+ */
+user_pref("browser.sessionhistory.max_entries", 5);
+
+/*
+ * ux: disable default browser check
+ *
+ */
+user_pref("browser.shell.checkDefaultBrowser", false);
+
+/*
+ * sec: set startup page to blank
+ *
+ * browser.startup.page:
+ *  - 0 = blank
+ *  - 1 = home (browser.startup.homepage) (default)
+ *  - 2 = last visited page
+ *  - 3 = resume previous browser session
+ *
+ */
+user_pref("browser.startup.page", 0);
+user_pref("browser.startup.homepage", "about:blank");
+
+/*
+ * sec: don't override home page on updates
+ *
+ * hg:
+ *  - browser.startup.homepage_override.mstone
+ *
+ */
+user_pref("browser.startup.homepage_override.mstone", "ignore");
+
+
+/*
+ * ux: disable closing tabs animation
+ *
+ * hg:
+ *  - https://hg.mozilla.org/mozilla-central/rev/06b0aaa3623b
+ *
+ */
+user_pref("browser.tabs.animate", false);
+
+/*
+ * ux: say pocket already installed.
+ *
+ * hg:
+ *  - https://hg.mozilla.org/mozilla-central/rev/b2e843b2300d
+ *
+ * bugzilla:
+ *  - https://bugzilla.mozilla.org/show_bug.cgi?id=1155521
+ *
+ */
+user_pref("browser.toolbarbuttons.introduced.pocket-button", true);
+
+/*
+ * ux: select entire url on click
+ *
+ * this is set to false on unix systems alone, true on others.
+ *
+ */
+user_pref("browser.urlbar.clickSelectsAll", true);
+
+/*
+ * ux: do not hide "http://"
+ *
+ * when set to true, urls are trimmed as follows.
+ *  - "http://mozilla.org/" : "mozilla.org"
+ *  - "https://mozilla.org/" : "https://mozilla.org"
+ *
+ * hg:
+ *  - https://hg.mozilla.org/mozilla-central/rev/2af378ef814c
+ *
+ */
+user_pref("browser.urlbar.trimURLs", false);
+
+/*
+ * sec: do not save/restore zoom levels on a per-site basis.
+ *
+ * hg:
+ *  - https://hg.mozilla.org/mozilla-central/rev/929a4bb77ddb
+ */
+user_pref("browser.zoom.siteSpecific", false);
+
+/*
+ * ux: do not update background tabs to same zoom level
+ *
+ * hg:
+ *  - https://hg.mozilla.org/mozilla-central/rev/d80e72b94e49
+ *
+ */
+user_pref("browser.zoom.updateBackgroundTabs", false);
+
+/*
+ * sec: disable camera face_detection
+ *
+ * hg:
+ *  - https://hg.mozilla.org/mozilla-central/rev/3f481b3c3e71 # 26567 # camera continuous autofocus status callback # adds pref camera.control.autofocus_moving_callback.enabled
+ *  - https://hg.mozilla.org/mozilla-central/rev/e6ac52f874d0 # 26567 # camera face-tracking                        # adds pref camera.control.face_detection.enabled
+ *  - https://hg.mozilla.org/mozilla-central/rev/68576248776c # 26751 # Flip camera face-detection pref on.         #
+ *  - https://hg.mozilla.org/mozilla-central/rev/12c5cc6e88b3 # remove method callbacks from CameraControl          # removes pref camera.control.autofocus_moving_callback.enabled
+ *
+ */
+user_pref("camera.control.face_detection.enabled", false);
+
+/*
+ * ux: do at max 5 reflows
+ *
+ * - http://kb.mozillazine.org/Content.notify.backoffcount
+ *
+ */
+user_pref("content.notify.backoffcount", 5);
+
+
+/*
+ * sec: disable datareporting
+ *
+ */
+user_pref("datareporting.healthreport.infoURL", "");
+user_pref("datareporting.healthreport.uploadEnabled", false);
+user_pref("datareporting.healthreport.about.reportUrl", "");
+
+user_pref("datareporting.policy.dataSubmissionEnabled", false);
+user_pref("datareporting.policy.dataSubmissionPolicyBypassNotification", false);
+
+
+/*
+ * sec: disable device sensors
+ *
+ */
+user_pref("device.sensors.enabled", false);
+
+
+/*
+ * sec: do not allow JS to close windows
+ *
+ */
+user_pref("dom.allow_scripts_to_close_windows", false);
+
+/*
+ * sec: disable battery API
+ *
+ * hg:
+ *  - https://hg.mozilla.org/mozilla-central/rev/ae94f0235649
+ *
+ */
+user_pref("dom.battery.enabled", false);
+
+
+/*
+ * ux: Block popup windows created while the page is loading
+ *
+ */
+user_pref("dom.disable_open_during_load", true);
+
+/*
+ * sec: do not fire clipboard events (oncopy/oncut/onpaste)
+ *
+ */
+user_pref("dom.event.clipboardevents.enabled", false);
+
+/*
+ * ux: do not catch oncontextmenu (right click hijack)
+ *
+ */
+user_pref("dom.event.contextmenu.enabled", false);
+
+/*
+ * sec: disable indexedDB
+ *
+ * - https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API
+ *
+ */
+user_pref("dom.indexedDB.enabled", false);
+
+/*
+ * sec: disable AMO mozilla addons data cache
+ *
+ * hg:
+ *  - https://hg.mozilla.org/mozilla-central/rev/937a9da47469
+ */
+user_pref("extensions.getAddons.cache.enabled", false);
+
+/*
+ * sec: auto update extensions
+ */
+user_pref("extensions.update.enabled", true);
+
+/*
+ * sec: disable geolocation
+ *
+ * note: if geo.wifi.scan is set to false, cell/ip data is xhr to location
+ * server after waiting for geo.wifi.timeToWaitBeforeSending
+ *
+ */
+user_pref("geo.enabled", false);
+
+user_pref("geo.wifi.uri", "");
+user_pref("geo.wifi.scan", false);
+user_pref("geo.wifi.timeToWaitBeforeSending", 86400000);
+user_pref("geo.wifi.logging.enabled", false);
+
+/*
+ * sec: disable autostart media elements
+ *
+ * hg:
+ *  - https://hg.mozilla.org/mozilla-central/rev/2d8105e38927
+ */
+user_pref("media.autoplay.enabled", false);
+
+/*
+ * sec: disable encrypted media extensions.
+ *
+ */
+user_pref("media.eme.enabled", false);
+user_pref("media.eme.apiVisible", false);
+
+user_pref("media.gmp-eme-adobe.visible", false);
+user_pref("media.gmp-eme-adobe.enabled", false);
+
+user_pref("media.gmp-widevinecdm.visible", false);
+user_pref("media.gmp-widevinecdm.enabled", false);
+
+/*
+ * sec: disable webRTC
+ *
+ */
+user_pref("media.navigator.enabled", false);
+user_pref("media.peerconnection.enabled", false);
+user_pref("media.peerconnection.identity.timeout", 1);
+user_pref("media.peerconnection.turn.disable", true);
+user_pref("media.peerconnection.use_document_iceservers", false);
+user_pref("media.peerconnection.video.enabled", false);
+
+/*
+ * sec: disable the video stats to prevent fingerprinting
+ *
+ * hg:
+ *  - https://hg.mozilla.org/mozilla-central/rev/8710fcb40a32
+ *
+ */
+user_pref("media.video_stats.enabled", false);
+
+/*
+ * sec: cookies!
+ *
+ * network.cookie.cookieBehavior
+ *  - 0-Accept (default)
+ *  - 1-dontAcceptForeign (selected)
+ *  - 2-dontAcceptAny
+ *  - 3-limitForeign
+ *
+ * network.cookie.lifetimePolicy
+ *  - 0-accept (default)
+ *  - 1-dontUse
+ *  - 2-acceptForSession (selected)
+ *  - 3-acceptForNDays
+ *
+ */
+user_pref("network.cookie.cookieBehavior", 1);
+user_pref("network.cookie.lifetimePolicy", 2);
+
+/*
+ * sec: disable dns prefetch
+ *
+ * hg:
+ *  - https://hg.mozilla.org/mozilla-central/rev/a41f9fff4cd1
+ *
+ */
+user_pref("network.dns.disablePrefetch", true);
+
+/*
+ * sec: perf: net/http!
+ *
+ * network.http.max-connections:
+ *   absolute number of http connections.
+ *   socket transport service will clamp the number below this if the OS
+ *   cannot allocate that many FDs
+ *
+ * network.http.sendRefererHeader:
+ *  - 0=don't send any
+ *  - 1=send only on clicks
+ *  - 2=send on image requests as well
+ *
+ * network.http.referer.trimmingPolicy:
+ *  - 0=full URI
+ *  - 1=scheme+host+port+path
+ *  - 2=scheme+host+port
+ *
+ * network.http.referer.XOriginTrimmingPolicy:
+ *  - 0=full URI
+ *  - 1=scheme+host+port+path
+ *  - 2=scheme+host+port
+ *
+ * network.http.referer.XOriginPolicy:
+ *  - 0=always send
+ *  - 1=send iff base domains match
+ *  - 2=send iff hosts match
+ *
+ */
+user_pref("network.http.max-connections", 512);
+user_pref("network.http.max-persistent-connections-per-server", 8);
+user_pref("network.http.max-persistent-connections-per-proxy", 512);
+
+user_pref("network.http.request.max-start-delay", 8);
+user_pref("network.http.request.max-attempts", 16);
+
+user_pref("network.http.sendRefererHeader", 2);
+user_pref("network.http.referer.spoofSource", true);
+user_pref("network.http.referer.trimmingPolicy", 1);
+
+user_pref("network.http.referer.XOriginTrimmingPolicy", 1);
+user_pref("network.http.referer.XOriginPolicy", 1);
+
+user_pref("network.http.redirection-limit", 16);
+
+user_pref("network.http.pipelining", true);
+user_pref("network.http.pipelining.ssl", true);
+user_pref("network.http.proxy.pipelining", true);
+
+user_pref("network.http.pipelining.maxrequests", 32);
+user_pref("network.http.pipelining.max-optimistic-requests", 4);
+
+user_pref("network.http.pipelining.aggressive", true);
+
+user_pref("network.http.pipelining.read-timeout", 20000);
+
+user_pref("network.http.fast-fallback-to-IPv4", true);
+
+/*
+ * sec: disable <link rel="next"> prefetch
+ *
+ */
+user_pref("network.http.speculative-parallel-limit", 0);
+user_pref("network.prefetch-next", false);
+
+/*
+ * sec: use remote dns from socks proxy
+ *
+ */
+user_pref("network.proxy.socks_remote_dns", true);
+
+/*
+ * sec: disable websocket
+ *
+ * you can no longer disable websockets from about:config :[
+ *
+ * set timeouts to 1 and hope they timeout. not sure if this'll work though.
+ */
+user_pref("network.websocket.enabled", false);
+
+user_pref("network.websocket.timeout.open", 1);
+user_pref("network.websocket.timeout.close", 1);
+
+
+/*
+ * sec: disable offline apps
+ *
+ */
+user_pref("offline-apps.allow_by_default", false);
+
+/*
+ * sec: disable pdfjs
+ *
+ */
+user_pref("pdfjs.disabled", true);
+
+/*
+ * sec: disable history
+ *
+ */
+user_pref("places.history.enabled", false);
+
+/*
+ * sec: do not look for plugins specified in windows registry for PLIDs
+ *
+ */
+user_pref("plugin.scan.plid.all", false);
+
+/*
+ * sec: make plugins click_to_play
+ *
+ */
+user_pref("plugins.click_to_play", true);
+
+/*
+ * sec: send "do not track" HTTP header
+ *
+ */
+user_pref("privacy.donottrackheader.enabled", true);
+
+/*
+ * sec: enable mozilla "tracking protection"
+ *
+ */
+user_pref("privacy.trackingprotection.enabled", true);
+user_pref("privacy.trackingprotection.pbmode.enabled", true);
+
+/*
+ * sec: try to disable reader
+ *
+ */
+user_pref("reader.parse-on-load.enabled", false);
+user_pref("reader.parse-on-load.force-enabled", false);
+
+/*
+ * sec: delay button enabling on dialog (ms)
+ *
+ */
+user_pref("security.dialog_enable_delay", 400);
+
+/*
+ * sec: misc ssl/tls security
+ *
+ * note: these may _break_ older websites.
+ *   use with caution. disable if necessary.
+ *
+ * security.ssl3.* : disable older "weak" protocols
+ *
+ * - /src/netwerk/base/security-prefs.js
+ */
+user_pref("security.tls.version.min", 2);
+user_pref("security.tls.version.max", 4);
+
+user_pref("security.tls.insecure_fallback_hosts", "");
+
+user_pref("security.ssl.treat_unsafe_negotiation_as_broken", true);
+user_pref("security.ssl.require_safe_negotiation", true);
+
+
+user_pref("security.OCSP.enabled", 1);
+user_pref("security.OCSP.require", true);
+
+user_pref("security.ssl3.ecdhe_ecdsa_rc4_128_sha", false);
+user_pref("security.ssl3.ecdhe_rsa_rc4_128_sha", false);
+user_pref("security.ssl3.rsa_des_ede3_sha", false);
+user_pref("security.ssl3.rsa_rc4_128_md5", false);
+user_pref("security.ssl3.rsa_rc4_128_sha", false);
+
+/*
+ * sec: social (._.)
+ *
+ */
+
+user_pref("social.share.activationPanelEnabled", false);
+user_pref("social.shareDirectory", "");
+
+user_pref("social.whitelist", "");
+user_pref("social.directories", "");
+
+user_pref("social.remote-install.enabled", false);
+user_pref("social.toast-notifications.enabled", false);
+
+
+/*
+ * sec: disable telemetry
+ *
+ */
+user_pref("toolkit.telemetry.enabled", false);
+user_pref("toolkit.telemetry.server", "");
+
+/*
+ * sec: disable webgl
+ *
+ */
+user_pref("webgl.disabled", true);
+
+/*
+ * ux: disable signed add-ons
+ *
+ * hg:
+ *  - https://hg.mozilla.org/mozilla-central/rev/cb1cfa8cff27
+ *
+ */
+user_pref("xpinstall.signatures.required", false);
+
+/*--------------------------[ user prefs ]------------------------------------*/
+
+user_pref("browser.search.defaultenginename", "DuckDuckGo");
+
+user_pref("browser.cache.memory.enable", true);               // have some cache
+user_pref("browser.download.manager.alertOnEXEOpen", false);  // meh. unix.
+user_pref("browser.download.manager.scanWhenDone", false);    // meh. unix.
+user_pref("browser.fixup.dns_first_for_single_words", false); // er, nope. i don't need this.
+user_pref("browser.fullscreen.autohide", false);              // i like my tabs.
+user_pref("browser.sessionhistory.max_entries", 50);          // because.
+user_pref("browser.tabs.animate", true);                      // this animation looks _pleasing_
+user_pref("browser.urlbar.trimURLs", true);                   // https is shown. that's enuf.
+user_pref("browser.zoom.siteSpecific", true);                 // please save site specific zoom.
+user_pref("content.notify.backoffcount", -1);                 // draw infinite renders plox.
+user_pref("extensions.update.enabled", true);                 // update extensions.
+user_pref("network.websocket.timeout.open", 20);              // i need websockets.
+user_pref("network.websocket.timeout.close", 20);             // i need websockets.
+user_pref("security.dialog_enable_delay", 0);                 // no wait!
+user_pref("webgl.disabled", false);                           // uh, cool graphix.
+user_pref("places.history.enabled", true);                    // erm, ctrl-h ?
+user_pref("dom.indexedDB.enabled", true);                     // telegram uses indexedDB :[

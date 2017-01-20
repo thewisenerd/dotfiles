@@ -1,0 +1,44 @@
+#! /bin/bash
+
+# written in 15 minutes. don't question thi... my authorit-ah!
+
+# k, took me more than 20 minutes.
+
+# http://stackoverflow.com/a/2924755
+bold=$(tput bold)
+normal=$(tput sgr0)
+
+set -euo pipefail
+
+if [ "$1" == "" ]; then
+  echo "say something to define dammit."
+  exit
+fi
+
+if [ $( which jq ) == "" ]; then
+  echo "jq or die"
+  exit
+fi
+
+tf=$( mktemp )
+
+curl -X GET --silent --header "Accept: application/json" "http://api.pearson.com/v2/dictionaries/ldoce5/entries?search=${1}" > ${tf}
+
+# tf="/tmp/tmp.bPTpXzqTaN"
+
+# this is ugly, but will do.
+jq -rc '.results[]' ${tf} | while read key ; do
+  hw=$( echo ${key} | jq -r ".headword" )
+  ps=$( echo ${key} | jq -r ".part_of_speech" )
+  de=$( echo ${key} | jq -r ".senses[].definition[]" )
+
+  echo -n ${bold}${hw}${normal}
+
+  if [ "${ps}" != "null" ]; then
+    echo -n " ( ${ps} ) "
+  fi
+
+  echo -e  "\t : " ${de}
+  echo ""
+
+done

@@ -1,0 +1,43 @@
+#-[ aliases ]-------------------------------------------------------------------
+
+alias unset 'set --erase'
+
+#-[ variables ]-----------------------------------------------------------------
+
+# export dotfiles root
+set -gx EXTENTS_PATH {$HOME}/works/unix/dotfiles
+set -gx WORKS_PATH {$HOME}/works
+
+set -gx GOPATH {$HOME}/works/go
+
+set -gx USE_CCACHE 1
+set -gx CCACHE_DIR {$HOME}/.ccache
+set -gx EDITOR nano
+
+#-[ path ]----------------------------------------------------------------------
+
+set -x PATH $PATH /usr/local/bin
+set -x PATH $PATH {$EXTENTS_PATH}/bin
+
+# source helpers
+source {$EXTENTS_PATH}/helpers/android.fish
+
+
+#-[ gpg-agent ]-----------------------------------------------------------------
+
+# Start the gpg-agent if not already running
+pgrep -x -u "thewisenerd" gpg-agent > /dev/null ^ /dev/null
+if test $status -ne 0
+  gpg-connect-agent /bye >/dev/null 2>&1
+end
+
+# Set SSH to use gpg-agent
+unset SSH_AGENT_PID
+set -g -x SSH_AUTH_SOCK "/run/user/1000/gnupg/S.gpg-agent.ssh"
+
+gpg-connect-agent updatestartuptty /bye >/dev/null
+
+#-[ misc ]----------------------------------------------------------------------
+
+# update paths
+fish_paths

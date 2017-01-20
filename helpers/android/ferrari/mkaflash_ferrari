@@ -1,0 +1,27 @@
+#!/bin/bash
+
+CUR_DIR=$( pwd )
+
+if [ ! -e ${CUR_DIR}/arch/arm64/boot/Image ]; then
+  echo "no zImage found!";
+  exit;
+fi
+
+if [ ! -d ${CUR_DIR}/releases/ ]; then
+  echo "no working folder found!";
+  exit;
+fi
+
+G_IDX=$( git rev-parse --verify --short HEAD )
+
+dtbToolCM --force-v2 -o ${CUR_DIR}/releases/unpack/dt.img -s 2048 -p scripts/dtc/ arch/arm/boot/
+
+cp ${CUR_DIR}/arch/arm64/boot/Image ${CUR_DIR}/releases/unpack/kernel
+
+d=`date +%d%b%Y_%H%M%S`
+
+OUT="boot_${d}_${G_IDX}.img"
+
+mkboot "${CUR_DIR}/releases/unpack" "${CUR_DIR}/releases/${OUT}"
+
+echo OUTPUT: releases/${OUT}

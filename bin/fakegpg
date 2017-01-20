@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# run this twice, you should'nt be asked the password the second time.
+
+# ... ikr. i'll jump off a cliff now.
+
+temp=$( mktemp )
+
+echo -e "\033[1mTODO:\033[0m find better way to do this ¯\_(ツ)_/¯"
+
+# cache gpg key
+head -c 8192 /dev/urandom > ${temp}
+gpg --recipient thewisenerd --encrypt ${temp}
+
+gpg --decrypt ${temp}.gpg > /dev/null 2>&1
+echo "gpg key cached!"
+
+# cache ssh key
+# let's not hide stderr here.
+ssh -T git@github.com
+echo "ssh key cached!"

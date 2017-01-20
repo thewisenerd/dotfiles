@@ -1,0 +1,28 @@
+#! /bin/bash
+
+#thx nickwe (http://www.cyberciti.biz/faq/removing-password-from-pdf-on-linux/)
+
+if [[ "$*" == "" || "${1}" == "-h" ]]
+then
+  echo "usage: decrypdf <file.pdf>"
+  exit
+fi
+
+if [ ! -e "${1}" ]; then
+  echo "file doesn't exist"
+  exit
+fi
+
+if [ "${2}" == "" ]; then
+  OUT=${1%.*}"-decrypted.pdf"
+else
+  OUT=${2}
+fi
+if [ -e "${OUT}" ]; then
+  echo "err: output file exists"
+  #rm -f ${OUT}
+  exit
+fi
+
+gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile="${OUT}" -c .setpdfwrite -f "${1}"
+echo "OUT: ${OUT}"

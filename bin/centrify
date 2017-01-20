@@ -1,0 +1,3 @@
+#! /bin/bash
+
+printf "%*s\n" $(( ( 80 + $(( $(echo $* | wc -c ) - 1 )) ) / 2 )) "$*" | xclip -filter -sel clip

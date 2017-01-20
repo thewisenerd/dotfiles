@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+csm init --private --load extensions,gtk2 --verbose --no-update

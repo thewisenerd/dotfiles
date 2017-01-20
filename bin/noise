@@ -1,0 +1,23 @@
+#! /bin/bash
+
+# pink, ocean: https://news.ycombinator.com/item?id=12851409
+# uss: https://news.ycombinator.com/item?id=12851948
+
+
+echo $* | grep --quiet "pink"
+if [ $? -eq 0 ]; then
+  play -c 2 -n synth pinknoise band -n 2500 4000 tremolo 0.03 5 reverb 20 gain
+  exit
+fi
+
+echo $* | grep --quiet "ocean"
+if [ $? -eq 0 ]; then
+  play -n -n --combine merge synth pinknoise band -n 1200 1800 tremolo 50 10 tremolo 0.14 70 tremolo 0.2 50 gain  -10
+  exit
+fi
+
+echo $* | grep --quiet "uss"
+if [ $? -eq 0 ]; then
+  play -c2 -n synth whitenoise band -n 100 24 band -n 300 100 gain +20
+  exit
+fi

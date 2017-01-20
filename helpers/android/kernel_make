@@ -1,0 +1,19 @@
+#!/bin/bash
+
+TOOLCHAINS_DIR="${WORKS_PATH}/android/toolchains"
+TOOLCHAIN="aarch64-linux-android-4.9"
+TOOLCHAIN_BIN="aarch64-linux-android-"
+
+export CROSS_COMPILE="${TOOLCHAINS_DIR}/${TOOLCHAIN}/bin/${TOOLCHAIN_BIN}"
+
+export CCACHE='ccache'
+
+export KERNEL=$(pwd)
+export ARCH=arm64
+export SUBARCH=arm64
+export KBUILD_BUILD_USER="thewisenerd"
+export KBUILD_BUILD_HOST="eniac"
+
+rm -rf std*.log
+
+make "$@" # > >(tee stdout.log) 2> >(tee stderr.log >&2)

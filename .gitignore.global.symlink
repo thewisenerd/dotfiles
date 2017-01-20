@@ -1,0 +1,16 @@
+*~
+
+# trash folder
+.Trash-*
+
+# compiled files
+*.o
+*.so
+
+# logs
+*.log
+
+# archives
+*.gz
+*.tar
+*.zip

@@ -1,0 +1,14 @@
+# autoindent
+set autoindent
+
+# smooth scrolling
+set smooth
+
+# tabsize
+set tabsize 2
+
+# smarthome
+set smarthome
+
+# include everythin!
+include "/usr/share/nano/*.nanorc"

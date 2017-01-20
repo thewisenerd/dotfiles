@@ -1,0 +1,16 @@
+[alias]
+	uncommit = reset --soft HEAD^
+	countcommits = rev-list HEAD --count
+[user]
+	email = thewisenerd@protonmail.com
+	name = thewisenerd
+	signingkey = 9F6FF5FEBE35A3FD
+[color]
+	ui = auto
+[commit]
+	gpgsign = true
+[core]
+	autocrlf = input
+	# pager = less -x1,5
+	editor = nano
+	excludesfile = /home/thewisenerd/.gitignore.global
