@@ -14,6 +14,7 @@ fi
 
 export CROSS_COMPILE="${TOOLCHAINS_DIR}/${TOOLCHAIN}/bin/${TOOLCHAIN_BIN}"
 export CCACHE='ccache'
+export CCACHE_MAXSIZE='20.0G'
 
 export KERNEL=$(pwd)
 export ARCH=arm64
