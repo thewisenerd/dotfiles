@@ -2,14 +2,13 @@
 
 TOOLCHAINS_DIR="${WORKS_PATH}/android/toolchains"
 TOOLCHAIN_BIN="aarch64-linux-android-"
+TOOLCHAIN="aarch64-linux-android-4.9"
 
-if [ -z ${USE_CCACHE+x} ]; then
-	TOOLCHAIN="aarch64-linux-android-4.9"
-else
+if [ ! -z ${USE_CCACHE+x} ]; then
 	if [ $USE_CCACHE -eq 1 ]; then
+		export PATH="${TOOLCHAINS_DIR}/${TOOLCHAIN}/bin":${PATH}
+
 		TOOLCHAIN="ccache"
-	else
-		TOOLCHAIN="aarch64-linux-android-4.9"
 	fi
 fi
 
