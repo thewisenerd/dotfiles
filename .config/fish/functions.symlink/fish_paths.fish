@@ -22,4 +22,7 @@ function fish_paths
 	# python lib
 	set -gx PATH "$HOME/.local/bin" $PATH
 
+	# ccache
+	set -gx PATH "/usr/lib/ccache/bin" $PATH
+
 end
