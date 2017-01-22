@@ -12,6 +12,8 @@ set -gx GOPATH {$HOME}/works/go
 
 set -gx USE_CCACHE 1
 set -gx CCACHE_DIR {$HOME}/.ccache
+set -gx CCACHE_MAXSIZE '20.0G'
+
 set -gx EDITOR nano
 
 #-[ path ]----------------------------------------------------------------------
