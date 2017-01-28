@@ -1,20 +1,11 @@
 import XMonad
 
-import XMonad.Layout.Spacing
-import XMonad.Layout.Tabbed
-import XMonad.Layout.NoBorders
-
-import XMonad.ManageHook
-import XMonad.Hooks.ManageHelpers
-
-import XMonad.Util.EZConfig
-
-import XMonad.Actions.NoBorders
-
-import Control.Monad (liftM2)
-import qualified XMonad.StackSet as W
-
-import XMonad.Actions.WindowBringer
+import XMonad.Layout.Tabbed		-- layout
+import XMonad.Util.EZConfig		-- additionalKeys
+import XMonad.Actions.NoBorders		-- toggleBorder
+import Control.Monad (liftM2)		-- viewShift
+import qualified XMonad.StackSet as W	-- viewShift
+import XMonad.Actions.WindowBringer	-- gotoMenu
 
 myLayoutHook = (tabbed shrinkText def) ||| layoutHook defaultConfig
 
