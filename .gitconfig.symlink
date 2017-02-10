@@ -12,5 +12,5 @@
 [core]
 	autocrlf = input
 	# pager = less -x1,5
-	editor = nano
+	editor = nano -r 72
 	excludesfile = /home/thewisenerd/.gitignore.global
