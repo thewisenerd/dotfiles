@@ -15,6 +15,7 @@ myShiftHooks = composeAll
 	[
 		className =? "Terminator"		--> viewShift	(myWorkspaces !! 0)
 	,	className =? "Geany"			--> viewShift	(myWorkspaces !! 1)
+	,	className =? "Code"			--> viewShift	(myWorkspaces !! 1)
 	,	className =? "Firefox"			--> viewShift	(myWorkspaces !! 2)
 	,	className =? "Chromium"			--> viewShift	(myWorkspaces !! 2)
 	,	className =? "Spacefm"			--> viewShift	(myWorkspaces !! 3)
