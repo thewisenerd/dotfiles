@@ -25,4 +25,6 @@ function fish_paths
 	# ccache
 	set -gx PATH "/usr/lib/ccache/bin" $PATH
 
+	# x-tools
+	set -gx PATH "$HOME/x-tools/arm-opi-linux-gnueabihf/bin" $PATH
 end
