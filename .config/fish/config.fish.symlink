@@ -23,7 +23,7 @@ set -x PATH {$EXTENTS_PATH}/bin $PATH
 
 # source helpers
 source {$EXTENTS_PATH}/helpers/android.fish
-
+source {$EXTENTS_PATH}/helpers/arduino.fish
 
 #-[ gpg-agent ]-----------------------------------------------------------------
 
