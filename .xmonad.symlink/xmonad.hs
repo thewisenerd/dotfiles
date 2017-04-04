@@ -20,6 +20,7 @@ myShiftHooks = composeAll
 	,	className =? "Chromium"			--> viewShift	(myWorkspaces !! 2)
 	,	className =? "Spacefm"			--> viewShift	(myWorkspaces !! 3)
 	,	className =? "Vlc"			--> viewShift	(myWorkspaces !! 6)
+	,	className =? "smplayer"			--> viewShift	(myWorkspaces !! 6)
 	,	className =? "Tixati"			--> doShift	(myWorkspaces !! 8)
 	]
 	where viewShift = doF . liftM2 (.) W.greedyView W.shift
