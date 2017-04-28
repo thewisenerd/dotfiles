@@ -27,4 +27,7 @@ function fish_paths
 
 	# x-tools
 	set -gx PATH "$HOME/x-tools/arm-opi-linux-gnueabihf/bin" $PATH
+
+	# gcp
+	source "$WORKS_PATH/web/gcp/google-cloud-sdk/path.fish.inc"
 end
