@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+mntpath="/mnt/mtp-1"
+
+function finish {
+	echo -n "unmounting $mntpath..."
+	sudo umount -f $mntpath > /dev/null 2>&1
+	echo "done"
+}
+trap finish EXIT
+
+# oh the irony
+go-mtpfs -android=false $mntpath
