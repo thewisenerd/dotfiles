@@ -1,6 +1,7 @@
 [alias]
 	uncommit = reset --soft HEAD^
 	countcommits = rev-list HEAD --count
+	hfhlog = log --oneline --reverse --no-merges HEAD..FETCH_HEAD
 [user]
 	email = thewisenerd@protonmail.com
 	name = thewisenerd
@@ -14,3 +15,7 @@
 	# pager = less -x1,5
 	editor = nano -r 72
 	excludesfile = /home/thewisenerd/.gitignore.global
+[merge]
+	tool = meld
+[mergetool "meld"]
+	cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED"
