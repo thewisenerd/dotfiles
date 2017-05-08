@@ -1,5 +1,5 @@
 # mkbootimg_tools
-set -x PATH {$WORKS_PATH}/android/mkbootimg_tools $PATH
+set -x PATH {$WORKS_PATH}/android/generic/mkbootimg_tools.old $PATH
 
 # android generic helpers
 set -x PATH {$EXTENTS_PATH}/helpers/android $PATH
@@ -8,7 +8,7 @@ set -x PATH {$EXTENTS_PATH}/helpers/android $PATH
 set -x PATH {$EXTENTS_PATH}/helpers/android/ferrari $PATH
 
 # sdat2img
-set -x PATH {$WORKS_PATH}/android/sdat2img $PATH
+set -x PATH {$WORKS_PATH}/android/generic/sdat2img $PATH
 
 # simg2img
-set -x PATH {$WORKS_PATH}/android/android-simg2img $PATH
+set -x PATH {$WORKS_PATH}/android/generic/android-simg2img $PATH
