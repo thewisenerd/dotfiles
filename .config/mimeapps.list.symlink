@@ -9,6 +9,7 @@ video/x-msvideo=vlc.desktop;
 audio/flac=vlc-usercreated-0.desktop;
 image/png=sxiv-rifle.desktop;
 image/jpeg=sxiv-rifle.desktop;
+application/xml=geany.desktop;
 
 [Added Associations]
 inode/directory=spacefm-folder-handler.desktop;
@@ -22,3 +23,4 @@ video/x-msvideo=vlc.desktop;
 audio/flac=vlc-usercreated-0.desktop;
 image/png=sxiv-rifle.desktop;
 image/jpeg=sxiv-rifle.desktop;
+application/xml=geany.desktop;
