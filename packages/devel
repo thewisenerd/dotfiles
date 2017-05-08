@@ -1,0 +1,101 @@
+###
+# code
+###
+
+# gcc/llvm
+[2016-12-24 05:27]	clang
+[2017-02-10 23:10]	gcc-multilib
+[2017-01-05 09:53]	ccache
+[2017-03-11 18:21]	cmake
+
+# python
+[2016-12-19 05:58]	python2-pip
+[2016-12-19 05:52]	python-pip
+[2016-12-10 13:34]	python
+
+# go
+[2016-12-11 08:07]	go
+[2016-12-22 12:24]	go-tools
+
+# ruby
+[2017-03-11 18:21]	ruby
+
+###
+# web
+###
+
+# php
+[2017-02-12 02:07]	phpmyadmin
+[2017-03-14 22:49]	mod_xsendfile
+[2017-02-20 22:19]	php-gd
+[2017-02-20 22:07]	php-apache
+[2017-02-09 06:13]	php
+[2017-02-04 03:59]	mariadb
+
+# node
+[2016-12-22 13:38]	npm
+
+# fonts
+[2016-12-31 11:43]	woff2-git
+[2017-01-03 13:58]	sfnt2woff
+[2016-12-28 18:28]	fontforge
+
+# images
+[2017-01-03 17:29]	pngquant
+[2017-01-03 17:25]	gifsicle
+
+###
+# misc
+###
+
+# compat
+[2017-02-10 23:18]	lib32-zlib
+[2017-02-10 23:18]	lib32-readline
+[2017-02-10 23:18]	lib32-ncurses
+
+# git
+[2017-01-09 19:30]	colordiff
+[2017-05-06 21:47]	meld
+[2016-12-10 09:26]	git
+
+# droid
+[2016-12-20 04:35]	android-udev
+[2016-12-20 04:33]	android-tools
+[2017-01-29 00:57]	repo
+[2017-02-10 23:15]	schedtool
+
+# msp430 launchpad
+[2017-04-07 00:15]	mspdebug
+
+# tty
+[2017-03-26 17:49]	minicom
+
+# opipc
+[2017-04-01 16:31]	sunxi-tools
+[2017-03-26 20:00]	uboot-tools
+[2017-03-26 17:33]	crosstool-ng-git
+
+# kernel
+[2017-03-26 19:21]	dtc
+
+# json cli
+[2017-01-05 00:43]	jq
+
+# audio editing
+[2017-01-23 01:10]	audacity
+
+# docgen
+[2017-03-30 04:29]	doxygen
+
+# hexeditor
+[2017-03-08 19:21]	ghex
+
+# pdfs
+[2017-01-20 17:30]	ghostscript
+[2017-02-24 23:11]	pdftk-bin
+
+# trace
+[2016-12-12 00:24]	strace
+[2016-12-10 11:56]	tcpdump
+[2017-05-05 12:08]	tcptrace
+[2016-12-10 11:19]	traceroute

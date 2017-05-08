@@ -1,0 +1,134 @@
+###
+# core
+###
+
+# xorg
+[2016-12-12 05:04]	libxss
+[2016-12-11 21:42]	dmenu
+[2016-12-11 22:12]	xorg-xmessage
+[2016-12-10 12:51]	xterm
+[2016-12-10 12:43]	xorg-xinit
+[2016-12-10 12:39]	xf86-video-vesa
+[2016-12-10 12:38]	xf86-video-intel
+[2016-12-10 12:38]	xf86-video-fbdev
+[2016-12-10 12:36]	xorg-server-utils
+[2016-12-10 12:35]	xorg-server
+[2016-12-10 12:29]	xmonad-contrib
+[2016-12-10 12:27]	xmonad
+[2016-12-11 05:58]	xclip
+[2016-12-20 20:27]	xorg-xprop
+[2016-12-12 00:39]	xorg-xcursorgen
+
+# fonts
+[2017-01-03 15:42]	ttf-ms-fonts
+[2016-12-11 08:29]	ttf-inconsolata
+[2016-12-11 08:28]	adobe-source-han-sans-otc-fonts
+[2016-12-11 08:14]	ttf-dejavu
+[2016-12-11 08:14]	adobe-source-code-pro-fonts
+
+# terminals
+[2017-01-05 03:42]	trash-cli
+[2016-12-10 09:25]	fish
+[2017-01-18 21:17]	screen
+[2016-12-11 08:07]	terminator-gtk3-bzr
+
+# editors
+[2017-01-25 21:21]	vim
+[2016-12-10 14:22]	geany
+
+# aria2
+[2016-12-11 06:55]	aria2
+
+# irc
+[2017-03-21 01:48]	hexchat
+[2016-12-19 00:30]	weechat
+
+# media
+[2016-12-11 09:44]	vlc
+[2017-04-04 23:57]	smplayer
+[2016-12-26 19:48]	ncmpcpp
+[2016-12-26 19:48]	mpd
+[2017-02-12 05:29]	exiv2
+[2016-12-31 16:51]	mediainfo
+
+# images
+[2016-12-12 00:38]	inkscape
+[2016-12-25 05:33]	gimp
+[2017-05-05 10:15]	xcftools
+[2017-01-05 04:00]	sxiv-rifle
+[2016-12-11 07:11]	sxiv
+[2016-12-26 19:48]	scrot
+
+# office
+[2017-01-01 02:52]	libreoffice-fresh
+
+# browsers
+[2016-12-23 04:43]	chromium
+[2016-12-10 13:23]	firefox
+[2016-12-30 17:55]	links
+
+# p2p
+[2017-01-18 23:32]	tixati
+
+# tor
+[2016-12-10 13:34]	tor
+[2016-12-10 13:34]	arm
+
+# pdf
+[2016-12-25 12:15]	zathura-pdf-mupdf
+[2016-12-25 12:13]	mupdf
+
+# passwordstore
+[2016-12-22 03:25]	pass
+
+# fs
+[2017-01-16 11:30]	go-mtpfs-git
+[2017-03-09 00:45]	testdisk
+
+# mon
+[2016-12-11 08:59]	htop
+[2017-02-01 01:18]	iptraf-ng
+
+###
+# misc
+###
+
+# latex
+[2017-04-13 04:58]	texlive-local-fontawesome
+[2017-04-13 04:56]	texlive-localmanager-git
+[2017-04-08 18:20]	texstudio
+[2017-04-08 17:41]	texlive-langkorean
+[2017-04-08 17:41]	texlive-langjapanese
+[2017-04-08 17:41]	texlive-langgreek
+[2017-04-08 17:41]	texlive-langextra
+[2017-04-08 17:41]	texlive-langcyrillic
+[2017-04-08 17:41]	texlive-langchinese
+[2017-04-08 17:41]	texlive-core
+
+# wine
+[2017-04-19 00:50]	lib32-mpg123
+[2017-03-01 23:12]	mpg123
+[2017-04-19 00:51]	dosbox
+[2017-03-28 07:27]	wine-mono
+[2017-03-28 01:59]	wine
+
+# ocr
+[2017-03-19 09:56]	tesseract-data-eng
+[2017-03-19 09:55]	tesseract
+
+# java
+[2017-01-29 02:35]	jre8-openjdk
+[2017-01-29 02:35]	jdk8-openjdk
+
+# keybase
+[2016-12-22 04:07]	keybase
+
+# boxy stuff
+[2016-12-22 19:22]	boxes
+[2016-12-22 15:29]	figlet
+[2016-12-22 15:27]	dialog
+[2016-12-22 15:25]	cowfortune
+[2016-12-19 03:27]	cowsay
+
+# ftp
+[2016-12-25 17:56]	filezilla
