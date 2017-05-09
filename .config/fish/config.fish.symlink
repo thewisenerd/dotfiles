@@ -43,3 +43,6 @@ gpg-connect-agent updatestartuptty /bye >/dev/null
 
 # update paths
 fish_paths
+
+# stahp wine
+set -gx WINEDLLOVERRIDES winemenubuilder.exe=d
