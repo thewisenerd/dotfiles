@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # waaaait
-sleep 5
+sleep 3
 
 # devmon
 if pgrep -x "devmon" > /dev/null
@@ -10,3 +10,15 @@ then
 else
     devmon -g -s &
 fi
+
+# Start the gpg-agent if not already running
+pgrep -x -u "thewisenerd" gpg-agent > /dev/null
+if test $status -ne 0
+  gpg-connect-agent /bye >/dev/null 2>&1
+end
+
+# Set SSH to use gpg-agent
+unset SSH_AGENT_PID
+set -g -x SSH_AUTH_SOCK "/run/user/1000/gnupg/S.gpg-agent.ssh"
+
+gpg-connect-agent updatestartuptty /bye >/dev/null
