@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# waaaait
+sleep 5
+
+# devmon
+if pgrep -x "devmon" > /dev/null
+then
+    echo "devmon already running; init skip."
+else
+    devmon -g -s &
+fi
