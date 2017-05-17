@@ -18,6 +18,7 @@
 [2016-12-11 05:58]	xclip
 [2016-12-20 20:27]	xorg-xprop
 [2016-12-12 00:39]	xorg-xcursorgen
+[2017-05-09 05:57]	perl-file-mimeinfo
 
 # fonts
 [2017-01-03 15:42]	ttf-ms-fonts
@@ -118,7 +119,7 @@
 [2017-01-29 02:35]	jdk8-openjdk
 
 # keybase
-[2016-12-22 04:07]	keybase
+[2017-05-12 04:42]	keybase-bin
 
 # boxy stuff
 [2016-12-22 19:22]	boxes
