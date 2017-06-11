@@ -32,3 +32,6 @@ fish_paths
 
 # stahp wine
 set -gx WINEDLLOVERRIDES winemenubuilder.exe=d
+
+# wireshark
+set -gx SSLKEYLOGFILE /home/thewisenerd/.sslkeys.log
