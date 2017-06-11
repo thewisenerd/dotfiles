@@ -73,6 +73,7 @@
 [2016-12-10 13:34]	arm
 
 # pdf
+[2017-05-18 17:02]	zathura-djvu
 [2016-12-25 12:15]	zathura-pdf-mupdf
 [2016-12-25 12:13]	mupdf
 
@@ -91,6 +92,10 @@
 # misc
 ###
 
+# vm
+[2017-05-23 06:31]	virtualbox-ext-oracle
+[2017-05-23 02:44]	virtualbox
+
 # latex
 [2017-04-13 04:58]	texlive-local-fontawesome
 [2017-04-13 04:56]	texlive-localmanager-git
@@ -104,6 +109,7 @@
 [2017-04-08 17:41]	texlive-core
 
 # wine
+[2017-05-21 21:36]	lib32-libldap
 [2017-04-19 00:50]	lib32-mpg123
 [2017-03-01 23:12]	mpg123
 [2017-04-19 00:51]	dosbox

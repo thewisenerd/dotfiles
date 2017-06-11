@@ -48,6 +48,11 @@
 # misc
 ###
 
+# network sniffing
+[2017-05-23 02:22]	mitmproxy
+[2017-05-21 21:43]	wireshark-gtk
+[2017-05-21 21:41]	wireshark-cli
+
 # compat
 [2017-02-10 23:18]	lib32-zlib
 [2017-02-10 23:18]	lib32-readline
