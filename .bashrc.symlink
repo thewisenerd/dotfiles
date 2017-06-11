@@ -7,5 +7,3 @@
 
 alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
-
-export PATH=${HOME}/x-tools/arm-opi-linux-gnueabihf/bin:"${EXTENTS_PATH}/helpers/android/bin":${PATH}
