@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec printf '\033\143'
