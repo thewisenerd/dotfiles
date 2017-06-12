@@ -1,0 +1,2 @@
+# ccache
+export PATH="/usr/lib/ccache/bin":$PATH

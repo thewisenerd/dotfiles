@@ -149,8 +149,4 @@ install_dotfiles () {
   done
 }
 
-if [ -e "${DOTFILES_ROOT}/scripts/prebootstrap" ]; then
-  source "${DOTFILES_ROOT}/scripts/prebootstrap"
-fi
-
 install_dotfiles
