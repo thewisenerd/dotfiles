@@ -18,7 +18,6 @@ application/pdf=zathura-pdf-mupdf.desktop;
 video/x-matroska=smplayer.desktop;vlc.desktop;
 video/mp4=vlc.desktop;
 audio/mpeg=vlc.desktop;
-application/x-bittorrent=tixati.desktop;
 video/x-msvideo=vlc.desktop;
 audio/flac=vlc-usercreated-0.desktop;
 image/png=sxiv-rifle.desktop;

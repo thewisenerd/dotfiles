@@ -15,7 +15,3 @@
 	# pager = less -x1,5
 	editor = nano -r 72
 	excludesfile = /home/thewisenerd/.gitignore.global
-[merge]
-	tool = meld
-[mergetool "meld"]
-	cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED"

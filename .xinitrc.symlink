@@ -1,6 +1,5 @@
 xrdb ~/.Xresources
 
-xsetroot -cursor_name right_ptr
+xsetroot -cursor_name left_ptr
 
-/home/thewisenerd/.autostart.sh &
 exec xmonad
