@@ -8,4 +8,6 @@
 alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
 
-exec fish
+if [ -z ${NOFISH+x} ]; then
+	exec fish
+fi
