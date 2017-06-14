@@ -14,4 +14,5 @@
   [[default]]
     cursor_color = "#aaaaaa"
     font = Inconsolata 12
+    scrollback_infinite = True
     use_system_font = False
