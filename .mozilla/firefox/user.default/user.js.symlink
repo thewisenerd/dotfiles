@@ -814,3 +814,4 @@ user_pref("security.dialog_enable_delay", 0);                 // no wait!
 user_pref("webgl.disabled", false);                           // uh, cool graphix.
 user_pref("places.history.enabled", true);                    // erm, ctrl-h ?
 user_pref("dom.indexedDB.enabled", true);                     // telegram uses indexedDB :[
+user_pref("security.OCSP.require", false);                    // ... sigh.
