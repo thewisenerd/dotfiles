@@ -6,11 +6,6 @@ export PATH=${DOTFILES_PATH}/bin/wrappers:$PATH
 # editor
 export EDITOR="nano"
 
-# ccache
-export USE_CCACHE=1
-export CCACHE_DIR=${HOME}/works/.ccache
-export CCACHE_MAXSIZE="20.0G"
-
 # helpers
 if test -d ${DOTFILES_PATH}/helpers; then
 	for helper in ${DOTFILES_PATH}/helpers/*.sh; do
