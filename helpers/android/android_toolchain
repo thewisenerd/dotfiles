@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# android-linux-4.9
+# bin="aarch64-linux-android-"
+# tc="aarch64-linux-android-4.9"
+
+# gcc linaro 7.0
+bin="aarch64-linux-gnu-"
+tc="aarch64-linux-gnu"
+
+exec echo ${bin}"|"${tc}

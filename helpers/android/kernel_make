@@ -1,8 +1,9 @@
 #!/bin/bash
 
 TOOLCHAINS_DIR="${HOME}/works/android/generic/toolchains"
-TOOLCHAIN_BIN="aarch64-linux-android-"
-TOOLCHAIN="aarch64-linux-android-4.9"
+
+TOOLCHAIN_BIN=$( android_toolchain | cut -d'|' -f1 )
+TOOLCHAIN=$( android_toolchain | cut -d'|' -f2 )
 
 if [ ! -z ${USE_CCACHE+x} ]; then
 	if [ $USE_CCACHE -eq 1 ]; then
