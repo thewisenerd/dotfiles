@@ -1,14 +1,14 @@
-# mkbootimg_tools
-# set -x PATH {$WORKS_PATH}/android/generic/mkbootimg_tools.old $PATH
+# bootimg_tools
+export PATH=${HOME}/works/android/generic/bootimg_tools:$PATH
 
 # android generic helpers
-# set -x PATH {$EXTENTS_PATH}/helpers/android $PATH
-
-# ferrari
-# set -x PATH {$EXTENTS_PATH}/helpers/android/ferrari $PATH
+export PATH=${DOTFILES_PATH}/helpers/android:$PATH
 
 # sdat2img
-# set -x PATH {$WORKS_PATH}/android/generic/sdat2img $PATH
+export PATH=${HOME}/works/android/generic/sdat2img-master:$PATH
 
 # simg2img
-# set -x PATH {$WORKS_PATH}/android/generic/android-simg2img $PATH
+export PATH=${HOME}/works/android/generic/android-simg2img-master:$PATH
+
+# ferrari
+export PATH=${DOTFILES_PATH}/helpers/android/ferrari:$PATH
