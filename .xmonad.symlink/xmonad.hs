@@ -3,11 +3,12 @@ import XMonad
 import XMonad.Layout.Tabbed		-- layout
 import XMonad.Util.EZConfig		-- additionalKeys
 import XMonad.Actions.NoBorders		-- toggleBorder
+import XMonad.Layout.NoBorders		-- NoBorders
 import Control.Monad (liftM2)		-- viewShift
 import qualified XMonad.StackSet as W	-- viewShift
 import XMonad.Actions.WindowBringer	-- gotoMenu
 
-myLayoutHook = (tabbed shrinkText def) ||| layoutHook defaultConfig
+myLayoutHook = (noBorders Full) ||| (tabbed shrinkText def) ||| layoutHook defaultConfig
 
 myWorkspaces = ["1","2","3","4","5","6","7","8","9"]
 
