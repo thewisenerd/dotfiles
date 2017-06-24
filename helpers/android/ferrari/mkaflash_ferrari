@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 CUR_DIR=$( pwd )
 
 if [ ! -e ${CUR_DIR}/arch/arm64/boot/Image ]; then
@@ -7,21 +9,19 @@ if [ ! -e ${CUR_DIR}/arch/arm64/boot/Image ]; then
   exit;
 fi
 
-if [ ! -d ${CUR_DIR}/releases/ ]; then
+if [ ! -d ${CUR_DIR}/releases/unpack ]; then
   echo "no working folder found!";
   exit;
 fi
 
 G_IDX=$( git rev-parse --verify --short HEAD )
 
-dtbToolCM --force-v2 -o ${CUR_DIR}/releases/unpack/dt.img -s 2048 -p scripts/dtc/ arch/arm/boot/
+dtbToolCM --force-v2 -o ${CUR_DIR}/releases/unpack/boot-dt -s 2048 -p scripts/dtc/ arch/arm/boot/
 
-cp ${CUR_DIR}/arch/arm64/boot/Image ${CUR_DIR}/releases/unpack/kernel
+cp ${CUR_DIR}/arch/arm64/boot/Image ${CUR_DIR}/releases/unpack/boot-zImage
 
 d=`date +%d%b%Y_%H%M%S`
 
 OUT="boot_${d}_${G_IDX}.img"
 
-mkboot "${CUR_DIR}/releases/unpack" "${CUR_DIR}/releases/${OUT}"
-
-echo OUTPUT: releases/${OUT}
+mkboot.1 -cf "${CUR_DIR}/releases/${OUT}" "${CUR_DIR}/releases/unpack"
