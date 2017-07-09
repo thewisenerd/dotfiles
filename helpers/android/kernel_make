@@ -23,4 +23,4 @@ export KBUILD_BUILD_HOST="eniac"
 
 rm -rf std*.log
 
-exec make "$@" # > >(tee stdout.log) 2> >(tee stderr.log >&2)
+exec time -p make "$@" # > >(tee stdout.log) 2> >(tee stderr.log >&2)
