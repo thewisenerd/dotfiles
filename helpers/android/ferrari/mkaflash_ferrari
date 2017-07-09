@@ -24,4 +24,6 @@ d=`date +%d%b%Y_%H%M%S`
 
 OUT="boot_${d}_${G_IDX}.img"
 
+echo ""
 mkboot.1 -cf "${CUR_DIR}/releases/${OUT}" "${CUR_DIR}/releases/unpack"
+echo "${CUR_DIR}/releases/${OUT}" | xclip -sel clip
