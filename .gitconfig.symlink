@@ -12,6 +12,7 @@
 	gpgsign = true
 [core]
 	autocrlf = input
+	safecrlf = false
 	# pager = less -x1,5
 	editor = nano -r 72
 	excludesfile = /home/thewisenerd/.gitignore.global
