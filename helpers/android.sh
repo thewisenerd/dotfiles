@@ -12,3 +12,6 @@ export PATH=${HOME}/works/android/generic/android-simg2img-master:$PATH
 
 # ferrari
 export PATH=${DOTFILES_PATH}/helpers/android/ferrari:$PATH
+
+# jack
+export JACK_SERVER_VM_ARGUMENTS="-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4g"
