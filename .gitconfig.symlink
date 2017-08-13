@@ -18,3 +18,5 @@
 	excludesfile = /home/thewisenerd/.gitignore.global
 [fetch]
 	output = compact
+[receive]
+	denyCurrentBranch = warn
