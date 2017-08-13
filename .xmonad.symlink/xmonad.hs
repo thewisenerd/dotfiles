@@ -21,6 +21,7 @@ myShiftHooks = composeAll
 	,	className =? "Firefox"			--> viewShift	(myWorkspaces !! 2)
 	,	className =? "Chromium"			--> viewShift	(myWorkspaces !! 2)
 	,	className =? "Spacefm"			--> viewShift	(myWorkspaces !! 3)
+	,	className =? "VirtualBox"		--> viewShift	(myWorkspaces !! 4)
 	,	className =? "Vlc"			--> viewShift	(myWorkspaces !! 6)
 	,	className =? "smplayer"			--> viewShift	(myWorkspaces !! 6)
 	,	className =? "Tixati"			--> doShift	(myWorkspaces !! 8)
