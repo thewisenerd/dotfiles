@@ -5,7 +5,7 @@ set autoindent
 set smooth
 
 # tabsize
-set tabsize 2
+set tabsize 8
 
 # smarthome
 set smarthome
