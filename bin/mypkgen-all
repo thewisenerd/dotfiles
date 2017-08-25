@@ -1,0 +1,45 @@
+#!/bin/sh
+
+basepackage () {
+	grep -qe "\b$1\b" "$DOTFILES_PATH/packages/base"
+	return $?
+}
+
+develpackage () {
+	grep -qe "\b$1\b" "$DOTFILES_PATH/packages/base-devel"
+	return $?
+}
+
+getdesc () {
+	case $1 in
+		"cower") echo -n "A simple AUR agent with a pretentious name" ;;
+		*) echo -n "pkg $1 not found" ;;
+	esac
+}
+
+mypaclist --aur | cut -f2 | while read pkg; do
+
+	if basepackage "${pkg}" ; then
+		continue
+	fi
+
+	if develpackage "${pkg}" ; then
+		continue
+	fi
+
+	echo -n "${pkg} :: "
+	if pacman -Qn "$pkg" > /dev/null 2>&1 ; then
+		desc=$( pacman -Si "${pkg}" | grep "^Description" | cut -d':' -f2 | xargs -0 )
+		echo -n $desc
+	else
+		if [ -e "$HOME/.cache/pacaur/${pkg}/PKGBUILD" ]; then
+			if grep -qe "^pkgdesc=" "$HOME/.cache/pacaur/${pkg}/PKGBUILD" ; then
+				desc=$( cat "$HOME/.cache/pacaur/${pkg}/PKGBUILD"  | grep "^pkgdesc="  | cut -d'=' -f2 )
+				echo ${desc:1:-1}
+				continue
+			fi
+		fi
+		getdesc ${pkg}
+	fi
+	echo ''
+done
