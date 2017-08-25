@@ -120,8 +120,8 @@ mosh :: Mobile shell, surviving disconnects with local echo and line editing
 mp3info :: An MP3 technical info viewer and ID3 1.x tag editor
 mpd :: Flexible, powerful, server-side application for playing music
 mpg123 :: A console based real time MPEG Audio Player for Layer 1, 2 and 3
+mpv :: a free, open source, and cross-platform media player
 mspdebug :: A free debugger and firmware downloader for the MSP430/CC430 MCU family
-mupdf :: Lightweight PDF and XPS viewer
 mutagen :: An audio metadata tag reader and writer
 ncmpcpp :: Almost exact clone of ncmpc with some new features
 ncurses5-compat-libs :: System V Release 4.0 curses emulation library, ABI 5

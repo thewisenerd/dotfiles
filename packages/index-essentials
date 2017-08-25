@@ -7,7 +7,6 @@ android-tools :: Android platform tools
 android-udev :: Udev rules to connect Android devices to your linux box
 aria2 :: Download utility that supports HTTP(S), FTP, BitTorrent, and Metalink
 colordiff :: A Perl script wrapper for 'diff' that produces the same output but with pretty 'syntax' highlighting
-cower :: A simple AUR agent with a pretentious name
 dmenu :: A generic menu for X
 firefox :: Standalone web browser from mozilla.org
 fish :: Smart and user friendly shell intended mostly for interactive use
@@ -17,7 +16,7 @@ gimp :: GNU Image Manipulation Program
 htop :: Interactive process viewer
 iptraf-ng :: Console-based network monitoring utility
 mediainfo :: supplies technical and tag information about a video or audio file
-mupdf :: Lightweight PDF and XPS viewer
+mpv :: a free, open source, and cross-platform media player
 ntfs-3g :: NTFS filesystem driver and utilities
 openssh :: Free version of the SSH connectivity tools
 p7zip :: Command-line file archiver with high compression ratio
@@ -26,7 +25,6 @@ pass :: Stores, retrieves, generates, and synchronizes passwords securely
 pwgen :: Password generator for creating easily memorable passwords
 rsync :: A file transfer program to keep remote files in sync
 scrot :: Simple command-line screenshot utility for X
-smplayer :: Media player with built-in codecs that can play virtually all video and audio formats
 spacefm :: Multi-panel tabbed file manager
 sshfs :: FUSE client based on the SSH File Transfer Protocol
 strace :: A diagnostic, debugging and instructional userspace tracer
@@ -36,7 +34,6 @@ time :: Utility for monitoring a program's use of system resources
 udevil :: Mount and unmount without password
 unrar :: The RAR uncompression program
 unzip :: For extracting and viewing files in .zip archives
-vlc :: Multi-platform MPEG, VCD/DVD, and DivX player
 wget :: A network utility to retrieve files from the Web
 xclip :: Command line interface to the X11 clipboard
 xmonad-contrib :: Add-ons for xmonad
