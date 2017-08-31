@@ -108,6 +108,7 @@ libreoffice-still :: LibreOffice maintenance branch
 libstdc++5 :: GNU Standard C++ library version 3
 libxss :: X11 Screen Saver extension library
 links :: A text WWW browser, similar to Lynx
+lxappearance :: Feature-rich GTK+ theme switcher of the LXDE Desktop
 lzop :: File compressor using lzo lib
 mariadb :: Fast SQL database server, drop-in replacement for MySQL
 mediainfo :: supplies technical and tag information about a video or audio file
