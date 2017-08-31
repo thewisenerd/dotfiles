@@ -77,3 +77,4 @@ user_pref("social.toast-notifications.enabled", false);
 user_pref("toolkit.telemetry.enabled", false);
 user_pref("toolkit.telemetry.server", "");
 user_pref("browser.sessionstore.interval", 1800000);
+user_pref("browser.newtabpage.activity-stream.feeds.section.topstories", false);
