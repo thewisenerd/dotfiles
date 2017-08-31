@@ -5,6 +5,8 @@ alsa-plugins :: Extra alsa plugins
 alsa-utils :: An alternative implementation of Linux sound support
 android-tools :: Android platform tools
 android-udev :: Udev rules to connect Android devices to your linux box
+arc-gtk-theme :: A flat theme with transparent elements for GTK 3, GTK 2 and Gnome-Shell
+arc-icon-theme ::  Arc icon theme. Official releases only.
 archey3 :: Output a logo and various system information
 aria2 :: Download utility that supports HTTP(S), FTP, BitTorrent, and Metalink
 arm-none-eabi-gcc :: The GNU Compiler Collection - cross compiler for ARM EABI (bare-metal) target
