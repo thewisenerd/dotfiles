@@ -5,6 +5,7 @@
 alsa-utils :: An alternative implementation of Linux sound support
 android-tools :: Android platform tools
 android-udev :: Udev rules to connect Android devices to your linux box
+apulse :: PulseAudio emulation for ALSA
 arc-gtk-theme :: A flat theme with transparent elements for GTK 3, GTK 2 and Gnome-Shell
 arc-icon-theme ::  Arc icon theme. Official releases only.
 aria2 :: Download utility that supports HTTP(S), FTP, BitTorrent, and Metalink
