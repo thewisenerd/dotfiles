@@ -152,7 +152,6 @@ phpmyadmin :: PHP and hence web-based tool to administrate MySQL over the WWW
 picocom :: Minimal dumb-terminal emulation program, very much like minicom
 pkgfile :: a pacman .files metadata explorer
 pngquant :: command-line utility to quantize PNGs down to 8-bit paletted PNGs
-pulseaudio-alsa :: ALSA Configuration for PulseAudio
 pv :: A terminal-based tool for monitoring the progress of data through a pipeline.
 pwgen :: Password generator for creating easily memorable passwords
 python2-pip :: The PyPA recommended tool for installing Python packages
