@@ -24,6 +24,7 @@ openssh :: Free version of the SSH connectivity tools
 p7zip :: Command-line file archiver with high compression ratio
 pacaur :: An AUR helper that minimizes user interaction
 pass :: Stores, retrieves, generates, and synchronizes passwords securely
+pulseaudio-alsa :: ALSA Configuration for PulseAudio
 pwgen :: Password generator for creating easily memorable passwords
 rsync :: A file transfer program to keep remote files in sync
 scrot :: Simple command-line screenshot utility for X
