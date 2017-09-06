@@ -14,6 +14,7 @@ text/x-matlab=geany.desktop;
 text/plain=geany.desktop;
 text/html=chromium.desktop
 image/gif=sxiv-rifle.desktop;
+image/webp=sxiv-rifle.desktop;
 
 [Added Associations]
 inode/directory=spacefm-folder-handler.desktop;
@@ -30,3 +31,4 @@ application/xml=geany.desktop;
 text/x-matlab=geany.desktop;
 text/plain=geany.desktop;
 image/gif=sxiv-rifle.desktop;
+image/webp=sxiv-rifle.desktop;
