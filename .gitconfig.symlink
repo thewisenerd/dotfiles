@@ -1,0 +1,19 @@
+[alias]
+	uncommit = reset --soft HEAD^
+	countcommits = rev-list HEAD --count
+	hfhlog = log --oneline --reverse --no-merges HEAD..FETCH_HEAD
+[user]
+	email = thewisenerd@protonmail.com
+	name = thewisenerd
+[color]
+	ui = auto
+[core]
+	autocrlf = input
+	safecrlf = false
+	# pager = less -x1,5
+	editor = nano -r 72
+	excludesfile = /data/data/com.termux/files/home/.gitignore.global
+[fetch]
+	output = compact
+[receive]
+	denyCurrentBranch = warn

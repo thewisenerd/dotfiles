@@ -1,0 +1,14 @@
+# paths
+export PATH=${DOTFILES_PATH}/bin:$PATH
+export PATH=${DOTFILES_PATH}/bin/wrappers:$PATH
+
+# editor
+export EDITOR="nano"
+
+# helpers
+if test -d ${DOTFILES_PATH}/helpers; then
+	for helper in ${DOTFILES_PATH}/helpers/*.sh; do
+		test -r "$helper" && . "$helper"
+	done
+	unset helper
+fi

@@ -1,0 +1,17 @@
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+alias ls='ls --color=auto'
+PS1='[\u@\h \W]\$ '
+
+export DOTFILES_PATH=$HOME/works/dotfiles
+
+if [ -z ${NOFISH+x} ]; then
+	exec fish
+else
+	export PATH=${DOTFILES_PATH}/bin/bash-compat:$PATH
+fi
