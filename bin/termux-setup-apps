@@ -1,0 +1,11 @@
+#!/data/data/com.termux/files/usr/bin/sh
+
+if [ "$#" != "0" ]; then
+	echo 'usage: termux-setup-apps'
+	echo 'lists installed android apps to $HOME/.apps'
+	exit
+fi
+
+am broadcast --user 0 \
+		 --es com.termux.app.reload_style "apps-cache" \
+		 -a com.termux.app.reload_style com.termux > /dev/null
