@@ -15,3 +15,7 @@ export PATH=${DOTFILES_PATH}/helpers/android/ferrari:$PATH
 
 # jack
 export JACK_SERVER_VM_ARGUMENTS="-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4g"
+
+# {n,s}dk
+export ANDROID_HOME=/opt/android-sdk
+source /etc/profile.d/android-ndk.sh
