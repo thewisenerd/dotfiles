@@ -9,6 +9,7 @@ alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
 
 export DOTFILES_PATH=$HOME/works/dotfiles
+[ -e "${DOTFILES_PATH}/configure" ] && source "${DOTFILES_PATH}/configure"
 
 if [ -z ${NOFISH+x} ]; then
 	exec fish
