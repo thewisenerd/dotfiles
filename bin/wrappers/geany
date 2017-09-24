@@ -1,3 +1,8 @@
 #!/bin/bash
 
+if ! ls -la /tmp/geany_socket.* > /dev/null 2>&1 ; then
+	nohup /usr/bin/geany --config=${DOTFILES_PATH}/configs/geany/ "$@" &> /dev/null &
+	exit
+fi
+
 exec /usr/bin/geany --config=${DOTFILES_PATH}/configs/geany/ "$@"
