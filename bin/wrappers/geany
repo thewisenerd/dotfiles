@@ -1,8 +1,22 @@
 #!/bin/bash
 
-if ! ls -la /tmp/geany_socket.* > /dev/null 2>&1 ; then
-	nohup /usr/bin/geany --config=${DOTFILES_PATH}/configs/geany/ "$@" &> /dev/null &
+# if no sockets of geany exist, no instances (should) exist
+#   in which case, open a new instance of geany, and dont fux with the terminal
+if ! ls -la ${DOTFILES_PATH}/configs/geany/geany_socket* > /dev/null 2>&1 ; then
+	nohup /usr/bin/geany --config=${DOTFILES_PATH}/configs/geany/ "$@" > /dev/null 2>&1 &
 	exit
+else
+	# if number of arguments is zero; -but- a socket of geany exists
+	#   * do nothing, really.
+	#   * tell me to gtfo, now that geany is already open.
+	#   * switch to its workspace in xmonad (but how now?)
+	#  go with option #2, as i cant figure out howto option #3 yet
+	if [ "$#" -eq 0 ]; then
+		if pgrep "^geany" > /dev/null 2>&1 ; then
+			echo "geany instance already open. exit."
+			exit
+		fi
+	fi
 fi
 
 exec /usr/bin/geany --config=${DOTFILES_PATH}/configs/geany/ "$@"
