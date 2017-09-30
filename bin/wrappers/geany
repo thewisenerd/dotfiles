@@ -1,21 +1,39 @@
 #!/bin/bash
 
-# if no sockets of geany exist, no instances (should) exist
-#   in which case, open a new instance of geany, and dont fux with the terminal
-if ! ls -la ${DOTFILES_PATH}/configs/geany/geany_socket* > /dev/null 2>&1 ; then
+# bail early.
+if [ -z ${DOTFILES_PATH+x} ]; then
+	exec /usr/bin/geany "$@"
+fi
+
+# need a display to spawn.
+if [ -z ${DISPLAY+x} ]; then
+	echo "$DISPLAY not set."
+	exit
+fi
+
+
+CONFIGDIR=${DOTFILES_PATH}/configs/geany
+
+disp=$( echo $DISPLAY | sed 's@:@_@g;s@/@_@g' )
+host=$( hostname )
+socket=${CONFIGDIR}/geany_socket_${host}_${disp}
+real=$( readlink $socket )
+
+if ! is-valid-geany-socket $socket > /dev/null 2>&1 ; then
+	# invalid socket
+	rm -rf $socket
+	if [ -e $real ] ; then
+		rm -rf $real
+	fi
 	nohup /usr/bin/geany --config=${DOTFILES_PATH}/configs/geany/ "$@" > /dev/null 2>&1 &
 	exit
 else
-	# if number of arguments is zero; -but- a socket of geany exists
-	#   * do nothing, really.
-	#   * tell me to gtfo, now that geany is already open.
-	#   * switch to its workspace in xmonad (but how now?)
-	#  go with option #2, as i cant figure out howto option #3 yet
+	# valid geany socket
+
+	# geany without arguments will open a new instance. do not do that.
 	if [ "$#" -eq 0 ]; then
-		if pgrep "^geany" > /dev/null 2>&1 ; then
-			echo "geany instance already open. exit."
-			exit
-		fi
+		echo "geany instance already open. exit."
+		exit
 	fi
 fi
 
