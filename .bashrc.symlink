@@ -12,8 +12,14 @@ if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
 	exec startx
 fi
 
+# reconf
+[ ! -z ${DOTFILES_PATH+x} ] && \
+	[ -e "${DOTFILES_PATH}/configure" ] && \
+		source "${DOTFILES_PATH}/configure"
+
 if [ -z ${NOFISH+x} ]; then
-	exec fish
+	[ ! -z ${DOTFILES_PATH+x} ] && exec fish
 else
-	export PATH=${DOTFILES_PATH}/bin/bash-compat:$PATH
+	[ ! -z ${DOTFILES_PATH+x} ] && \
+		export PATH=${DOTFILES_PATH}/bin/bash-compat:$PATH
 fi

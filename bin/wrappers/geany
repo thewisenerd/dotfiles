@@ -7,7 +7,7 @@ fi
 
 # need a display to spawn.
 if [ -z ${DISPLAY+x} ]; then
-	echo "$DISPLAY not set."
+	echo "\$DISPLAY not set."
 	exit
 fi
 
