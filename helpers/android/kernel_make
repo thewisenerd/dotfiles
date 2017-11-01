@@ -1,26 +1,123 @@
 #!/bin/bash
 
+get_toolchain_bin () {
+	case $1 in
+		"arm-linux-androideabi-4.7") echo -n "arm-linux-androideabi-" ;;
+		"aarch64-linux-android-4.9") echo -n "aarch64-linux-android-" ;;
+	esac
+}
+
+to_ccache () {
+	if ! which ccache > /dev/null 2>&1 ; then
+		return 1
+	fi
+
+	if [ ! -z ${USE_CCACHE+x} ]; then
+		if [ $USE_CCACHE -eq 1 ]; then
+			return 0
+		fi
+	fi
+
+	return 1
+}
+
+# setup_ccache $tcdir $toolchain
+setup_ccache () {
+
+	if [ $# -ne 2 ]; then
+		# how did we get here?
+		(>&2 echo "wat")
+		exit
+	fi
+
+	cd "$1" > /dev/null
+
+	tc="$2"
+	bin=$(get_toolchain_bin "$tc")
+
+	# check if already linked to correct tc
+	RELINK=0
+	if [ -e "ccache/bin" ];then
+		for i in 0 1 2; do
+			r=$( find "ccache/bin/" -regextype sed -regex ".*/${bin}.*" | grep -v "\-gcc\$" | sort -R | head -n 1) > /dev/null 2>&1
+			if [ "$r" == "" ] ;  then
+				RELINK=1
+				break
+			fi
+
+			p=$(realpath "$r")
+			if [ "$r" == "" ] ;  then
+				RELINK=1
+				break
+			fi
+
+			d=$(dirname "$p")
+			if [ "$d" != "${1}/${tc}/bin" ]; then
+				RELINK=1
+				break
+			fi
+		done
+	else
+		RELINK=1
+	fi
+
+	if [ $RELINK -eq 1 ]; then
+		rm -rf ccache/
+		mkdir -p ccache/bin
+		for file in $( find "${tc}/bin/" -regextype sed -regex ".*/${bin}.*" ); do
+			bname=$( basename ${file} )
+			grep -qE "\-gcc\$" <<< "${bname}"
+			if [ $? -eq 0 ]; then
+				ln -s "/usr/bin/ccache" "ccache/bin/${bname}"
+			else
+				ln -s "${1}/${file}" "ccache/bin/${bname}"
+			fi
+		done
+	fi
+
+	cd - > /dev/null
+}
+
+# MODIFY THESE
+
+device="pico"
 TOOLCHAINS_DIR="${HOME}/works/android/generic/toolchains"
 
-TOOLCHAIN_BIN=$( android_toolchain | cut -d'|' -f1 )
-TOOLCHAIN=$( android_toolchain | cut -d'|' -f2 )
+get_arch_for_device () {
+	case $1 in
+		"ferrari") echo -n "arm64" ;;
+		"pico") echo -n "arm" ;;
+	esac
+}
 
-if [ ! -z ${USE_CCACHE+x} ]; then
-	if [ $USE_CCACHE -eq 1 ]; then
-		export PATH="${TOOLCHAINS_DIR}/${TOOLCHAIN}/bin":${PATH}
+get_subarch_for_device () {
+	case $1 in
+		"ferrari") echo -n "arm64" ;;
+		"pico") echo -n "arm" ;;
+	esac
+}
 
-		TOOLCHAIN="ccache"
-	fi
+get_toolchain_for_device () {
+	case $1 in
+		"ferrari") echo -n "aarch64-linux-android-4.9" ;;
+		"pico") echo -n "arm-linux-androideabi-4.7" ;;
+	esac
+}
+
+# MODIFY THESE (end)
+
+tc=$( get_toolchain_for_device "$device" )
+bin=$( get_toolchain_bin "$tc" )
+if to_ccache ; then
+	setup_ccache "$TOOLCHAINS_DIR" "$tc"
+	export CROSS_COMPILE="${TOOLCHAINS_DIR}/ccache/bin/${bin}"
+	export PATH="${TOOLCHAINS_DIR}/${tc}/bin:${PATH}"
+else
+	export CROSS_COMPILE="${TOOLCHAINS_DIR}/${tc}/bin/${bin}"
 fi
 
-export CROSS_COMPILE="${TOOLCHAINS_DIR}/${TOOLCHAIN}/bin/${TOOLCHAIN_BIN}"
-
 export KERNEL=$(pwd)
-export ARCH=arm64
-export SUBARCH=arm64
 export KBUILD_BUILD_USER="thewisenerd"
 export KBUILD_BUILD_HOST="eniac"
 
-rm -rf std*.log
-
-exec time -p make "$@" # > >(tee stdout.log) 2> >(tee stderr.log >&2)
+exec time -p make "$@"
