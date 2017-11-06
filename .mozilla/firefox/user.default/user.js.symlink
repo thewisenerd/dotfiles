@@ -79,3 +79,7 @@ user_pref("toolkit.telemetry.server", "");
 user_pref("browser.sessionstore.interval", 1800000);
 user_pref("browser.newtabpage.activity-stream.feeds.section.topstories", false);
 user_pref("security.sandbox.content.write_path_whitelist", "/dev/snd/");
+user_pref("mousewheel.min_line_scroll_amount", 40);
+user_pref("general.smoothScroll", false);
+user_pref("general.smoothScroll.pages", false);
+user_pref("nglayout.initialpaint.delay", 0);
