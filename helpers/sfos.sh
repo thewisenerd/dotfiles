@@ -1,3 +1,6 @@
+FIX=0
+if [ $FIX -eq 1 ]; then
+
 # ~/bin/repo
 export PATH="${HOME}/bin":$PATH
 
@@ -15,3 +18,5 @@ if [ ! -z ${MERSDK+x} ] || [ ! -z ${MERSDKUBU+x} ]; then
 	export NOFISH=true
 	PS1='[\u@\h \W]\$ '
 fi
+
+fi # $FIX
