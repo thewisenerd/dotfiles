@@ -16,6 +16,7 @@ fish :: Smart and user friendly shell intended mostly for interactive use
 gcc-multilib :: The GNU Compiler Collection - C and C++ frontends for multilib
 geany :: Fast and lightweight IDE
 gimp :: GNU Image Manipulation Program
+gsettings-desktop-schemas :: Shared GSettings schemas for the desktop
 htop :: Interactive process viewer
 iptraf-ng :: Console-based network monitoring utility
 mediainfo :: supplies technical and tag information about a video or audio file
@@ -34,7 +35,7 @@ strace :: A diagnostic, debugging and instructional userspace tracer
 sxiv :: Simple X Image Viewer
 terminator-gtk3-bzr :: GTK3 porting branch for terminal emulator that supports tabs and grids GTK3
 time :: Utility for monitoring a program's use of system resources
-udevil :: Mount and unmount without password
+udisks2 :: Disk Management Service, version 2
 unrar :: The RAR uncompression program
 unzip :: For extracting and viewing files in .zip archives
 wget :: A network utility to retrieve files from the Web
