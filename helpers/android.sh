@@ -10,8 +10,13 @@ export PATH=${HOME}/works/android/generic/sdat2img-master:$PATH
 # simg2img
 export PATH=${HOME}/works/android/generic/android-simg2img-master:$PATH
 
-# ferrari
+# devices
 export PATH=${DOTFILES_PATH}/helpers/android/ferrari:$PATH
+export PATH=${DOTFILES_PATH}/helpers/android/pico:$PATH
+
+# sources
+export CM11=${HOME}/works/android/lineage/cm-11.0
+export CM14=${HOME}/works/android/lineage/cm-14.1
 
 # jack
 export JACK_SERVER_VM_ARGUMENTS="-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4g"
