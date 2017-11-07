@@ -24,7 +24,9 @@ myShiftHooks = composeAll
 	,	className =? "VirtualBox"		--> viewShift	(myWorkspaces !! 4)
 	,	className =? "Vlc"			--> viewShift	(myWorkspaces !! 6)
 	,	className =? "smplayer"			--> viewShift	(myWorkspaces !! 6)
+	,	className =? "mpv"			--> viewShift	(myWorkspaces !! 6)
 	,	className =? "Tixati"			--> doShift	(myWorkspaces !! 8)
+	,	className =? "Deluge"			--> doShift	(myWorkspaces !! 8)
 	]
 	where viewShift = doF . liftM2 (.) W.greedyView W.shift
 
