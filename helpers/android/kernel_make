@@ -2,6 +2,7 @@
 
 get_toolchain_bin () {
 	case $1 in
+		"arm-eabi-4.4.3") echo -n "arm-eabi-" ;;
 		"arm-linux-androideabi-4.7") echo -n "arm-linux-androideabi-" ;;
 		"aarch64-linux-android-4.9") echo -n "aarch64-linux-android-" ;;
 	esac
@@ -100,7 +101,8 @@ get_subarch_for_device () {
 get_toolchain_for_device () {
 	case $1 in
 		"ferrari") echo -n "aarch64-linux-android-4.9" ;;
-		"pico") echo -n "arm-linux-androideabi-4.7" ;;
+		# "pico") echo -n "arm-linux-androideabi-4.7" ;;
+		"pico") echo -n "arm-eabi-4.4.3" ;;
 	esac
 }
 
@@ -119,5 +121,8 @@ fi
 export KERNEL=$(pwd)
 export KBUILD_BUILD_USER="thewisenerd"
 export KBUILD_BUILD_HOST="eniac"
+export ARCH=$( get_arch_for_device "$device" )
+export SUBARCH=$( get_subarch_for_device "$device" )
+export PATH=${DOTFILES_PATH}/bin/bash-compat:$PATH
 
 exec time -p make "$@"
