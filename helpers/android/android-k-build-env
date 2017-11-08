@@ -3,6 +3,10 @@
 # https://github.com/z3ntu/halium-5.1-build-env
 # docker build --tag android-k-build-env .
 
+if ! systemctl is-active docker.service > /dev/null ; then
+	sudo systemctl start docker.service
+fi
+
 docker run \
 	--rm -it \
 	--env USE_CCACHE=1 \
