@@ -1,0 +1,24 @@
+#!/bin/bash
+
+[ "$#" -ne 1 ] && echo "usage: qln FILE" && exit
+
+FILE="$1"
+
+[ ! -e "$FILE" ] && echo "-eexist" && exit
+if ! test \( -f "$FILE" -o -d "$FILE" \) ; then
+	echo "![-f || -d]" && exit
+fi
+
+BASENAME=$( basename "$FILE" )
+
+# overwrite existing symlink; not files
+if [ -e "$BASENAME" ]; then
+	if [ -L "$BASENAME" ]; then
+		rm --one-file-system "$BASENAME"
+	else
+		echo "-eexist './$BASENAME'"
+		exit
+	fi
+fi
+
+ln -s "$FILE" "$BASENAME"
