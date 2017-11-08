@@ -26,6 +26,7 @@ openssh :: Free version of the SSH connectivity tools
 p7zip :: Command-line file archiver with high compression ratio
 pacaur :: An AUR helper that minimizes user interaction
 pass :: Stores, retrieves, generates, and synchronizes passwords securely
+playerctl :: mpris media player controller and lib for spotify, vlc, audacious, bmp, xmms2, and others.
 pwgen :: Password generator for creating easily memorable passwords
 rsync :: A file transfer program to keep remote files in sync
 scrot :: Simple command-line screenshot utility for X
@@ -35,10 +36,12 @@ strace :: A diagnostic, debugging and instructional userspace tracer
 sxiv :: Simple X Image Viewer
 terminator-gtk3-bzr :: GTK3 porting branch for terminal emulator that supports tabs and grids GTK3
 time :: Utility for monitoring a program's use of system resources
+tk :: A windowing toolkit for use with tcl
 udisks2 :: Disk Management Service, version 2
 unrar :: The RAR uncompression program
 unzip :: For extracting and viewing files in .zip archives
 wget :: A network utility to retrieve files from the Web
+xbindkeys :: Launch shell commands with your keyboard or your mouse under X
 xclip :: Command line interface to the X11 clipboard
 xmonad-contrib :: Add-ons for xmonad
 xmonad :: Lightweight X11 tiled window manager written in Haskell
