@@ -19,6 +19,7 @@ gimp :: GNU Image Manipulation Program
 gsettings-desktop-schemas :: Shared GSettings schemas for the desktop
 htop :: Interactive process viewer
 iptraf-ng :: Console-based network monitoring utility
+libreoffice-fresh :: LibreOffice branch which contains new features and program enhancements
 mediainfo :: supplies technical and tag information about a video or audio file
 mpv :: a free, open source, and cross-platform media player
 ntfs-3g :: NTFS filesystem driver and utilities
@@ -37,6 +38,7 @@ sxiv :: Simple X Image Viewer
 terminator-gtk3-bzr :: GTK3 porting branch for terminal emulator that supports tabs and grids GTK3
 time :: Utility for monitoring a program's use of system resources
 tk :: A windowing toolkit for use with tcl
+ttf-ms-fonts :: Core TTF Fonts from Microsoft
 udisks2 :: Disk Management Service, version 2
 unrar :: The RAR uncompression program
 unzip :: For extracting and viewing files in .zip archives

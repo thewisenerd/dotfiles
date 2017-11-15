@@ -112,8 +112,6 @@ lib32-ncurses :: System V Release 4.0 curses emulation library (32-bit)
 lib32-readline :: GNU readline library (32-bit)
 lib32-zlib :: Compression library implementing the deflate compression method found in gzip and PKZIP (32-bit)
 libcurl-compat :: An URL retrieval library (without versioned symbols)
-libreoffice-fresh :: LibreOffice branch which contains new features and program enhancements
-libreoffice-still :: LibreOffice maintenance branch
 libstdc++5 :: GNU Standard C++ library version 3
 libxss :: X11 Screen Saver extension library
 links :: A text WWW browser, similar to Lynx
@@ -221,7 +219,7 @@ tree :: A directory listing program displaying a depth indented list of files
 ttf-dejavu :: Font family based on the Bitstream Vera Fonts with a wider range of characters
 ttf-inconsolata :: Monospace font for pretty code listings and for the terminal
 ttf-liberation :: Red Hats Liberation fonts.
-ttf-ms-fonts :: Core TTF Fonts from Microsoft
+ttf-wps-fonts :: Symbol fonts required by wps-office.
 uboot-tools :: U-Boot bootloader utility tools
 udevil :: Mount and unmount without password
 unrar :: The RAR uncompression program
@@ -238,6 +236,7 @@ wine-mono :: Wine's built-in replacement for Microsoft's .NET Framework
 wireshark-cli :: a free network protocol analyzer for Unix/Linux and Windows - CLI version
 wireshark-gtk :: a free network protocol analyzer for Unix/Linux and Windows - GTK frontend
 woff2-git :: Font compression reference code
+wps-office :: Kingsoft Office (WPS Office) is an office productivity suite
 wxgtk2 :: GTK+2 implementation of wxWidgets API for GUI
 xcftools :: Miscellaneous command line tools for use with the open XCF format used by The GIMP
 xclip :: Command line interface to the X11 clipboard
