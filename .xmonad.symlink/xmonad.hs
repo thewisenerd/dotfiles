@@ -8,7 +8,19 @@ import Control.Monad (liftM2)		-- viewShift
 import qualified XMonad.StackSet as W	-- viewShift
 import XMonad.Actions.WindowBringer	-- gotoMenu
 
-myLayoutHook = (noBorders Full) ||| (tabbed shrinkText def) ||| layoutHook defaultConfig
+myLayoutHook = (noBorders Full) ||| (tabbed shrinkText def) ||| tiled ||| Mirror tiled
+	where
+		-- default tiling algorithm partitions the screen into two panes
+		tiled   = Tall nmaster delta ratio
+
+		-- The default number of windows in the master pane
+		nmaster = 1
+
+		-- Default proportion of screen occupied by master pane
+		ratio   = 1/2
+
+		-- Percent of screen to increment by when resizing panes
+		delta   = 3/100
 
 myWorkspaces = ["1","2","3","4","5","6","7","8","9"]
 
