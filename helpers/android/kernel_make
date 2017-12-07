@@ -4,7 +4,10 @@ get_toolchain_bin () {
 	case $1 in
 		"arm-eabi-4.4.3") echo -n "arm-eabi-" ;;
 		"arm-linux-androideabi-4.7") echo -n "arm-linux-androideabi-" ;;
+		"arm-linux-androideabi-4.6") echo -n "arm-linux-androideabi-" ;;
 		"aarch64-linux-android-4.9") echo -n "aarch64-linux-android-" ;;
+		"gcc-linaro-6.4.1-2017.11-x86_64_arm-linux-gnueabihf") echo -n "arm-linux-gnueabihf-" ;;
+		"gcc-linaro-7.2.1-2017.11-x86_64_arm-linux-gnueabihf") echo -n "arm-linux-gnueabihf-" ;;
 	esac
 }
 
@@ -81,8 +84,30 @@ setup_ccache () {
 
 # MODIFY THESE
 
-device="pico"
 TOOLCHAINS_DIR="${HOME}/works/android/generic/toolchains"
+DIR_CFG="${DOTFILES_PATH}/helpers/android/kernel_dir_cfg"
+
+get_dir_cfg () {
+	if [ ! -e "${DIR_CFG}" ]; then
+		(>&2 echo "inexistent ${DIR_CFG}")
+		exit
+	fi
+
+	dir=$(pwd | tr -d '\n')
+	str=$(grep "^${dir}|" "${DIR_CFG}")
+	if [ "$str" == "" ]; then
+		(>&2 echo "invalid dir for kernel compile. check ${DIR_CFG}")
+		exit
+	fi
+
+	count=$(echo $str | tr -s '|' '\n' | wc -l)
+	if [ "x${count}" != "x3" ]; then
+		(>&2 echo "invalid dir cfg str \"$str\"")
+		exit
+	fi
+
+	echo -n "${str}"
+}
 
 get_arch_for_device () {
 	case $1 in
@@ -98,17 +123,11 @@ get_subarch_for_device () {
 	esac
 }
 
-get_toolchain_for_device () {
-	case $1 in
-		"ferrari") echo -n "aarch64-linux-android-4.9" ;;
-		# "pico") echo -n "arm-linux-androideabi-4.7" ;;
-		"pico") echo -n "arm-eabi-4.4.3" ;;
-	esac
-}
-
 # MODIFY THESE (end)
 
-tc=$( get_toolchain_for_device "$device" )
+cfg_str=$( get_dir_cfg )
+device=$( echo "${cfg_str}" | cut -d'|' -f2 )
+tc=$( echo "${cfg_str}" | cut -d'|' -f3 )
 bin=$( get_toolchain_bin "$tc" )
 if to_ccache ; then
 	setup_ccache "$TOOLCHAINS_DIR" "$tc"
@@ -124,5 +143,16 @@ export KBUILD_BUILD_HOST="eniac"
 export ARCH=$( get_arch_for_device "$device" )
 export SUBARCH=$( get_subarch_for_device "$device" )
 export PATH=${DOTFILES_PATH}/bin/bash-compat:$PATH
+
+export TOOLCHAIN_PREFIX=${CROSS_COMPILE}
+
+# flag this?
+# export CC="${CROSS_COMPILE}gcc"
+# export CXX="${CROSS_COMPILE}g++"
+
+if [ "$1" == "-b" ]; then
+	exec "${@:2}"
+	exit
+fi
 
 exec time -p make "$@"
