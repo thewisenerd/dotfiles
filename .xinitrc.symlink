@@ -4,4 +4,6 @@ xsetroot -cursor_name left_ptr
 
 xbindkeys
 
+~/.fehbg &
+
 exec xmonad
