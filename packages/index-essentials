@@ -20,6 +20,7 @@ gsettings-desktop-schemas :: Shared GSettings schemas for the desktop
 htop :: Interactive process viewer
 iptraf-ng :: Console-based network monitoring utility
 libreoffice-fresh :: LibreOffice branch which contains new features and program enhancements
+maim :: Utility to take a screenshot using imlib2
 mediainfo :: supplies technical and tag information about a video or audio file
 mpv :: a free, open source, and cross-platform media player
 ntfs-3g :: NTFS filesystem driver and utilities
@@ -30,7 +31,6 @@ pass :: Stores, retrieves, generates, and synchronizes passwords securely
 playerctl :: mpris media player controller and lib for spotify, vlc, audacious, bmp, xmms2, and others.
 pwgen :: Password generator for creating easily memorable passwords
 rsync :: A file transfer program to keep remote files in sync
-scrot :: Simple command-line screenshot utility for X
 spacefm :: Multi-panel tabbed file manager
 sshfs :: FUSE client based on the SSH File Transfer Protocol
 strace :: A diagnostic, debugging and instructional userspace tracer
