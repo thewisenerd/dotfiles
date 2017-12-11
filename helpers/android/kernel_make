@@ -90,23 +90,24 @@ DIR_CFG="${DOTFILES_PATH}/helpers/android/kernel_dir_cfg"
 get_dir_cfg () {
 	if [ ! -e "${DIR_CFG}" ]; then
 		(>&2 echo "inexistent ${DIR_CFG}")
-		exit
+		return 1
 	fi
 
 	dir=$(pwd | tr -d '\n')
 	str=$(grep "^${dir}|" "${DIR_CFG}")
 	if [ "$str" == "" ]; then
 		(>&2 echo "invalid dir for kernel compile. check ${DIR_CFG}")
-		exit
+		return 1
 	fi
 
 	count=$(echo $str | tr -s '|' '\n' | wc -l)
 	if [ "x${count}" != "x3" ]; then
 		(>&2 echo "invalid dir cfg str \"$str\"")
-		exit
+		return 1
 	fi
 
 	echo -n "${str}"
+	return 0
 }
 
 get_arch_for_device () {
@@ -126,6 +127,10 @@ get_subarch_for_device () {
 # MODIFY THESE (end)
 
 cfg_str=$( get_dir_cfg )
+status=$?
+if [ $status -eq 1 ] ; then
+	exit
+fi
 device=$( echo "${cfg_str}" | cut -d'|' -f2 )
 tc=$( echo "${cfg_str}" | cut -d'|' -f3 )
 bin=$( get_toolchain_bin "$tc" )
