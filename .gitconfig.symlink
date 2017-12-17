@@ -1,7 +1,5 @@
 [alias]
 	uncommit = reset --soft HEAD^
-	countcommits = rev-list HEAD --count
-	hfhlog = log --oneline --reverse --no-merges HEAD..FETCH_HEAD
 [user]
 	email = thewisenerd@protonmail.com
 	name = thewisenerd
