@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# MODIFY THESE
+
+TOOLCHAINS_DIR="${HOME}/works/android/generic/toolchains"
+DIR_CFG="${DOTFILES_PATH}/helpers/android/kernel_dir_cfg"
+
 get_toolchain_bin () {
 	case $1 in
 		"arm-eabi-4.4.3") echo -n "arm-eabi-" ;;
@@ -10,6 +15,8 @@ get_toolchain_bin () {
 		"gcc-linaro-7.2.1-2017.11-x86_64_arm-linux-gnueabihf") echo -n "arm-linux-gnueabihf-" ;;
 	esac
 }
+
+# MODIFY THESE (end)
 
 to_ccache () {
 	if ! which ccache > /dev/null 2>&1 ; then
@@ -82,11 +89,6 @@ setup_ccache () {
 	cd - > /dev/null
 }
 
-# MODIFY THESE
-
-TOOLCHAINS_DIR="${HOME}/works/android/generic/toolchains"
-DIR_CFG="${DOTFILES_PATH}/helpers/android/kernel_dir_cfg"
-
 get_dir_cfg () {
 	if [ ! -e "${DIR_CFG}" ]; then
 		(>&2 echo "inexistent ${DIR_CFG}")
@@ -110,28 +112,29 @@ get_dir_cfg () {
 	return 0
 }
 
-get_arch_for_device () {
-	case $1 in
-		"ferrari") echo -n "arm64" ;;
-		"pico") echo -n "arm" ;;
-	esac
+get_arch () {
+	count=$(echo $1 | tr -s '/' '\n' | wc -l)
+	if [ "x${count}" == "x2" ]; then
+		echo -n $( echo $1 | cut -d'/' -f1 )
+	else
+		echo -n "$1"
+	fi
 }
 
-get_subarch_for_device () {
-	case $1 in
-		"ferrari") echo -n "arm64" ;;
-		"pico") echo -n "arm" ;;
-	esac
+get_subarch () {
+	count=$(echo $1 | tr -s '/' '\n' | wc -l)
+	if [ "x${count}" == "x2" ]; then
+		echo -n $( echo $1 | cut -d'/' -f2 )
+	else
+		echo -n "$1"
+	fi
 }
-
-# MODIFY THESE (end)
 
 cfg_str=$( get_dir_cfg )
 status=$?
 if [ $status -eq 1 ] ; then
 	exit
 fi
-device=$( echo "${cfg_str}" | cut -d'|' -f2 )
 tc=$( echo "${cfg_str}" | cut -d'|' -f3 )
 bin=$( get_toolchain_bin "$tc" )
 if to_ccache ; then
@@ -145,8 +148,10 @@ fi
 export KERNEL=$(pwd)
 export KBUILD_BUILD_USER="thewisenerd"
 export KBUILD_BUILD_HOST="eniac"
-export ARCH=$( get_arch_for_device "$device" )
-export SUBARCH=$( get_subarch_for_device "$device" )
+
+arch=$( echo "${cfg_str}" | cut -d'|' -f2 )
+export ARCH=$( get_arch "$arch" )
+export SUBARCH=$( get_subarch "$arch" )
 export PATH=${DOTFILES_PATH}/bin/bash-compat:$PATH
 
 export TOOLCHAIN_PREFIX=${CROSS_COMPILE}
