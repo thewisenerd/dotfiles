@@ -39,6 +39,7 @@ myShiftHooks = composeAll
 	,	className =? "Vlc"			--> viewShift	(myWorkspaces !! 6)
 	,	className =? "smplayer"			--> viewShift	(myWorkspaces !! 6)
 	,	className =? "mpv"			--> viewShift	(myWorkspaces !! 6)
+	,	className =? "discord"			--> viewShift	(myWorkspaces !! 7)
 	,	className =? "Tixati"			--> doShift	(myWorkspaces !! 8)
 	,	className =? "Deluge"			--> doShift	(myWorkspaces !! 8)
 	]
