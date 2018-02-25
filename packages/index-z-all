@@ -254,5 +254,5 @@ xorg-xsetroot :: Classic X utility to set your root window background to a given
 xterm :: X Terminal Emulator
 yajl :: Yet Another JSON Library
 zathura-djvu :: DjVu support for Zathura
-zathura-pdf-mupdf :: PDF support for Zathura (MuPDF backend)
+zathura-pdf-poppler :: Adds pdf support to zathura by using the poppler engine
 zip :: Compressor/archiver for creating and modifying zipfiles

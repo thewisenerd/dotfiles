@@ -47,7 +47,7 @@ xbindkeys :: Launch shell commands with your keyboard or your mouse under X
 xclip :: Command line interface to the X11 clipboard
 xmonad-contrib :: Add-ons for xmonad
 xmonad :: Lightweight X11 tiled window manager written in Haskell
-zathura-pdf-mupdf :: PDF support for Zathura (MuPDF backend)
+zathura-pdf-poppler :: Adds pdf support to zathura by using the poppler engine
 zip :: Compressor/archiver for creating and modifying zipfiles
 
 ## ************************************************************************** ##
