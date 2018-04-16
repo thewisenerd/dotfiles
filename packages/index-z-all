@@ -218,6 +218,7 @@ trash-cli :: Command line trashcan (recycle bin) interface
 tree :: A directory listing program displaying a depth indented list of files
 ttf-dejavu :: Font family based on the Bitstream Vera Fonts with a wider range of characters
 ttf-inconsolata :: Monospace font for pretty code listings and for the terminal
+ttf-opensans :: Sans-serif typeface commissioned by Google
 ttf-liberation :: Red Hats Liberation fonts.
 ttf-wps-fonts :: Symbol fonts required by wps-office.
 uboot-tools :: U-Boot bootloader utility tools
