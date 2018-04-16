@@ -8,6 +8,7 @@
 
 local mp = require 'mp'
 local options = require 'mp.options'
+local utils = require 'mp.utils'
 
 -- Options
 local o = {
@@ -160,18 +161,6 @@ local function has_vo_window()
 end
 
 
-local function has_video()
-    local r = mp.get_property("video")
-    return r and r ~= "no" and r ~= ""
-end
-
-
-local function has_audio()
-    local r = mp.get_property("audio")
-    return r and r ~= "no" and r ~= ""
-end
-
-
 local function has_ansi()
     local is_windows = type(package) == 'table'
         and type(package.config) == 'string'
@@ -232,6 +221,23 @@ local function generate_graph(values, i, len, v_max, v_avg, scale, x_tics)
 end
 
 
+local function append(s, str, attr)
+    if not str then
+        return false
+    end
+    attr.prefix_sep = attr.prefix_sep or o.prefix_sep
+    attr.indent = attr.indent or o.indent
+    attr.nl = attr.nl or o.nl
+    attr.suffix = attr.suffix or ""
+    attr.prefix = attr.prefix or ""
+    attr.no_prefix_markup = attr.no_prefix_markup or false
+    attr.prefix = attr.no_prefix_markup and attr.prefix or b(attr.prefix)
+    s[#s+1] = format("%s%s%s%s%s%s", attr.nl, attr.indent,
+                     attr.prefix, attr.prefix_sep, no_ASS(str), attr.suffix)
+    return true
+end
+
+
 -- Format and append a property.
 -- A property whose value is either `nil` or empty (hereafter called "invalid")
 -- is skipped and not appended.
@@ -253,19 +259,7 @@ local function append_property(s, prop, attr, excluded)
         end
         return false
     end
-
-    attr.prefix_sep = attr.prefix_sep or o.prefix_sep
-    attr.indent = attr.indent or o.indent
-    attr.nl = attr.nl or o.nl
-    attr.suffix = attr.suffix or ""
-    attr.prefix = attr.prefix or ""
-    attr.no_prefix_markup = attr.no_prefix_markup or false
-    attr.prefix = attr.no_prefix_markup and attr.prefix or b(attr.prefix)
-    ret = attr.no_value and "" or ret
-
-    s[#s+1] = format("%s%s%s%s%s%s", attr.nl, attr.indent,
-                     attr.prefix, attr.prefix_sep, no_ASS(ret), attr.suffix)
-    return true
+    return append(s, ret, attr)
 end
 
 
@@ -430,7 +424,8 @@ end
 
 
 local function add_file(s)
-    append_property(s, "filename", {prefix="File:", nl="", indent=""})
+    append(s, "", {prefix=o.nl .. o.nl .. "File:", nl="", indent=""})
+    append_property(s, "filename", {prefix_sep="", nl="", indent=""})
     if not (mp.get_property_osd("filename") == mp.get_property_osd("media-title")) then
         append_property(s, "media-title", {prefix="Title:"})
     end
@@ -442,24 +437,43 @@ local function add_file(s)
                         {prefix="(" .. tostring(ch_index + 1) .. "/", suffix=")", nl="",
                          indent=" ", prefix_sep=" ", no_prefix_markup=true})
     end
-    if append_property(s, "cache-used", {prefix="Cache:"}) then
-        append_property(s, "demuxer-cache-duration",
-                        {prefix="+", suffix=" sec", nl="", indent=o.prefix_sep,
-                         prefix_sep="", no_prefix_markup=true})
-        append_property(s, "cache-speed",
-                        {prefix="", suffix="", nl="", indent=o.prefix_sep,
-                         prefix_sep="", no_prefix_markup=true})
+
+    local demuxer_cache = mp.get_property_native("demuxer-cache-state", {})
+    if demuxer_cache["fw-bytes"] then
+        demuxer_cache = demuxer_cache["fw-bytes"] -- returns bytes
+    else
+        demuxer_cache = 0
+    end
+    local demuxer_secs = mp.get_property_number("demuxer-cache-duration", 0)
+    local stream_cache = mp.get_property_number("cache-used", 0) * 1024 -- returns KiB
+    if stream_cache + demuxer_cache + demuxer_secs > 0 then
+        append(s, utils.format_bytes_humanized(stream_cache + demuxer_cache), {prefix="Total Cache:"})
+        append(s, utils.format_bytes_humanized(demuxer_cache), {prefix="(Demuxer:",
+               suffix=",", nl="", no_prefix_markup=true, indent=o.prefix_sep})
+        append(s, format("%.1f", demuxer_secs), {suffix=" sec)", nl="", indent="",
+               no_prefix_markup=true})
+        local speed = mp.get_property_number("cache-speed", 0)
+        if speed > 0 then
+            append(s, utils.format_bytes_humanized(speed) .. "/s", {prefix="Speed:", nl="",
+                   indent=o.prefix_sep, no_prefix_markup=true})
+        end
     end
     append_property(s, "file-size", {prefix="Size:"})
 end
 
 
 local function add_video(s)
-    if not has_video() then
+    local r = mp.get_property_native("video-params")
+    -- in case of e.g. lavi-complex there can be no input video, only output
+    if not r then
+        r = mp.get_property_native("video-out-params")
+    end
+    if not r then
         return
     end
 
-    if append_property(s, "video-codec", {prefix=o.nl .. o.nl .. "Video:", nl="", indent=""}) then
+    append(s, "", {prefix=o.nl .. o.nl .. "Video:", nl="", indent=""})
+    if append_property(s, "video-codec", {prefix_sep="", nl="", indent=""}) then
         append_property(s, "hwdec-current", {prefix="(hwdec:", nl="", indent=" ",
                          no_prefix_markup=true, suffix=")"}, {no=true, [""]=true})
     end
@@ -486,41 +500,45 @@ local function add_video(s)
     append_display_sync(s)
     append_perfdata(s, o.print_perfdata_passes)
 
-    if append_property(s, "video-params/w", {prefix="Native Resolution:"}) then
-        append_property(s, "video-params/h",
-                        {prefix="x", nl="", indent=" ", prefix_sep=" ", no_prefix_markup=true})
+    if append(s, r["w"], {prefix="Native Resolution:"}) then
+        append(s, r["h"], {prefix="x", nl="", indent=" ", prefix_sep=" ", no_prefix_markup=true})
     end
     append_property(s, "window-scale", {prefix="Window Scale:"})
-    append_property(s, "video-params/aspect", {prefix="Aspect Ratio:"})
-    append_property(s, "video-params/pixelformat", {prefix="Pixel Format:"})
+    append(s, format("%.2f", r["aspect"]), {prefix="Aspect Ratio:"})
+    append(s, r["pixelformat"], {prefix="Pixel Format:"})
 
     -- Group these together to save vertical space
-    local prim = append_property(s, "video-params/primaries", {prefix="Primaries:"})
-    local cmat = append_property(s, "video-params/colormatrix",
-                                     {prefix="Colormatrix:", nl=prim and "" or o.nl})
-    append_property(s, "video-params/colorlevels", {prefix="Levels:", nl=cmat and "" or o.nl})
+    local prim = append(s, r["primaries"], {prefix="Primaries:"})
+    local cmat = append(s, r["colormatrix"], {prefix="Colormatrix:", nl=prim and "" or o.nl})
+    append(s, r["colorlevels"], {prefix="Levels:", nl=cmat and "" or o.nl})
 
     -- Append HDR metadata conditionally (only when present and interesting)
-    local hdrpeak = mp.get_property_number("video-params/sig-peak", 0)
+    local hdrpeak = r["sig-peak"] or 0
     local hdrinfo = ""
     if hdrpeak > 1 then
-        hdrinfo = " (HDR peak: " .. hdrpeak .. ")"
+        hdrinfo = " (HDR peak: " .. format("%.2f", hdrpeak) .. ")"
     end
 
-    append_property(s, "video-params/gamma", {prefix="Gamma:", suffix=hdrinfo})
+    append(s, r["gamma"], {prefix="Gamma:", suffix=hdrinfo})
     append_property(s, "packet-video-bitrate", {prefix="Bitrate:", suffix=" kbps"})
     append_filters(s, "vf", "Filters:")
 end
 
 
 local function add_audio(s)
-    if not has_audio() then
+    local r = mp.get_property_native("audio-params")
+    -- in case of e.g. lavi-complex there can be no input audio, only output
+    if not r then
+        r = mp.get_property_native("audio-out-params")
+    end
+    if not r then
         return
     end
 
-    append_property(s, "audio-codec", {prefix=o.nl .. o.nl .. "Audio:", nl="", indent=""})
-    append_property(s, "audio-params/samplerate", {prefix="Sample Rate:", suffix=" Hz"})
-    append_property(s, "audio-params/channel-count", {prefix="Channels:"})
+    append(s, "", {prefix=o.nl .. o.nl .. "Audio:", nl="", indent=""})
+    append_property(s, "audio-codec", {prefix_sep="", nl="", indent=""})
+    append(s, r["samplerate"], {prefix="Sample Rate:", suffix=" Hz"})
+    append(s, r["channel-count"], {prefix="Channels:"})
     append_property(s, "packet-audio-bitrate", {prefix="Bitrate:", suffix=" kbps"})
     append_filters(s, "af", "Filters:")
 end
