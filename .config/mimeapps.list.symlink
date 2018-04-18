@@ -1,5 +1,5 @@
 [Default Applications]
-application/pdf=zathura-pdf-poppler.desktop;
+application/pdf=org.pwmt.zathura-pdf-poppler.desktop;
 application/xml=geany.desktop;
 audio/flac=mpv.desktop;
 audio/mpeg=mpv.desktop;
@@ -16,7 +16,7 @@ video/x-matroska=mpv.desktop;
 video/x-msvideo=mpv.desktop;
 
 [Added Associations]
-application/pdf=zathura-pdf-poppler.desktop;
+application/pdf=org.pwmt.zathura-pdf-poppler.desktop;
 application/xml=geany.desktop;
 audio/flac=mpv.desktop;
 audio/mpeg=mpv.desktop;
