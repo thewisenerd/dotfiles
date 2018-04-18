@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ ! -e /usr/bin/firefox-nightly ]; then
+	exec firefox "$@"
+fi
+
 export GTK2_RC_FILES=/usr/share/themes/Arc/gtk-2.0/gtkrc
 export GTK_THEME=Arc
 
