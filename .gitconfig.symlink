@@ -17,3 +17,5 @@
 	output = compact
 [receive]
 	denyCurrentBranch = warn
+[credential]
+	helper = cache --timeout=3600
