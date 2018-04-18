@@ -1,0 +1,86 @@
+#!/usr/bin/env python
+
+import os
+import sys
+import argparse
+import glob
+
+parser = argparse.ArgumentParser()
+parser.add_argument('FILE')
+parser.add_argument('SUBS')
+
+pwd = os.getcwd()
+
+def main():
+	global args
+	args = vars(args)
+
+	if not os.path.exists(args['FILE']):
+		print("%s [FILE] does not exist." % (args['FILE']))
+		exit(1)
+
+	if not os.path.exists(args['SUBS']):
+		print("%s [SUBS] does not exist." % (args['SUBS']))
+		exit(1)
+
+	if not os.path.isdir(args['SUBS']):
+		print("%s [SUBS] is not a directory" % (args['SUBS']))
+		exit(1)
+
+	absFile = os.path.abspath(args['FILE'])
+	absSubs = os.path.abspath(args['SUBS'])
+	absAttachments = os.path.join(absSubs, 'attachments')
+
+	subs = []
+	sub_types = ('*.ass', '*.srt', '*.sup')
+	os.chdir(absSubs)
+	for sub_type in sub_types:
+		subs.extend(list(glob.iglob(sub_type)))
+
+	hasAttachments = os.path.exists(absAttachments) and os.path.isdir(absAttachments)
+
+	mpvConfig = os.path.join(os.path.expanduser('~'), '.mpv')
+	fontsSymlink = os.path.join(mpvConfig, 'fonts')
+
+	setupFonts = True
+	if os.path.exists(fontsSymlink):
+		if os.path.islink(fontsSymlink):
+			try:
+				os.remove(fontsSymlink)
+			except OSError as e:
+				print("error removing [ %s ]( %s )" % (fontsSymlink, e))
+				setupFonts = False
+		else:
+			print("[ %s ] already exists. not setting up fonts" % (fontsSymlink))
+			setupFonts = False
+
+	if setupFonts:
+		if hasAttachments:
+			os.symlink(absAttachments, fontsSymlink)
+		else:
+			setupFonts = False
+
+	newargs = ['mpv']
+	for sub in subs:
+		newargs.append('--sub-file')
+		newargs.append(os.path.join(absSubs, sub))
+
+	newargs.append(absFile)
+
+	ret = os.spawnvp(os.P_WAIT, newargs[0], newargs)
+
+	if ret != 0:
+		print("mpv [ %d ]?" % (ret))
+
+	if setupFonts:
+		try:
+			os.remove(fontsSymlink)
+		except OSError as e:
+			print("error removing [ %s ]( %s )" % (fontsSymlink, e))
+			pass
+
+if __name__ == '__main__':
+	global args
+
+	args = parser.parse_args()
+	main()
