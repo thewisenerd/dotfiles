@@ -1,5 +1,0 @@
-#!/bin/sh
-
-_FPATH="${DOTFILES_PATH}/packages/lists/packages."
-_DATE=$( date +%F )
-mypaclist --aur | sort -hr > ${_FPATH}${_DATE}
