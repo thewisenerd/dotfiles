@@ -1,7 +1,0 @@
-#!/bin/bash
-
-exec /usr/bin/terminator \
-	--maximise \
-	--borderless \
-	--config ${DOTFILES_PATH}/configs/terminator/config \
-	"$@"
