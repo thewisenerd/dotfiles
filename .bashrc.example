@@ -1,0 +1,11 @@
+
+#
+# append to ~/.bashrc and set $DOTFILES_PATH
+#
+
+# export DOTFILES_PATH=""
+
+# reconf
+[ ! -z ${DOTFILES_PATH+x} ] && \
+	[ -e "${DOTFILES_PATH}/configure" ] && \
+		source "${DOTFILES_PATH}/configure"

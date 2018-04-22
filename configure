@@ -6,10 +6,23 @@ export PATH=${DOTFILES_PATH}/bin/wrappers:$PATH
 # editor
 export EDITOR="nano"
 
+# startx
+if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
+	exec startx
+fi
+
 # helpers
 if test -d ${DOTFILES_PATH}/helpers; then
 	for helper in ${DOTFILES_PATH}/helpers/*.sh; do
 		test -r "$helper" && . "$helper"
 	done
 	unset helper
+fi
+
+# shell
+if [ -z ${NOFISH+x} ]; then
+	[ ! -z ${DOTFILES_PATH+x} ] && exec fish
+else
+	[ ! -z ${DOTFILES_PATH+x} ] && \
+		export PATH=${DOTFILES_PATH}/bin/bash-compat:$PATH
 fi
