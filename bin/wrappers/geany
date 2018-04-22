@@ -12,7 +12,7 @@ if [ -z ${DISPLAY+x} ]; then
 fi
 
 
-CONFIGDIR=${DOTFILES_PATH}/configs/geany
+CONFIGDIR=${HOME}/.config/geany
 
 disp=$( echo $DISPLAY | sed 's@:@_@g;s@/@_@g' )
 host=$( hostname )
@@ -25,7 +25,7 @@ if ! is-valid-geany-socket $socket > /dev/null 2>&1 ; then
 	if [ -e $real ] ; then
 		rm -rf $real
 	fi
-	nohup /usr/bin/geany --config=${DOTFILES_PATH}/configs/geany/ "$@" > /dev/null 2>&1 &
+	nohup /usr/bin/geany "$@" > /dev/null 2>&1 &
 	exit
 else
 	# valid geany socket
@@ -37,4 +37,4 @@ else
 	fi
 fi
 
-exec /usr/bin/geany --config=${DOTFILES_PATH}/configs/geany/ "$@"
+exec /usr/bin/geany "$@"
