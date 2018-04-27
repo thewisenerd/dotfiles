@@ -1,0 +1,14 @@
+#!/bin/bash
+
+TEMP=$(mktemp -d)
+
+args=(/usr/bin/chromium)
+args+=(--user-data-dir="${TEMP}")
+
+
+UBLOCK="${HOME}/works/unix/chromium/uBlock0.chromium/1.16.0"
+if [ -d "${UBLOCK}" ]; then
+	args+=(--load-extension="${UBLOCK}")
+fi
+
+"${args[@]}"
