@@ -11,4 +11,4 @@ if [ -d "${UBLOCK}" ]; then
 	args+=(--load-extension="${UBLOCK}")
 fi
 
-"${args[@]}"
+"${args[@]}" "$@"
