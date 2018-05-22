@@ -42,6 +42,9 @@ def main():
 	mpvConfig = os.path.join(os.path.expanduser('~'), '.mpv')
 	fontsSymlink = os.path.join(mpvConfig, 'fonts')
 
+	if not os.path.exists(mpvConfig):
+		os.mkdir(mpvConfig)
+
 	setupFonts = True
 	if os.path.exists(fontsSymlink):
 		if os.path.islink(fontsSymlink):
