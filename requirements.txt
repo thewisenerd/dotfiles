@@ -1,0 +1,5 @@
+youtube-dl
+requests
+pysocks
+subliminal
+torf-cli
