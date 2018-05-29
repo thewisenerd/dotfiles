@@ -7,9 +7,6 @@ set -e
 
 echo ''
 
-# mpv-stats
-curl -0 'https://raw.githubusercontent.com/Argon-/mpv-stats/master/stats.lua' -o $DOTFILES_ROOT/.config/mpv.symlink/scripts/stats.lua
-
 # mpv-mpris
 rm -rf /tmp/mpv-mpris
 mkdir -p /tmp/mpv-mpris
