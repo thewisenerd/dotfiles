@@ -6,7 +6,6 @@ import XMonad.Actions.NoBorders		-- toggleBorder
 import XMonad.Layout.NoBorders		-- NoBorders
 import Control.Monad (liftM2)		-- viewShift
 import qualified XMonad.StackSet as W	-- viewShift
-import XMonad.Actions.WindowBringer	-- gotoMenu
 import XMonad.Hooks.EwmhDesktops	-- EWMH
 
 myLayoutHook = (noBorders Full) ||| (tabbed shrinkText def) ||| tiled ||| Mirror tiled
@@ -67,6 +66,5 @@ main = xmonad $ ewmh $ defaultConfig
 	[
 		((mod1Mask .|. shiftMask , xK_b), withFocused toggleBorder)
 	,	((mod1Mask, xK_p ), spawn "rofi -show run")
-	,	((mod1Mask, xK_g ), gotoMenuArgs' "rofi" ["-dmenu"] )
-	,	((mod1Mask, xK_b ), bringMenuArgs' "rofi" ["-dmenu"] )
+	,	((mod1Mask, xK_g ), spawn "rofi -show window")
 	]
