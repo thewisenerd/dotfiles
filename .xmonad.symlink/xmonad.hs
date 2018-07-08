@@ -7,6 +7,7 @@ import XMonad.Layout.NoBorders		-- NoBorders
 import Control.Monad (liftM2)		-- viewShift
 import qualified XMonad.StackSet as W	-- viewShift
 import XMonad.Actions.WindowBringer	-- gotoMenu
+import XMonad.Hooks.EwmhDesktops	-- EWMH
 
 myLayoutHook = (noBorders Full) ||| (tabbed shrinkText def) ||| tiled ||| Mirror tiled
 	where
@@ -51,7 +52,7 @@ myFloatHooks = composeAll
 		resource =? "Vlc"			--> doFloat
 	]
 
-main = xmonad $ defaultConfig
+main = xmonad $ ewmh $ defaultConfig
 	{
 		normalBorderColor = "#332d29"
 	,	focusedBorderColor = "#817267"
