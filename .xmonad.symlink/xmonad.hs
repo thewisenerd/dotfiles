@@ -66,6 +66,7 @@ main = xmonad $ ewmh $ defaultConfig
 	`additionalKeys`
 	[
 		((mod1Mask .|. shiftMask , xK_b), withFocused toggleBorder)
-	,	((mod1Mask, xK_g ), gotoMenu)
-	,	((mod1Mask, xK_b ), bringMenu)
+	,	((mod1Mask, xK_p ), spawn "rofi -show run")
+	,	((mod1Mask, xK_g ), gotoMenuArgs' "rofi" ["-dmenu"] )
+	,	((mod1Mask, xK_b ), bringMenuArgs' "rofi" ["-dmenu"] )
 	]
