@@ -1,0 +1,19 @@
+# [http]
+# 	proxy = socks5://localhost:9050
+# [https]
+# 	proxy = socks5://localhost:9050
+
+[alias]
+	ll = log
+	ls = log --oneline
+	br = branch -vv
+	st = status
+	pik = cherry-pick
+	co = checkout
+	mdiff = diff master
+	cdiff = diff --cached
+	df = diff
+	mls = log --oneline --no-merges master..HEAD
+	shush = update-index --skip-worktree
+	unshush = update-index --no-skip-worktree
+	tags = show-ref --tags --abbrev
