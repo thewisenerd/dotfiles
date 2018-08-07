@@ -29,6 +29,8 @@ myShiftHooks = composeAll
 		className =? "Terminator"		--> viewShift	(myWorkspaces !! 0)
 	,	className =? "Geany"			--> viewShift	(myWorkspaces !! 1)
 	,	className =? "Code"			--> viewShift	(myWorkspaces !! 1)
+	,	className =? "jetbrains-webstorm"	--> viewShift	(myWorkspaces !! 1)
+	,	className =? "jetbrains-phpstorm"	--> viewShift	(myWorkspaces !! 1)
 	,	className =? "TeXstudio"		--> viewShift	(myWorkspaces !! 1)
 	,	className =? "Firefox"			--> viewShift	(myWorkspaces !! 2)
 	,	className =? "Chromium"			--> viewShift	(myWorkspaces !! 2)
@@ -41,6 +43,7 @@ myShiftHooks = composeAll
 	,	className =? "mpv"			--> viewShift	(myWorkspaces !! 6)
 	,	className =? "discord"			--> viewShift	(myWorkspaces !! 7)
 	,	className =? "TelegramDesktop"		--> viewShift	(myWorkspaces !! 7)
+	,	className =? "Slack"			--> doShift	(myWorkspaces !! 7)
 	,	className =? "Tixati"			--> doShift	(myWorkspaces !! 8)
 	,	className =? "Deluge"			--> doShift	(myWorkspaces !! 8)
 	]
