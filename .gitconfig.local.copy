@@ -8,7 +8,7 @@
 	ls = log --oneline
 	br = branch -vv
 	st = status
-	pik = cherry-pick
+	pik = cherry-pick -x
 	co = checkout
 	mdiff = diff master
 	cdiff = diff --cached
