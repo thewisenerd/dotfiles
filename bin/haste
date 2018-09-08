@@ -1,2 +1,5 @@
 #!/bin/bash
-exec curl -X POST -s --data-binary @- https://hastebin.com/documents | awk -F '"' '{print "https://hastebin.com/raw/"$4}';
+
+DROP="https://del.dog"
+[ -t 0 ] && { echo "pipe, not arg"; exit; }
+exec curl -X POST -s --data-binary @- "${DROP}/documents" | jq -r '"'"${DROP}"'/raw/" + .key' | tee >(awk '{printf $0}' | xclip -sel clip)
