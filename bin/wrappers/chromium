@@ -1,14 +1,75 @@
 #!/bin/bash
 
-TEMP=$(mktemp -d)
+set -euo pipefail
 
-args=(/usr/bin/chromium)
-args+=(--user-data-dir="${TEMP}")
+function ublock_check_update() {
+	local ublock_dir
+	local ublock_ver
 
+	# https://stackoverflow.com/a/4024263
+	function verlte() {
+		local v1="$1"
+		local v2="$2"
+		[ "$v1" = "`echo -e "${v1}\n${v2}" | sort -V | head -n1`" ]
+	}
+	function verlt() {
+		local v1="$1"
+		local v2="$2"
+		[ "$v1" = "$v2" ] && return 1 || verlte "$v1" "$v2"
+	}
 
-UBLOCK="${HOME}/works/unix/chromium/uBlock0.chromium/1.16.0"
-if [ -d "${UBLOCK}" ]; then
-	args+=(--load-extension="${UBLOCK}")
-fi
+	ublock_dir="$1"
+	ublock_ver="$2"
 
-"${args[@]}" "$@"
+	echo -n "[ublock] "
+
+	latest=$(curl --silent --max-time 2.5 'https://api.github.com/repos/gorhill/uBlock/releases/latest' | jq -r '.tag_name')
+
+	if [ "$latest" = "" -o "z${latest}" = "znull" ]; then
+		echo "json parse fail"
+		return 1 # json parse fail?
+	fi
+
+	verlt "${ublock_ver}" "${latest}" && {
+		echo "updating to ${latest}"
+
+		local url="https://github.com/gorhill/uBlock/releases/download/${latest}/uBlock0.chromium.zip" # hope this dont change
+		local tmp_zip="/tmp/uBlock0.chromium.${latest}.zip"
+		local new_folder="${ublock_dir}/${latest}"
+
+		curl -# --location --max-time 30.0 "${url}" -o "${tmp_zip}" && {
+			unzip -t "${tmp_zip}" && {
+				mkdir -p "${new_folder}"
+				unzip -n -d "${new_folder}" "${tmp_zip}"
+
+				echo "[ublock] updated to ${latest}"
+			}
+		}
+		rm -f /tmp/uBlock0.chromium.*.zip
+	} || {
+		echo "latest ${latest}"
+	}
+}
+
+function cc() {
+	local template="/tmp/chromium-XXXXXX"
+	local temp_dir=$(mktemp -d "${template}")
+
+	local args=(/usr/bin/chromium)
+	args+=(--user-data-dir="${temp_dir}")
+	args+=(--no-default-browser-check)
+	args+=(--no-first-run)
+	args+=(--disable-sync)
+
+	local ublock_dir="${HOME}/works/unix/chromium/uBlock"
+	if [ -d "${ublock_dir}" ]; then
+		local ublock_ver=$(ls "${ublock_dir}" | sort -rV | head -n 1)
+		ublock_check_update "${ublock_dir}" "${ublock_ver}"
+		args+=(--load-extension="${ublock_dir}/${ublock_ver}/uBlock0.chromium")
+	fi
+
+	trap "rm -rf /tmp/chromium-*" INT TERM EXIT
+	"${args[@]}" "$@"
+}
+
+cc "$@"
