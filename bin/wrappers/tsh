@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec autossh -M 0 "$@" -t 'export EDITOR=nano; tmux -u a || tmux -u || echo "tmux executable not found!"'
