@@ -7,6 +7,7 @@ import XMonad.Layout.NoBorders		-- NoBorders
 import Control.Monad (liftM2)		-- viewShift
 import qualified XMonad.StackSet as W	-- viewShift
 import XMonad.Hooks.EwmhDesktops	-- EWMH
+import XMonad.Actions.WindowGo (runOrRaise)
 
 myLayoutHook = (noBorders Full) ||| (tabbed shrinkText def) ||| tiled ||| Mirror tiled
 	where
@@ -54,6 +55,11 @@ myFloatHooks = composeAll
 		resource =? "Vlc"			--> doFloat
 	]
 
+myStartupHook :: X()
+myStartupHook = do
+	runOrRaise "tixati" (className =? "Tixati")
+	runOrRaise "terminator" (className =? "Terminator")
+
 main = xmonad $ ewmh $ defaultConfig
 	{
 		normalBorderColor = "#332d29"
@@ -64,6 +70,7 @@ main = xmonad $ ewmh $ defaultConfig
 	,	layoutHook = myLayoutHook
 	,	workspaces = myWorkspaces
 	,	manageHook = myShiftHooks <+> myFloatHooks <+> manageHook defaultConfig
+	,	startupHook = myStartupHook
   }
 	`additionalKeys`
 	[
