@@ -3,8 +3,6 @@
 set -euo pipefail
 
 function ublock_check_update() {
-	local ublock_dir
-	local ublock_ver
 
 	# https://stackoverflow.com/a/4024263
 	function verlte() {
@@ -18,8 +16,8 @@ function ublock_check_update() {
 		[ "$v1" = "$v2" ] && return 1 || verlte "$v1" "$v2"
 	}
 
-	ublock_dir="$1"
-	ublock_ver="$2"
+	local ublock_dir="$1"
+	local ublock_ver=$(ls "${ublock_dir}" | sort -rV | head -n 1)
 
 	echo -n "[ublock] "
 
@@ -63,8 +61,8 @@ function cc() {
 
 	local ublock_dir="${HOME}/works/unix/chromium/uBlock"
 	if [ -d "${ublock_dir}" ]; then
+		ublock_check_update "${ublock_dir}"
 		local ublock_ver=$(ls "${ublock_dir}" | sort -rV | head -n 1)
-		ublock_check_update "${ublock_dir}" "${ublock_ver}"
 		args+=(--load-extension="${ublock_dir}/${ublock_ver}/uBlock0.chromium")
 	fi
 
