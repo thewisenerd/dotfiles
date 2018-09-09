@@ -62,6 +62,8 @@ function cc() {
 	args+=(--no-default-browser-check)
 	args+=(--no-first-run)
 	args+=(--disable-sync)
+	args+=(--disable-signin-promo)
+	args+=(--disable-signin-scoped-device-id)
 
 	local ublock_dir="${HOME}/works/unix/chromium/uBlock"
 	if [ -d "${ublock_dir}" ]; then
