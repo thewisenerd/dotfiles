@@ -38,7 +38,6 @@ myShiftHooks = composeAll
 	,	className =? "Navigator"		--> viewShift	(myWorkspaces !! 2)
 	,	className =? "Nightly"			--> viewShift	(myWorkspaces !! 2)
 	,	className =? "Spacefm"			--> viewShift	(myWorkspaces !! 3)
-	,	className =? "dolphin"			--> viewShift	(myWorkspaces !! 3)
 	,	className =? "VirtualBox"		--> viewShift	(myWorkspaces !! 4)
 	,	className =? "Steam"			--> viewShift	(myWorkspaces !! 5)
 	,	className =? "Vlc"			--> viewShift	(myWorkspaces !! 6)
