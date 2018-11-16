@@ -33,6 +33,11 @@ function ublock_check_update() {
 		return 0 # json parse fail? this shouldn't be a blocker
 	fi
 
+	if [ "$latest_url" == "" -o "z${latest_url}" == "znull" ]; then
+		echo "json parse fail"
+		return 0 # json parse fail? this shouldn't be a blocker
+	fi
+
 	verlt "${ublock_ver}" "${latest_tag}" && {
 		echo "updating to ${latest_tag}"
 
