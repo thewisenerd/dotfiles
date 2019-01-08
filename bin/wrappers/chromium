@@ -21,12 +21,12 @@ function ublock_check_update() {
 
 	echo -n "[ublock] "
 
-	api=$(curl --silent --max-time 2.5 'https://api.github.com/repos/gorhill/uBlock/releases/latest') || {
+	api=$(curl --silent --max-time 2.5 'https://api.github.com/repos/gorhill/uBlock/releases') || {
 		echo "error fetching gh api"
 		return 0 # this should't be a blocker
 	}
-	local latest_tag=$(echo "$api" | jq -r '.tag_name')
-	local latest_url=$(echo "$api" | jq -r '.assets[] | select(.name == "uBlock0.chromium.zip") | .browser_download_url') # hope this dont change
+	local latest_tag=$(echo "$api" | jq -r 'first(.[] | select(.assets[].name == "uBlock0.chromium.zip")).tag_name')
+	local latest_url=$(echo "$api" | jq -r 'first(.[] | select(.assets[].name == "uBlock0.chromium.zip")).assets[] | select(.name == "uBlock0.chromium.zip") | .browser_download_url') # hope this dont change
 
 	if [ "$latest_tag" = "" -o "z${latest_tag}" = "znull" ]; then
 		echo "json parse fail"
