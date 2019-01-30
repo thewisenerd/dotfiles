@@ -4,4 +4,8 @@ xsetroot -cursor_name left_ptr
 
 xbindkeys
 
+[[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap
+
+[[ -f /usr/bin/xcape ]] && xcape -e 'Control_L=Escape'
+
 exec xmonad
