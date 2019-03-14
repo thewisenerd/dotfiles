@@ -72,6 +72,7 @@ main = xmonad $ ewmh $ defaultConfig
 	,	workspaces = myWorkspaces
 	,	manageHook = myShiftHooks <+> myFloatHooks <+> manageHook defaultConfig
 	,	startupHook = myStartupHook
+	,	handleEventHook = fullscreenEventHook
   }
 	`additionalKeys`
 	[
