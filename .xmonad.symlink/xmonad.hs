@@ -9,7 +9,7 @@ import qualified XMonad.StackSet as W	-- viewShift
 import XMonad.Hooks.EwmhDesktops	-- EWMH
 import XMonad.Actions.WindowGo (runOrRaise)
 
-myLayoutHook = (noBorders Full) ||| (tabbed shrinkText def) ||| tiled ||| Mirror tiled
+myLayoutHook = (noBorders Full) ||| tiled ||| Mirror tiled
 	where
 		-- default tiling algorithm partitions the screen into two panes
 		tiled   = Tall nmaster delta ratio
