@@ -32,6 +32,7 @@ myShiftHooks = composeAll
 	,	className =? "Code"			--> viewShift	(myWorkspaces !! 1)
 	,	className =? "jetbrains-webstorm"	--> viewShift	(myWorkspaces !! 1)
 	,	className =? "jetbrains-phpstorm"	--> viewShift	(myWorkspaces !! 1)
+	,	className =? "Subl3"			--> viewShift	(myWorkspaces !! 1)
 	,	className =? "TeXstudio"		--> viewShift	(myWorkspaces !! 1)
 	,	className =? "Firefox"			--> viewShift	(myWorkspaces !! 2)
 	,	className =? "Chromium"			--> viewShift	(myWorkspaces !! 2)
