@@ -1,0 +1,27 @@
+dotfiles
+--------
+
+the idea is we only symlink and copy where explicitly set.
+also we need internet, because dependencies ,_,
+
+<base>
+------
+
+- generic/: generic config that transcends machines
+- specific/<kernel>/: specific config for a kernel, kernel is specified by $(uname -s)
+- hosts/<hostname>/: specific config for a hostname
+
+<base>/<dirent>
+---------------
+- <base>/bootstrap: bash compatible should be called by the bootstrap script with -euo
+  - should not be executable by default, just be "source"-ed
+- <base>/configure: bash compatible configuration script that is run first.
+  - should not be executable by default, just be "source"-ed
+  - generic/configure needs to call the remaining <base> configures.
+  - the configure script must be called with "one" argument, specifying <base>.
+  - the configure script must "only" use that argument for any operations.
+  - the configure script shall call <base>/helpers/*
+- <base>/bin/: all binaries should ideally be in this folder
+  can have subfolders as well, but path configuration should be done in helpers
+- <base>/helpers/: list of helpers to be used by configure/
+  this could be empty as well
