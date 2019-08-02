@@ -55,6 +55,7 @@ myShiftHooks = composeAll
 myFloatHooks = composeAll
 	[
 		resource =? "Vlc"			--> doFloat
+	,	resource =? "Vncviewer"			--> doFloat
 	]
 
 myStartupHook :: X()
