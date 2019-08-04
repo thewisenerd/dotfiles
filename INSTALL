@@ -25,3 +25,9 @@ also we need internet, because dependencies ,_,
   can have subfolders as well, but path configuration should be done in helpers
 - <base>/helpers/: list of helpers to be used by configure/
   this could be empty as well
+
+scripts/bootstrap.py
+--------------------
+
+- should be called with one argument, this repo path
+- python3 script (because python2 is EOL)
