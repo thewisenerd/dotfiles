@@ -39,9 +39,17 @@ def setup_symlinks(basename, root, home, logger):
     logger.info("setting up symlinks for base [{}]".format(basename))
     for [delta, dot_file, home_file] in get_files_for_setup(root, home, '**/*.symlink'):
         if os.path.exists(home_file):
-            logger.error("{} already exists!".format(delta))
+            if Path(home_file).resolve() == dot_file:
+                logger.info("file already pointing to dot_file")
+                continue
+            else:
+                logger.error("{} already exists!".format(delta))
         else:
-            os.remove(home_file)
+            try:
+                os.remove(home_file)
+            except OSError as e:
+                if e.errno != errno.ENOENT:
+                    raise e
             os.symlink(dot_file, home_file)
             logger.info("{} symlinked".format(delta))
 

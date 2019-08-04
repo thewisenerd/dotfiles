@@ -28,3 +28,5 @@ else
 	[ ! -z ${DOTFILES_PATH+x} ] && \
 		export PATH=${DOTFILES_PATH}/bin/bash-compat:$PATH
 fi
+
+export DOTFILES_PATH=${DOTFILES_PATH_ORIG}
