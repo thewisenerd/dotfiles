@@ -10,6 +10,8 @@ import logging
 
 from pathlib import Path
 
+from shutil import copy2
+
 def get_arg_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument("DOTFILES_PATH", help="path of dotfiles")
@@ -64,9 +66,13 @@ def setup_copies(basename, root, home, logger):
                 logger.info("{} is identical, skipping".format(delta))
                 continue
             else:
-                log.error("{} already exists and is not identical")
+                log.error("{} already exists and is not identical".format(delta))
         else:
-            logger.error('copy: {}'.format(home_file))
+            if os.path.isdir(dot_file):
+                log.error("{} is directory; not copying".format(delta))
+            else:
+                logger.info("{} copied".format(delta))
+                copy2(dot_file, home_file)
 
     return 0
 
