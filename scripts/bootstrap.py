@@ -66,10 +66,10 @@ def setup_copies(basename, root, home, logger):
                 logger.info("{} is identical, skipping".format(delta))
                 continue
             else:
-                log.error("{} already exists and is not identical".format(delta))
+                logger.error("{} already exists and is not identical".format(delta))
         else:
             if os.path.isdir(dot_file):
-                log.error("{} is directory; not copying".format(delta))
+                logger.error("{} is directory; not copying".format(delta))
             else:
                 logger.info("{} copied".format(delta))
                 copy2(dot_file, home_file)
