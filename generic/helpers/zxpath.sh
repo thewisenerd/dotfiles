@@ -13,4 +13,5 @@ add_spath() {
 
 add_spath "$DOTFILES_PATH_ORIG" "dots"
 
-unset -f add_spath
+# ideally let the <hostname> helper unset this
+# unset -f add_spath
