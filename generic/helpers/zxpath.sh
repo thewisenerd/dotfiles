@@ -6,6 +6,9 @@ add_spath() {
 		export ZXPATH="$ZXPATH:$1"
 		export ZXKEYS="$ZXKEYS:$2"
 	}
+	if [ -d $1 ]; then
+		export $2=$1
+	fi
 }
 
 add_spath "$DOTFILES_PATH_ORIG" "dots"
