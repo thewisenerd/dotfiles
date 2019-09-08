@@ -1,0 +1,11 @@
+#!/bin/sh
+
+A=$(cat /sys/class/power_supply/BAT0/capacity)
+B=$(cat /sys/class/power_supply/AC/online)
+
+C=""
+if [[ "$B" == "1" ]]; then
+	C="+"
+fi
+
+echo $A$C
