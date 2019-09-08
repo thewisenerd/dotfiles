@@ -8,6 +8,6 @@ add_spath() {
 	}
 }
 
-add_spath "$DOTFILES_PATH" "dots"
+add_spath "$DOTFILES_PATH_ORIG" "dots"
 
 unset -f add_spath

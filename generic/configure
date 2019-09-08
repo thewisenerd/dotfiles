@@ -1,7 +1,5 @@
 # paths
 export PATH=/usr/local/bin:$PATH
-export PATH=${DOTFILES_PATH}/bin:$PATH
-export PATH=${DOTFILES_PATH}/bin/wrappers:$PATH
 
 # editor
 export EDITOR="nano"
@@ -13,20 +11,43 @@ if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ] && [ ! -e ~/
 	fi
 fi
 
-# helpers
-if test -d ${DOTFILES_PATH}/helpers; then
-	for helper in ${DOTFILES_PATH}/helpers/*.sh; do
-		test -r "$helper" && . "$helper"
-	done
-	unset helper
-fi
+# helpers - start
+read_helpers() {
+	if [ -d ${DOTFILES_PATH}/bin ]; then
+		export PATH=${DOTFILES_PATH}/bin:$PATH
+	fi
+
+	if [ -d ${DOTFILES_PATH}/bin/wrappers ]; then
+		export PATH=${DOTFILES_PATH}/bin/wrappers:$PATH
+	fi
+
+	if test -d ${DOTFILES_PATH}/helpers; then
+		for helper in ${DOTFILES_PATH}/helpers/*.sh; do
+			test -r "$helper" && . "$helper"
+		done
+		unset helper
+	fi
+}
+
+# read::generic
+read_helpers
+
+# read::specific
+export DOTFILES_PATH=${DOTFILES_PATH_ORIG}/specific/$(uname -s)
+read_helpers
+
+# read::hostname
+export DOTFILES_PATH=${DOTFILES_PATH_ORIG}/specific/$(hostname)
+read_helpers
+
+# reset DOTFILES_PATH
+export DOTFILES_PATH=${DOTFILES_PATH_ORIG}
+unset DOTFILES_PATH_ORIG
+# helpers - end
 
 # shell
-if [ -z ${NOFISH+x} ]; then
-	[ ! -z ${DOTFILES_PATH+x} ] && exec fish
-else
-	[ ! -z ${DOTFILES_PATH+x} ] && \
-		export PATH=${DOTFILES_PATH}/bin/bash-compat:$PATH
+if [[ -z ${NOFISH+x} ]]; then
+	[[ ! -z ${DOTFILES_PATH+x} ]] && \
+	[[ ( "$(uname -s)z" != "Darwinz" ) || ! ( -z ${ITERM_PROFILE+x} ) ]] && \
+	exec fish
 fi
-
-export DOTFILES_PATH=${DOTFILES_PATH_ORIG}
