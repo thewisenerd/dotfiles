@@ -25,8 +25,9 @@ function ublock_check_update() {
 		echo "error fetching gh api"
 		return 0 # this should't be a blocker
 	}
-	local latest_tag=$(echo "$api" | jq -r 'first(.[] | select(.assets[].name == "uBlock0.chromium.zip")).tag_name')
-	local latest_url=$(echo "$api" | jq -r 'first(.[] | select(.assets[].name == "uBlock0.chromium.zip")).assets[] | select(.name == "uBlock0.chromium.zip") | .browser_download_url') # hope this dont change
+	local latest=$(echo "$api" | jq -r 'first(.[] | select((.assets[].name | startswith("uBlock0")) and (.assets[].name | endswith(".chromium.zip")) and (.prerelease != true)))')
+	local latest_tag=$(echo "$latest" | jq -r '.tag_name')
+	local latest_url=$(echo "$latest" | jq -r 'first(.assets[] | select((.name | endswith(".chromium.zip")))).browser_download_url') # hope this dont change
 
 	if [ "$latest_tag" = "" -o "z${latest_tag}" = "znull" ]; then
 		echo "json parse fail"
@@ -78,6 +79,7 @@ function cc() {
 	fi
 
 	trap "rm -rf /tmp/chromium-*" INT TERM EXIT
+	set -x
 	"${args[@]}" "$@"
 }
 
