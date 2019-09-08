@@ -10,4 +10,4 @@
 	[ -e "${DOTFILES_PATH}/generic/configure" ] && \
 		export DOTFILES_PATH_ORIG=${DOTFILES_PATH}
 		export DOTFILES_PATH=${DOTFILES_PATH}/generic
-		source "${DOTFILES_PATH}/generic/configure"
+		source "${DOTFILES_PATH}/configure"

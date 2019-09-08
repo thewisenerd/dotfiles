@@ -37,7 +37,7 @@ export DOTFILES_PATH=${DOTFILES_PATH_ORIG}/specific/$(uname -s)
 read_helpers
 
 # read::hostname
-export DOTFILES_PATH=${DOTFILES_PATH_ORIG}/specific/$(hostname)
+export DOTFILES_PATH=${DOTFILES_PATH_ORIG}/hosts/$(hostname)
 read_helpers
 
 # reset DOTFILES_PATH
