@@ -4,13 +4,6 @@ export PATH=/usr/local/bin:$PATH
 # editor
 export EDITOR="nano"
 
-# startx
-if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ] && [ ! -e ~/.sans ]; then
-	if [ -z "$TMUX" ]; then
-		exec startx
-	fi
-fi
-
 # helpers - start
 read_helpers() {
 	if [ -d ${DOTFILES_PATH}/bin ]; then
@@ -44,6 +37,13 @@ read_helpers
 export DOTFILES_PATH=${DOTFILES_PATH_ORIG}
 unset DOTFILES_PATH_ORIG
 # helpers - end
+
+# startx
+if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ] && [ ! -e ~/.sans ]; then
+	if [ -z "$TMUX" ]; then
+		exec startx
+	fi
+fi
 
 # shell
 if [[ -z ${NOFISH+x} ]]; then
