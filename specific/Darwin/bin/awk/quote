@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec gawk -f /Users/vineethraj/works/osx/bin/awk/quote.awk -- "$@"

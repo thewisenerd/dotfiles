@@ -1,0 +1,18 @@
+#!/bin/bash
+
+prefix=$1
+len=$2
+
+if [ "$len" == "" ]; then
+	len=9
+fi
+
+c=$(( ($len + 7) / 8))
+
+hash=''
+for (( i=1; i<=$c; i++ ))
+do
+	hash="$hash"`hexdump -n 8 -e '2/4 "%08X" 1 "\n"' /dev/random`
+done
+
+echo -n "$prefix"`echo $hash | cut -c1-$len`
