@@ -10,6 +10,13 @@
 # [commit]
 # 	gpgsign = false
 
+[credential]
+	helper = cache --timeout=3600
+	# helper = osxkeychain
+
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+
 [alias]
 	ll = log
 	ls = log --oneline
