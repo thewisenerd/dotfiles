@@ -1,40 +1,30 @@
 import XMonad
 
-import XMonad.Layout.Tabbed		-- layout
-import XMonad.Util.EZConfig		-- additionalKeys
-import XMonad.Actions.NoBorders		-- toggleBorder
-import XMonad.Layout.NoBorders		-- NoBorders
-import Control.Monad (liftM2)		-- viewShift
-import qualified XMonad.StackSet as W	-- viewShift
-import XMonad.Hooks.EwmhDesktops	-- EWMH
-import XMonad.Actions.WindowGo (runOrRaise)
+import XMonad.Util.EZConfig			-- additionalKeys
+import XMonad.Layout.NoBorders			-- NoBorders
+import XMonad.Layout.Spacing			-- spacing $ Tall
+import Control.Monad (liftM2)			-- viewShift
+import qualified XMonad.StackSet as W		-- viewShift
+import XMonad.Hooks.EwmhDesktops		-- EWMH
+import XMonad.Actions.WindowGo (runOrRaise)	-- startupHook
 
-myLayoutHook = (noBorders Full) ||| tiled ||| Mirror tiled
-	where
-		-- default tiling algorithm partitions the screen into two panes
-		tiled   = Tall nmaster delta ratio
 
-		-- The default number of windows in the master pane
-		nmaster = 1
-
-		-- Default proportion of screen occupied by master pane
-		ratio   = 1/2
-
-		-- Percent of screen to increment by when resizing panes
-		delta   = 3/100
+myLayoutHook = (noBorders Full) ||| tall ||| Mirror tall
+		where tall = (spacing 2 $ Tall 1 (3/100) (3/5))
 
 myWorkspaces = ["1","2","3","4","5","6","7","8","9"]
 
 myShiftHooks = composeAll
 	[
 		className =? "Terminator"		--> viewShift	(myWorkspaces !! 0)
+	,	className =? "Alacritty"		--> viewShift	(myWorkspaces !! 0)
 	,	className =? "Geany"			--> viewShift	(myWorkspaces !! 1)
 	,	className =? "Code"			--> viewShift	(myWorkspaces !! 1)
 	,	className =? "jetbrains-webstorm"	--> viewShift	(myWorkspaces !! 1)
 	,	className =? "jetbrains-phpstorm"	--> viewShift	(myWorkspaces !! 1)
 	,	className =? "Subl3"			--> viewShift	(myWorkspaces !! 1)
 	,	className =? "TeXstudio"		--> viewShift	(myWorkspaces !! 1)
-	,	className =? "Navigator"			--> viewShift	(myWorkspaces !! 2)
+	,	className =? "Navigator"		--> viewShift	(myWorkspaces !! 2)
 	,	className =? "Firefox"			--> viewShift	(myWorkspaces !! 2)
 	,	className =? "firefox"			--> viewShift	(myWorkspaces !! 2)
 	,	className =? "Chromium"			--> viewShift	(myWorkspaces !! 2)
@@ -53,33 +43,26 @@ myShiftHooks = composeAll
 	]
 	where viewShift = doF . liftM2 (.) W.greedyView W.shift
 
-myFloatHooks = composeAll
-	[
-		resource =? "Vlc"			--> doFloat
-	,	resource =? "Vncviewer"			--> doFloat
-	]
-
 myStartupHook :: X()
 myStartupHook = do
 	runOrRaise "tixati" (className =? "Tixati")
-	runOrRaise "terminator" (className =? "Terminator")
+	runOrRaise "alacritty" (className =? "Alacritty")
 
 main = xmonad $ ewmh $ defaultConfig
 	{
 		normalBorderColor = "#332d29"
 	,	focusedBorderColor = "#817267"
-	,	borderWidth = 4
-	,	terminal = "terminator"
+	,	borderWidth = 2
+	,	terminal = "alacritty"
 	,	modMask  = mod1Mask
-	,	layoutHook = myLayoutHook
+	,	layoutHook = lessBorders OnlyScreenFloat $ myLayoutHook
 	,	workspaces = myWorkspaces
-	,	manageHook = myShiftHooks <+> myFloatHooks <+> manageHook defaultConfig
+	,	manageHook = myShiftHooks <+> manageHook defaultConfig
 	,	startupHook = myStartupHook
 	,	handleEventHook = fullscreenEventHook
   }
 	`additionalKeys`
 	[
-		((mod1Mask .|. shiftMask , xK_b), withFocused toggleBorder)
-	,	((mod1Mask, xK_p ), spawn "rofi -show run")
+		((mod1Mask, xK_p ), spawn "rofi -show run")
 	,	((mod1Mask, xK_g ), spawn "rofi -show window")
 	]
