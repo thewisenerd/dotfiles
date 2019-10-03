@@ -11,8 +11,7 @@ set tabsize 8
 set smarthome
 
 # include everythin!
-# TODO: os specific how?
-# include "/usr/share/nano/*.nanorc"
+include "/usr/local/share/nano/*.nanorc"
 
 # whitespace
 set whitespace "»·"
