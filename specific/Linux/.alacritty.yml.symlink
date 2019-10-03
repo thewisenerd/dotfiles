@@ -2,3 +2,8 @@ font:
   normal:
     family: Inconsolata
   size: 14.5
+
+window:
+  padding:
+    x: 5
+    y: 0
