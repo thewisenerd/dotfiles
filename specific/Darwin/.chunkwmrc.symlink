@@ -48,11 +48,16 @@ chunkc set custom_bar_offset_bottom      200
 chunkc set custom_bar_offset_left        0
 chunkc set custom_bar_offset_right       0
 
-chunkc set global_desktop_mode           bsp
+chunkc set global_desktop_mode           float
+chunkc set 1_desktop_mode                monocle
 chunkc set 2_desktop_mode                float
 chunkc set 3_desktop_mode                float
 chunkc set 4_desktop_mode                monocle
 chunkc set 5_desktop_mode                float
+chunkc set 6_desktop_mode                monocle
+chunkc set 7_desktop_mode                monocle
+chunkc set 8_desktop_mode                monocle
+chunkc set 9_desktop_mode                float
 
 chunkc set global_desktop_offset_top     20
 chunkc set global_desktop_offset_bottom  20
@@ -153,15 +158,20 @@ chunkc tiling::rule --owner \"Simulator\" --state float &
 chunkc tiling::rule --desktop 1 --follow-desktop --owner "iTerm2" &
 
 chunkc tiling::rule --desktop 2 --follow-desktop --owner "IntelliJ IDEA" &
+chunkc tiling::rule --desktop 2 --follow-desktop --owner "Xcode" &
 
 chunkc tiling::rule --desktop 3 --follow-desktop --owner "Google Chrome" &
 chunkc tiling::rule --desktop 3 --follow-desktop --owner "Firefox" &
+chunkc tiling::rule --desktop 3 --follow-desktop --owner "Safari" &
+chunkc tiling::rule --desktop 3 --follow-desktop --owner "Superhuman" &
 chunkc tiling::rule --desktop 3 --follow-desktop --owner "Postman" &
 chunkc tiling::rule --desktop 3 --follow-desktop --owner "Simulator" &
 
 chunkc tiling::rule --desktop 4 --follow-desktop --owner "Geany" &
 chunkc tiling::rule --desktop 4 --follow-desktop --owner "Finder" &
 chunkc tiling::rule --desktop 4 --follow-desktop --owner "Sublime Text" &
+chunkc tiling::rule --desktop 4 --follow-desktop --owner "TextMate" &
+chunkc tiling::rule --desktop 4 --follow-desktop --owner "System Preferences" &
 
 chunkc tiling::rule --desktop 5 --follow-desktop --owner "Microsoft Excel" &
 chunkc tiling::rule --desktop 5 --follow-desktop --owner "Steam" &
