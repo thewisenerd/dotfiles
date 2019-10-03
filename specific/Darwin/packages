@@ -1,4 +1,4 @@
 
 brew tap caskroom/versions
 brew cask install adoptopenjdk8 docker firefox gimp google-chrome iterm2 karabiner-elements mpv slack sublime-text
-brew install aria2 azure-cli binwalk chunkwm colordiff coreutils dos2unix ffmpeg fish fortune fzf gawk ghostscript git gnumeric go htop imagemagick jq kubernetes-cli logstash maven media-info nginx node@8 openvpn pass pwgen rclone redis repo ripgrep stern stunnel tmux wget xsv youtube-dl
+brew install aria2 azure-cli binwalk chunkwm colordiff coreutils dos2unix ffmpeg fish fortune fzf gawk ghostscript git gnumeric go htop imagemagick jq kubernetes-cli logstash maven media-info nano nginx node@8 openvpn pass pwgen rclone redis repo ripgrep stern stunnel tmux wget xsv youtube-dl
