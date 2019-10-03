@@ -1,0 +1,1 @@
+export WINIT_HIDPI_FACTOR=1
