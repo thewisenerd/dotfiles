@@ -7,3 +7,6 @@ window:
   padding:
     x: 5
     y: 0
+
+key_bindings:
+  - { key: T, mods: Control|Shift, action: SpawnNewInstance }
