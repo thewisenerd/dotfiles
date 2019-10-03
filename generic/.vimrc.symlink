@@ -2,7 +2,6 @@ filetype plugin indent on
 syntax on
 set encoding=utf-8
 set termguicolors
-colorscheme gruvbox
 
 if has("patch-7.4.710")
     set listchars=eol:¬,tab:»\ ,trail:·,space:·
