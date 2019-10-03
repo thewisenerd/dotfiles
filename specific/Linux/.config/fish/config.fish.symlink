@@ -1,1 +1,7 @@
-theme_gruvbox dark hard
+if type -q theme_gruvbox
+	theme_gruvbox dark hard
+end
+
+if type -q fzf_key_bindings
+	fzf_key_bindings
+end
