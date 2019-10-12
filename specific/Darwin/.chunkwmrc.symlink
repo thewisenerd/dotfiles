@@ -161,6 +161,7 @@ chunkc tiling::rule --desktop 2 --follow-desktop --owner "IntelliJ IDEA" &
 chunkc tiling::rule --desktop 2 --follow-desktop --owner "Xcode" &
 
 chunkc tiling::rule --desktop 3 --follow-desktop --owner "Google Chrome" &
+chunkc tiling::rule --desktop 3 --follow-desktop --owner "Chromium" &
 chunkc tiling::rule --desktop 3 --follow-desktop --owner "Firefox" &
 chunkc tiling::rule --desktop 3 --follow-desktop --owner "Safari" &
 chunkc tiling::rule --desktop 3 --follow-desktop --owner "Superhuman" &
@@ -179,5 +180,7 @@ chunkc tiling::rule --desktop 5 --follow-desktop --owner "Steam" &
 chunkc tiling::rule --desktop 6 --follow-desktop --owner "Notes" &
 
 chunkc tiling::rule --desktop 7 --follow-desktop --owner "iTunes" &
+chunkc tiling::rule --desktop 7 --follow-desktop --owner "Music" &
+chunkc tiling::rule --desktop 7 --follow-desktop --owner "Books" &
 
 chunkc tiling::rule --desktop 8 --follow-desktop --owner "Slack" &
