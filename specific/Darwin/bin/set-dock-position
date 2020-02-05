@@ -1,14 +1,11 @@
 #!/usr/bin/osascript
 
-to usage()
-    copy "usage: $0 [left|right|bottom]" to stdout
-end usage
-
 on run argv
+	set usage_str to "usage: $0 [left|right|bottom]" as text
 	tell application "System Events"
 		tell dock preferences
 			if (count argv) is 0 then
-				my usage()
+				copy usage_str to stdout
 			else
 				set arg to (item 1 of argv) as text
 				if arg is "bottom" then
@@ -18,8 +15,8 @@ on run argv
 				else if arg is "right" then
 					set screen edge to right
 				else
-					copy "invalid argument " & quoted form of (item 1 of argv) to stdout
-					my usage()
+					set errm to "invalid argument " & quoted form of (arg) & "\n" & usage_str
+					copy errm to stdout
 				end if
 			end if
 		end tell
