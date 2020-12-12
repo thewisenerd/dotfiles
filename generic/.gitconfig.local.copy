@@ -18,16 +18,12 @@
 	insteadOf = https://github.com/
 
 [alias]
-	ll = log
 	ls = log --oneline
 	br = branch -vv --sort=-committerdate
 	st = status
 	pik = cherry-pick -x
 	co = checkout
 	mdiff = diff master
-	cdiff = diff --cached
-	df = diff
-	mls = log --oneline --no-merges master..HEAD
 	shush = update-index --skip-worktree
 	unshush = update-index --no-skip-worktree
 	tags = show-ref --tags --abbrev
