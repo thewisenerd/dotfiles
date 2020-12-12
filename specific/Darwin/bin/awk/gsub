@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec gawk -f /Users/vineethraj/works/dotfiles/specific/Darwin/bin/awk/gsub.awk "$@"
