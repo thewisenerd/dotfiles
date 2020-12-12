@@ -19,3 +19,5 @@
 	denyCurrentBranch = warn
 [include]
 	path = ~/.gitconfig.local
+[pull]
+	ff = only
