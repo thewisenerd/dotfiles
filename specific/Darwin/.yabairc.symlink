@@ -75,8 +75,8 @@ yabai -m rule --add app="^Slack$"            space=8
 # hmm
 yabai -m rule --add app="^Steam$"            space=5
 yabai -m rule --add app="^Google Chrome$"    space=11 || yabai -m rule --add app="^Google Chrome$" space=3
-yabai -m rule --add app="^Firefox$"          space=12 || yabai -m rule --add app="^Firefox$" space=3
-yabai -m rule --add app="^Safari$"           space=12 || yabai -m rule --add app="^Safari$" space=3
+yabai -m rule --add app="^Firefox$"          space=11 || yabai -m rule --add app="^Firefox$" space=3
+yabai -m rule --add app="^Safari$"           space=11 || yabai -m rule --add app="^Safari$" space=3
 
 yabai -m config layout                       stack
 yabai -m config --space 2 layout             float
