@@ -12,11 +12,13 @@ from pathlib import Path
 
 from shutil import copy2
 
+
 def get_arg_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument("DOTFILES_PATH", help="path of dotfiles")
     parser.add_argument("-v", "--verbose", action="store_true", help="increase verbosity")
     return parser
+
 
 def get_logger(verbose):
     logger = logging.getLogger('dotfiles_bootstrap')
@@ -28,6 +30,7 @@ def get_logger(verbose):
 def dir_exists(dirpath):
     return os.path.isdir(dirpath)
 
+
 def get_files_for_setup(root, home, globspec):
     files_generator = Path(root).glob(globspec)
 
@@ -36,6 +39,7 @@ def get_files_for_setup(root, home, globspec):
         new_filename = os.path.splitext(delta)[0]
         new_filepath = os.path.join(home, new_filename)
         yield [delta, sfile, new_filepath]
+
 
 def setup_symlinks(basename, root, home, logger):
     logger.info("setting up symlinks for base [{}]".format(basename))
@@ -60,6 +64,7 @@ def setup_symlinks(basename, root, home, logger):
 
     return 0
 
+
 def setup_copies(basename, root, home, logger):
     logger.info("setting up copies for base [{}]".format(basename))
     for [delta, dot_file, home_file] in get_files_for_setup(root, home, '**/*.copy'):
@@ -79,6 +84,7 @@ def setup_copies(basename, root, home, logger):
 
     return 0
 
+
 def setup(basename, root, home, logger):
     logger.info("setting up base [{}] from [{}]".format(basename, root))
     ret = setup_symlinks(basename, root, home, logger)
@@ -90,6 +96,7 @@ def setup(basename, root, home, logger):
     if ret != 0:
         logger.error("error setting up base [{}]: {}".format(basename, ret))
         return ret
+
 
 def bootstrap(root, home, logger):
     if not dir_exists(root):
@@ -113,6 +120,7 @@ def bootstrap(root, home, logger):
 
     return 0
 
+
 def main():
     parser = get_arg_parser()
     args = parser.parse_args()
@@ -122,6 +130,7 @@ def main():
     logger = get_logger(args.verbose)
 
     return bootstrap(root, home, logger)
+
 
 if __name__ == '__main__':
     sys.exit(main())
