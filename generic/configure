@@ -30,8 +30,15 @@ export DOTFILES_PATH=${DOTFILES_PATH_ORIG}/specific/$(uname -s)
 read_helpers
 
 # read::hostname
-export DOTFILES_PATH=${DOTFILES_PATH_ORIG}/hosts/$(hostname)
-read_helpers
+if [ -d "${DOTFILES_PATH_ORIG}/hosts/$(hostname)" ]; then
+	export DOTFILES_PATH=${DOTFILES_PATH_ORIG}/hosts/$(hostname)
+	read_helpers
+fi
+
+if [ -d "${DOTFILES_PATH_ORIG}/hosts/$(hostname).local" ]; then
+	export DOTFILES_PATH=${DOTFILES_PATH_ORIG}/hosts/$(hostname).local
+	read_helpers
+fi
 
 # reset DOTFILES_PATH
 export DOTFILES_PATH=${DOTFILES_PATH_ORIG}
