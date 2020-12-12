@@ -115,7 +115,7 @@ chunkc set window_use_cgs_move           0
 chunkc set focused_border_color          0xff0f6288
 chunkc set focused_border_width          5
 chunkc set focused_border_radius         2
-chunkc set focused_border_outline        0
+chunkc set focused_border_outline        1
 chunkc set focused_border_skip_floating  1
 chunkc set focused_border_skip_monocle   1
 
@@ -144,23 +144,27 @@ chunkc tiling::rule --owner \"App Store\" --state float &
 chunkc tiling::rule --owner \"Terminal\" --state float &
 chunkc tiling::rule --owner \"Simulator\" --state float &
 
+
 # my rules
 
 # Movers
 
 chunkc tiling::rule --desktop 1 --follow-desktop --owner "iTerm2" &
 
-chunkc tiling::rule --desktop 2 --follow-desktop --owner "IntelliJ IDEA" &
+chunkc tiling::rule --desktop 2 --owner "IntelliJ IDEA" &
+chunkc tiling::rule --desktop 2 --owner "Android Studio" &
 chunkc tiling::rule --desktop 2 --follow-desktop --owner "Xcode" &
 chunkc tiling::rule --desktop 2 --follow-desktop --owner "Code" &
 
-chunkc tiling::rule --desktop 3 --follow-desktop --owner "Google Chrome" &
-chunkc tiling::rule --desktop 3 --follow-desktop --owner "Chromium" &
+# chunkc tiling::rule --desktop 3 --follow-desktop --owner "Google Chrome" &
+# chunkc tiling::rule --desktop 3 --follow-desktop --owner "Chromium" &
 chunkc tiling::rule --desktop 3 --follow-desktop --owner "Firefox" &
-chunkc tiling::rule --desktop 3 --follow-desktop --owner "Safari" &
+chunkc tiling::rule --desktop 12 --follow-desktop --owner "Safari" &
 chunkc tiling::rule --desktop 3 --follow-desktop --owner "Superhuman" &
 chunkc tiling::rule --desktop 3 --follow-desktop --owner "Postman" &
 chunkc tiling::rule --desktop 3 --follow-desktop --owner "Simulator" &
+chunkc tiling::rule --desktop 3 --follow-desktop --owner "Notion" &
+chunkc tiling::rule --desktop 3 --follow-desktop --owner "Linear" &
 
 chunkc tiling::rule --desktop 4 --follow-desktop --owner "Finder" --grid-layout 1:1:0:0:1:1 &
 chunkc tiling::rule --desktop 4 --follow-desktop --owner "Preview" &
@@ -168,7 +172,9 @@ chunkc tiling::rule --desktop 4 --follow-desktop --owner "System Preferences" &
 chunkc tiling::rule --desktop 4 --follow-desktop --owner "Geany" --grid-layout 1:1:0:0:1:1 &
 chunkc tiling::rule --desktop 4 --follow-desktop --owner "Sublime Text" --grid-layout 1:1:0:0:1:1 &
 chunkc tiling::rule --desktop 4 --follow-desktop --owner "TextMate" --grid-layout 1:1:0:0:1:1 &
-chunkc tiling::rule --desktop 4 --follow-desktop --owner "BBEdit" --grid-layout 1:1:0:0:1:1 &
+# chunkc tiling::rule --desktop 4 --follow-desktop --owner "BBEdit" --except "Find" --except "Search Results" --grid-layout 1:1:0:0:1:1 &
+chunkc tiling::rule --owner \"BBEdit\" --name "Find" --state float &
+chunkc tiling::rule --owner \"BBEdit\" --name "Search Results" --state float &
 
 chunkc tiling::rule --desktop 5 --follow-desktop --owner "Microsoft Excel" &
 chunkc tiling::rule --desktop 5 --follow-desktop --owner "Steam" &
