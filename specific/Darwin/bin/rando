@@ -3,16 +3,21 @@
 prefix=$1
 len=$2
 
+function chars() {
+    len=$1
+    c=$(( ($len + 7) / 8))
+    hash=''
+    for (( i=1; i<=$c; i++ ))
+    do
+        hash="$hash"`hexdump -n 8 -e '2/4 "%08X" 1 "\n"' /dev/random`
+    done
+    echo $hash
+}
+
 if [ "$len" == "" ]; then
-	len=9
+    len=9
 fi
 
-c=$(( ($len + 7) / 8))
-
-hash=''
-for (( i=1; i<=$c; i++ ))
-do
-	hash="$hash"`hexdump -n 8 -e '2/4 "%08X" 1 "\n"' /dev/random`
-done
+hash=$(chars $len)
 
 echo -n "$prefix"`echo $hash | cut -c1-$len`
